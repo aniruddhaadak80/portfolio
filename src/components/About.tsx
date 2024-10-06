@@ -4,11 +4,11 @@ import { Code, Users, Lightbulb } from 'lucide-react';
 const About: React.FC = () => {
   const milestones = [
     { year: 2022, event: 'Started Computer Science Degree' },
-    { year: 2023, event: 'Learned 1st programming language (C)' },
+    { year: 2023, event: 'Learned 1st programming language {C}' },
     { year: 2023, event: 'Learned Web Development after 15th june ' },
-    { year: 2024, event: 'Learned Github , Cybersecurity before june' },
+    { year: 2024, event: 'Learned Github , Cybersecurity before April' },
     { year: 2024, event: 'Learned Next.js , Astro js , Qwik js ...' },
-    { year: 2024, event: 'Skills updating...' },
+    { year: 2024, event: 'Skills upgrading...' },
   ];
 
   return (
