@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white">
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-stone-300">
           Building Innovative Solutions with Code
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-gray-300">
