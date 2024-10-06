@@ -65,7 +65,7 @@ const Hero: React.FC = () => {
         <h1 className="text-5xl md:text-7xl font-bold mb-4 text-stone-300">
           Building Innovative Solutions with Code
         </h1>
-        <p className="text-xl md:text-2xl mb-8 text-gray-300">
+        <p className="text-xl md:text-2xl mb-8 text-lime-300	">
           Full-Stack Developer | AI Enthusiast | Problem Solver
         </p>
         <a
