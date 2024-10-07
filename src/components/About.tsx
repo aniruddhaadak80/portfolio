@@ -8,7 +8,7 @@ const About: React.FC = () => {
     { year: 2023, event: 'Learned Web Development after 15th june', color: 'from-yellow-400 to-yellow-600' },
     { year: 2024, event: 'Learned Github , Cybersecurity before june', color: 'from-red-400 to-red-600' },
     { year: 2024, event: 'Learned Next.js , Astro js , Qwik js ...', color: 'from-purple-400 to-purple-600' },
-    { year: 2024, event: 'Skills updating...', color: 'from-pink-400 to-pink-600' },
+    { year: 2024, event: 'Skills upgrading...', color: 'from-pink-400 to-pink-600' },
   ];
 
   return (
