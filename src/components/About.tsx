@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Code, Users, Lightbulb } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -10,6 +10,24 @@ const About: React.FC = () => {
     { year: 2024, event: 'Learned Next.js, Astro.js, Qwik.js...', color: 'from-purple-400 to-purple-600' },
     { year: 2024, event: 'Skills upgrading...', color: 'from-pink-400 to-pink-600' },
   ];
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  // State to store random hover colors for each milestone
+  const [hoverColors, setHoverColors] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Generate random hover colors for each milestone
+    const colors = milestones.map(() => getRandomColor());
+    setHoverColors(colors);
+  }, []);
 
   return (
     <section id="about" className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
@@ -43,7 +61,10 @@ const About: React.FC = () => {
                   >
                     {milestone.year}
                   </div>
-                  <div className="ml-4 bg-white p-2 rounded-lg shadow-md flex-1 hover:bg-gray-50 transition-all duration-300 cursor-pointer group">
+                  <div
+                    className="ml-4 bg-white p-2 rounded-lg shadow-md flex-1 hover:bg-gray-50 transition-all duration-300 cursor-pointer group"
+                    style={{ backgroundColor: hoverColors[index] }}
+                  >
                     <span className="group-hover:text-indigo-600 transition-colors duration-300 animate-pulse">
                       {milestone.event}
                     </span>
