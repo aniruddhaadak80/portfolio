@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaJs, FaReact, FaNodeJs, FaPython, FaDatabase } from 'react-icons/fa';
-import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
+import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro,FaJava , SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
 
 const skills = [
@@ -21,7 +21,7 @@ const skills = [
   // New Skills
   { name: 'C', category: 'Programming', level: 80, icon: CgCPlusPlus, color: '#A8B9CC', bgColor: '#E6F2FF' },
   { name: 'C++', category: 'Programming', level: 85, icon: CgCPlusPlus, color: '#00599C', bgColor: '#E6F0FF' },
-  { name: 'Java', category: 'Programming', level: 80, icon: SiJava, color: '#007396', bgColor: '#E6FAFF' },
+  { name: 'Java', category: 'Programming', level: 80, icon: FaJava , color: '#007396', bgColor: '#E6FAFF' },
   { name: 'Docker', category: 'DevOps', level: 75, icon: SiDocker, color: '#2496ED', bgColor: '#E6F4FF' },
   { name: 'Postman', category: 'Tools', level: 70, icon: SiPostman, color: '#FF6C37', bgColor: '#FFECE6' },
   { name: 'Canva', category: 'Design', level: 60, icon: SiCanva, color: '#00C4CC', bgColor: '#E6F9F9' },
