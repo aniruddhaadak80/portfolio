@@ -89,7 +89,7 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group">
             <Code size={48} className="mx-auto mb-4 text-blue-500 animate-bounce group-hover:text-blue-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-blue-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
               Clean Code
             </h3>
             <p className="text-gray-600 group-hover:text-blue-500 transition-colors duration-300 animate-pulse">
@@ -99,7 +99,7 @@ const About: React.FC = () => {
 
           <div className="text-center bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group" style={{ animationDelay: '0.1s' }}>
             <Users size={48} className="mx-auto mb-4 text-purple-500 animate-bounce group-hover:text-purple-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-purple-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
               Collaboration
             </h3>
             <p className="text-gray-600 group-hover:text-purple-500 transition-colors duration-300 animate-pulse">
@@ -109,7 +109,7 @@ const About: React.FC = () => {
 
           <div className="text-center bg-gradient-to-br from-pink-100 to-pink-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group" style={{ animationDelay: '0.2s' }}>
             <Lightbulb size={48} className="mx-auto mb-4 text-yellow-500 animate-bounce group-hover:text-yellow-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-yellow-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
               Innovation
             </h3>
             <p className="text-gray-600 group-hover:text-yellow-500 transition-colors duration-300 animate-pulse">
