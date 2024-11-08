@@ -5,7 +5,7 @@ import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs
 const skills = [
   { name: 'JavaScript', category: 'Frontend', level: 95, icon: FaJs, color: '#F7DF1E', bgColor: '#FFF8D6' },
   { name: 'React', category: 'Frontend', level: 90, icon: FaReact, color: '#61DAFB', bgColor: '#E6F7FF' },
-  { name: 'TypeScript', category: 'Frontend', level: 85, icon: SiTypescript, color: '#3178C6', bgColor: 'text-purple-700' },
+  { name: 'TypeScript', category: 'Frontend', level: 85, icon: SiTypescript, color: '#3178C6', bgColor: '#F0F8FF' },
   { name: 'Node.js', category: 'Backend', level: 88, icon: FaNodeJs, color: '#339933', bgColor: '#E6FFE6' },
   { name: 'Python', category: 'Backend', level: 80, icon: FaPython, color: '#FFD43B', bgColor: '#FFFBE6' },
   { name: 'Django', category: 'Backend', level: 75, icon: SiDjango, color: '#092E20', bgColor: '#E6FFF0' },
