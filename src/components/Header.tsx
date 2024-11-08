@@ -18,6 +18,15 @@ const Header: React.FC = () => {
     document.documentElement.classList.toggle('dark', isDarkMode);
   }, [isDarkMode]);
 
+  const menuItems = [
+    { name: 'Home', icon: <Home size={18} />, color: 'text-red-500', hoverColor: 'hover:text-red-700' },
+    { name: 'About', icon: <User size={18} />, color: 'text-yellow-500', hoverColor: 'hover:text-yellow-700' },
+    { name: 'Skills', icon: <Settings size={18} />, color: 'text-green-500', hoverColor: 'hover:text-green-700' },
+    { name: 'Projects', icon: <Folder size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
+    { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
+    { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
+  ];
+
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -29,18 +38,11 @@ const Header: React.FC = () => {
           MyPortfolio
         </a>
         <nav className="hidden md:flex space-x-6">
-          {[
-            { name: 'Home', icon: <Home size={18} /> },
-            { name: 'About', icon: <User size={18} /> },
-            { name: 'Skills', icon: <Settings size={18} /> },
-            { name: 'Projects', icon: <Folder size={18} /> },
-            { name: 'Blog', icon: <FileText size={18} /> },
-            { name: 'Contact', icon: <Mail size={18} /> },
-          ].map((item) => (
+          {menuItems.map((item) => (
             <a
               key={item.name}
               href={`#${item.name.toLowerCase()}`}
-              className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+              className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
             >
               {item.icon}
               <span>{item.name}</span>
@@ -62,18 +64,11 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-800 transition-all duration-300">
           <nav className="flex flex-col items-center py-4 space-y-2">
-            {[
-              { name: 'Home', icon: <Home size={18} /> },
-              { name: 'About', icon: <User size={18} /> },
-              { name: 'Skills', icon: <Settings size={18} /> },
-              { name: 'Projects', icon: <Folder size={18} /> },
-              { name: 'Blog', icon: <FileText size={18} /> },
-              { name: 'Contact', icon: <Mail size={18} /> },
-            ].map((item) => (
+            {menuItems.map((item) => (
               <a
                 key={item.name}
                 href={`#${item.name.toLowerCase()}`}
-                className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
               >
                 {item.icon}
                 <span>{item.name}</span>
