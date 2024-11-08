@@ -13,57 +13,24 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = [
-    { name: 'Home', href: '#home', icon: <Home size={20} className="mr-2" /> },
-    { name: 'About', href: '#about', icon: <User size={20} className="mr-2" /> },
-    { name: 'Skills', href: '#skills', icon: <Tool size={20} className="mr-2" /> },
-    { name: 'Projects', href: '#projects', icon: <Folder size={20} className="mr-2" /> },
-    { name: 'Blog', href: '#blog', icon: <FileText size={20} className="mr-2" /> },
-    { name: 'Contact', href: '#contact', icon: <Mail size={20} className="mr-2" /> },
-  ];
-
   return (
-    <header
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md animate-slide-down' : 'bg-transparent'
-      }`}
-    >
+    <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold text-blue-600 hover:text-indigo-700 transition-colors duration-300">
-          MyPortfolio
-        </a>
+        <a href="#" className="text-2xl font-bold text-blue-600">MyPortfolio</a>
         <nav className="hidden md:flex space-x-6">
-          {menuItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-300 hover:scale-105"
-            >
-              {item.icon}
-              {item.name}
-            </a>
+          {['Home', 'About', 'Skills', 'Projects', 'Blog', 'Contact'].map((item) => (
+            <a key={item} href={`#${item.toLowerCase()}`} className="text-gray-700 hover:text-blue-600 transition-colors duration-300">{item}</a>
           ))}
         </nav>
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden text-gray-700 hover:text-blue-600 transition-colors duration-300"
-        >
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden bg-white animate-fade-in">
-          <nav className="flex flex-col items-center py-4 space-y-2">
-            {menuItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="flex items-center py-2 text-gray-700 hover:text-blue-600 transition-colors duration-300 hover:scale-105"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.icon}
-                {item.name}
-              </a>
+        <div className="md:hidden bg-white">
+          <nav className="flex flex-col items-center py-4">
+            {['Home', 'About', 'Skills', 'Projects', 'Blog', 'Contact'].map((item) => (
+              <a key={item} href={`#${item.toLowerCase()}`} className="py-2 text-gray-700 hover:text-blue-600 transition-colors duration-300">{item}</a>
             ))}
           </nav>
         </div>
