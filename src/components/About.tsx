@@ -3,13 +3,18 @@ import { Code, Users, Lightbulb } from 'lucide-react';
 
 const About: React.FC = () => {
   const milestones = [
-    { year: 2022, event: 'Started Computer Science Degree', color: 'from-blue-400 to-blue-600' },
-    { year: 2023, event: 'Learned 1st programming language (C)', color: 'from-green-400 to-green-600' },
-    { year: 2023, event: 'Learned Web Development after 15th June', color: 'from-yellow-400 to-yellow-600' },
-    { year: 2024, event: 'Learned GitHub, Cybersecurity before June', color: 'from-red-400 to-red-600' },
-    { year: 2024, event: 'Learned Next.js, Astro.js, Qwik.js...', color: 'from-purple-400 to-purple-600' },
-    { year: 2024, event: 'Skills upgrading...', color: 'from-pink-400 to-pink-600' },
+    { year: 2022, event: 'Started Computer Science Degree', baseColor: '#4F46E5' },
+    { year: 2023, event: 'Learned 1st Programming Language (C)', baseColor: '#10B981' },
+    { year: 2023, event: 'Learned Web Development after June 15th', baseColor: '#F59E0B' },
+    { year: 2024, event: 'Learned GitHub, Cybersecurity before June', baseColor: '#EF4444' },
+    { year: 2024, event: 'Learned Next.js, Astro.js, Qwik.js...', baseColor: '#8B5CF6' },
+    { year: 2024, event: 'Skills upgrading...', baseColor: '#EC4899' },
   ];
+
+  // State to store a hover color for each milestone, initialized to baseColor
+  const [hoverColors, setHoverColors] = useState(
+    milestones.map((milestone) => milestone.baseColor)
+  );
 
   // Function to generate a random color
   const getRandomColor = () => {
@@ -21,16 +26,18 @@ const About: React.FC = () => {
     return color;
   };
 
-  // State to store the hover color
-  const [hoverColor, setHoverColor] = useState<string>('');
-
-  // Handler to change color on hover
-  const handleMouseEnter = () => {
-    setHoverColor(getRandomColor());
+  // Handler to change color on hover for a specific milestone
+  const handleMouseEnter = (index: number) => {
+    const newColors = [...hoverColors];
+    newColors[index] = getRandomColor();
+    setHoverColors(newColors);
   };
 
-  const handleMouseLeave = () => {
-    setHoverColor('');
+  // Reset color to baseColor when hover ends
+  const handleMouseLeave = (index: number, baseColor: string) => {
+    const newColors = [...hoverColors];
+    newColors[index] = baseColor;
+    setHoverColors(newColors);
   };
 
   return (
@@ -61,19 +68,19 @@ const About: React.FC = () => {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div
-                    className={`w-12 h-12 bg-gradient-to-r ${milestone.color} rounded-full flex items-center justify-center text-white font-bold shadow-md transform hover:scale-110 transition-transform duration-300`}
+                    className={`w-12 h-12 bg-gradient-to-r ${milestone.baseColor} rounded-full flex items-center justify-center text-white font-bold shadow-md transform hover:scale-110 transition-transform duration-300`}
                   >
                     {milestone.year}
                   </div>
                   <div
-                    className="ml-4 bg-white p-2 rounded-lg shadow-md flex-1 hover:bg-gray-50 transition-all duration-300 cursor-pointer group"
+                    className="ml-4 bg-white p-2 rounded-lg shadow-md flex-1 transition-colors duration-300 cursor-pointer group"
                     style={{
-                      backgroundColor: hoverColor, // Apply random color on hover
+                      backgroundColor: hoverColors[index],
                     }}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={() => handleMouseLeave(index, milestone.baseColor)}
                   >
-                    <span className="group-hover:text-indigo-600 transition-colors duration-300 animate-pulse">
+                    <span className="transition-colors duration-300 animate-pulse">
                       {milestone.event}
                     </span>
                   </div>
