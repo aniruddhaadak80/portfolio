@@ -14,7 +14,7 @@ const About: React.FC = () => {
   return (
     <section id="about" className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 animate-fade-in-down hover:text-indigo-600 transition-colors duration-300">
+        <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 animate-bounce hover:text-indigo-600 transition-colors duration-300">
           About Me
         </h2>
         <div className="flex flex-col md:flex-row items-center mb-16">
@@ -28,14 +28,14 @@ const About: React.FC = () => {
           </div>
           {/* Milestones */}
           <div className="md:w-1/2">
-            <h3 className="text-2xl font-semibold mb-4 text-gray-800 animate-fade-in-right hover:text-indigo-600 transition-colors duration-300 transform hover:translate-x-2">
+            <h3 className="text-2xl font-semibold mb-4 text-gray-800 animate-zoom-in-right hover:text-indigo-600 transition-colors duration-300 transform hover:translate-x-2">
               My Journey
             </h3>
             <div className="space-y-4">
               {milestones.map((milestone, index) => (
                 <div
                   key={index}
-                  className="flex items-center animate-fade-in-right"
+                  className="flex items-center animate-zoom-in-right"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div
@@ -56,9 +56,9 @@ const About: React.FC = () => {
 
         {/* Skills Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-xl group">
+          <div className="text-center bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group">
             <Code size={48} className="mx-auto mb-4 text-blue-500 animate-bounce group-hover:text-blue-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-fade-in-up">
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
               Clean Code
             </h3>
             <p className="text-gray-600 group-hover:text-blue-500 transition-colors duration-300 animate-pulse">
@@ -66,9 +66,9 @@ const About: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-center bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-xl group" style={{ animationDelay: '0.1s' }}>
+          <div className="text-center bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group" style={{ animationDelay: '0.1s' }}>
             <Users size={48} className="mx-auto mb-4 text-purple-500 animate-bounce group-hover:text-purple-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-fade-in-up">
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
               Collaboration
             </h3>
             <p className="text-gray-600 group-hover:text-purple-500 transition-colors duration-300 animate-pulse">
@@ -76,9 +76,9 @@ const About: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-center bg-gradient-to-br from-pink-100 to-pink-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-xl group" style={{ animationDelay: '0.2s' }}>
+          <div className="text-center bg-gradient-to-br from-pink-100 to-pink-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group" style={{ animationDelay: '0.2s' }}>
             <Lightbulb size={48} className="mx-auto mb-4 text-yellow-500 animate-bounce group-hover:text-yellow-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-fade-in-up">
+            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-indigo-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
               Innovation
             </h3>
             <p className="text-gray-600 group-hover:text-yellow-500 transition-colors duration-300 animate-pulse">
