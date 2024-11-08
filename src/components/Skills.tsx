@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaJs, FaReact, FaNodeJs, FaPython, FaDatabase } from 'react-icons/fa';
-import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiJava, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
+import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
 
 const skills = [
