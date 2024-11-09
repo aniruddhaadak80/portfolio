@@ -10,6 +10,8 @@ const Header: React.FC = () => {
     return localStorage.getItem('darkMode') === 'true';
   });
 
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null); // Track which menu item is being hovered
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -38,6 +40,14 @@ const Header: React.FC = () => {
     return Math.floor(Math.random() * (20 - (-20) + 1)) + (-20); // Random rotation between -20deg and 20deg
   };
 
+  const handleMouseEnter = (index: number) => {
+    setHoveredItem(index); // Set hovered item to update its rotation
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null); // Reset the hovered item state
+  };
+
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -60,16 +70,18 @@ const Header: React.FC = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {menuItems.map((item) => (
+          {menuItems.map((item, index) => (
             <motion.a
               key={item.name}
               href={`#${item.name.toLowerCase()}`}
               className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
               whileHover={{
                 scale: 1.1,
-                rotate: getRandomRotation(), // Random rotation on hover
-                transition: { type: 'spring', stiffness: 200 }
+                rotate: hoveredItem === index ? getRandomRotation() : 0, // Rotate only when hovered
+                transition: { type: 'spring', stiffness: 200 },
               }}
+              onMouseEnter={() => handleMouseEnter(index)} // Set index on hover
+              onMouseLeave={handleMouseLeave} // Reset on mouse leave
             >
               {item.icon}
               <span>{item.name}</span>
@@ -102,16 +114,18 @@ const Header: React.FC = () => {
           transition={{ duration: 0.5 }}
         >
           <nav className="flex flex-col items-center py-4 space-y-2">
-            {menuItems.map((item) => (
+            {menuItems.map((item, index) => (
               <motion.a
                 key={item.name}
                 href={`#${item.name.toLowerCase()}`}
                 className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
                 whileHover={{
                   scale: 1.1,
-                  rotate: getRandomRotation(), // Random rotation on hover
-                  transition: { type: 'spring', stiffness: 200 }
+                  rotate: hoveredItem === index ? getRandomRotation() : 0, // Rotate only when hovered
+                  transition: { type: 'spring', stiffness: 200 },
                 }}
+                onMouseEnter={() => handleMouseEnter(index)} // Set index on hover
+                onMouseLeave={handleMouseLeave} // Reset on mouse leave
               >
                 {item.icon}
                 <span>{item.name}</span>
