@@ -21,11 +21,11 @@ const App: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-900">
-        {/* Spinner Container */}
-        <div className="relative">
-          {/* First Spinner with Bounce and Color Pulse */}
+        {/* Full-screen Circle Spinner */}
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Outer Circle */}
           <motion.div
-            className="w-32 h-32 border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[50vw] h-[50vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF7F50',
               borderRightColor: '#FFD700',
@@ -34,20 +34,18 @@ const App: React.FC = () => {
             }}
             animate={{
               rotate: 360,
-              y: ['0%', '-20%', '0%'],
-              scale: [1, 1.3, 1],
-              boxShadow: ['0px 0px 0px rgba(255, 255, 255, 0)', '0px 0px 15px rgba(255, 255, 255, 0.5)', '0px 0px 0px rgba(255, 255, 255, 0)'],
+              scale: [1, 1.5, 1], // Expanding and contracting effect
             }}
             transition={{
               repeat: Infinity,
-              duration: 2,
+              duration: 3,
               ease: 'easeInOut',
-              times: [0, 0.5, 1],
             }}
           />
-          {/* Second Spinner with Delayed Timing */}
+
+          {/* Middle Circle */}
           <motion.div
-            className="w-24 h-24 border-8 border-t-8 border-transparent rounded-full absolute inset-0"
+            className="absolute w-[35vw] h-[35vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF6347',
               borderRightColor: '#ADFF2F',
@@ -56,21 +54,38 @@ const App: React.FC = () => {
             }}
             animate={{
               rotate: -360,
-              y: ['0%', '-30%', '0%'],
               scale: [1, 1.3, 1],
-              boxShadow: ['0px 0px 0px rgba(255, 255, 255, 0)', '0px 0px 25px rgba(255, 255, 255, 0.7)', '0px 0px 0px rgba(255, 255, 255, 0)'],
             }}
             transition={{
               repeat: Infinity,
               duration: 2.5,
               ease: 'easeInOut',
-              times: [0, 0.5, 1],
             }}
           />
-          
-          {/* Loading Text with Gradient and Pulse Effect */}
+
+          {/* Inner Circle */}
           <motion.div
-            className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold"
+            className="absolute w-[20vw] h-[20vw] border-8 border-t-8 border-transparent rounded-full"
+            style={{
+              borderTopColor: '#FF4500',
+              borderRightColor: '#800080',
+              borderBottomColor: '#9ACD32',
+              borderLeftColor: '#4682B4',
+            }}
+            animate={{
+              rotate: 360,
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 2,
+              ease: 'easeInOut',
+            }}
+          />
+
+          {/* Loading Text with Pulse and Gradient Animation */}
+          <motion.div
+            className="absolute text-white text-xl font-bold animate-pulse"
             initial={{ opacity: 0 }}
             animate={{
               opacity: [0, 1, 0],
@@ -78,7 +93,7 @@ const App: React.FC = () => {
               background: ['linear-gradient(90deg, #ff007f, #ff9900)', 'linear-gradient(90deg, #ff9900, #ff007f)'],
             }}
             transition={{
-              delay: 1.8,
+              delay: 2,
               duration: 1.2,
               repeat: Infinity,
               repeatDelay: 0.4,
