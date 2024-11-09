@@ -46,7 +46,6 @@ const Skills: React.FC = () => {
       default: return 'from-gray-500 to-gray-700';
     }
   };
-
   return (
     <section id="skills" className="py-20 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50">
       <div className="container mx-auto px-4">
@@ -56,12 +55,12 @@ const Skills: React.FC = () => {
             <button
               key={category}
               onClick={() => setFilter(category)}
-              className={m-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${
+              className={`m-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${
                 filter === category 
-                ? bg-gradient-to-r ${getCategoryColor(category)} text-white shadow-lg 
+                ? `bg-gradient-to-r ${getCategoryColor(category)} text-white shadow-lg` 
                 : 'bg-white text-gray-800 hover:bg-gray-100'
-              }}
-              style={{animationDelay: ${index * 0.1}s}}
+              }`}
+              style={{animationDelay: `${index * 0.1}s`}}
             >
               {category}
             </button>
