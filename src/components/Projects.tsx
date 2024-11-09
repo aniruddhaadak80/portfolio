@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ExternalLink, GithubIcon } from 'lucide-react';
 
 const projects = [
@@ -38,12 +39,24 @@ const Projects: React.FC = () => {
     <section id="projects" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12 text-center">Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial={{ rotateY: 0 }}
+          animate={{ rotateY: 5 }}
+          transition={{ duration: 2, type: 'spring', stiffness: 100 }}
+        >
           {projects.map(project => (
-            <div
+            <motion.div
               key={project.id}
               className="bg-gray-100 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
               onClick={() => setSelectedProject(project.id)}
+              whileHover={{
+                scale: 1.05,
+                rotateX: -10,
+                rotateY: 10,
+                transition: { type: 'spring', stiffness: 300 },
+              }}
+              whileTap={{ scale: 0.95 }}
             >
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
               <div className="p-6">
@@ -65,9 +78,9 @@ const Projects: React.FC = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
       {selectedProject && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
