@@ -51,36 +51,80 @@ const Projects: React.FC = () => {
               className="bg-gray-100 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
               onClick={() => setSelectedProject(project.id)}
               whileHover={{
-                x: ["0%", "-15%", "15%", "0%"],  // Increased shake range
-                scale: 1.05,  // Slight scale up for emphasis
+                x: ["0%", "-15%", "15%", "0%"], // Increased shake range
+                scale: 1.05, // Slight scale up for emphasis
                 transition: { 
                   type: "spring", 
                   stiffness: 100, 
                   damping: 20, 
-                  duration: 0.6,  // Smoother and longer shake
-                  ease: "easeInOut"  // Smooth easing for better effect
+                  duration: 0.6, // Smoother and longer shake
+                  ease: "easeInOut" // Smooth easing for better effect
                 }
               }}
               whileTap={{ scale: 0.95 }}
             >
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <motion.h3
+                  className="text-xl font-semibold mb-2"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {project.title}
+                </motion.h3>
+                <motion.p
+                  className="text-gray-600 mb-4"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                >
+                  {project.description}
+                </motion.p>
+                <motion.div
+                  className="flex flex-wrap gap-2 mb-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
                   {project.technologies.map(tech => (
-                    <span key={tech} className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+                    <motion.span
+                      key={tech}
+                      className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
                       {tech}
-                    </span>
+                    </motion.span>
                   ))}
-                </div>
+                </motion.div>
                 <div className="flex justify-between">
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700"
+                    whileHover={{
+                      scale: 1.2,
+                      rotate: 15,
+                      transition: { type: 'spring', stiffness: 300 }
+                    }}
+                  >
                     <GithubIcon size={24} />
-                  </a>
-                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
+                  </motion.a>
+                  <motion.a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700"
+                    whileHover={{
+                      scale: 1.2,
+                      rotate: -15,
+                      transition: { type: 'spring', stiffness: 300 }
+                    }}
+                  >
                     <ExternalLink size={24} />
-                  </a>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>
@@ -90,15 +134,31 @@ const Projects: React.FC = () => {
       {selectedProject && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg max-w-2xl w-full">
-            <h3 className="text-2xl font-bold mb-4">{projects[selectedProject - 1].title}</h3>
-            <p className="mb-4">{projects[selectedProject - 1].description}</p>
+            <motion.h3
+              className="text-2xl font-bold mb-4"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {projects[selectedProject - 1].title}
+            </motion.h3>
+            <motion.p
+              className="mb-4"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              {projects[selectedProject - 1].description}
+            </motion.p>
             <div className="flex justify-end">
-              <button
+              <motion.button
                 onClick={() => setSelectedProject(null)}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: 'spring', stiffness: 200 }}
               >
                 Close
-              </button>
+              </motion.button>
             </div>
           </div>
         </div>
