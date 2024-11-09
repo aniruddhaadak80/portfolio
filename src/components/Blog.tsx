@@ -53,7 +53,7 @@ const blogPosts: BlogPost[] = [
     title: 'API Rate Limiting: What You Need to Know',
     excerpt: 'A guide to implementing rate limiting in your API to prevent abuse and maintain performance.',
     date: '2023-11-15',
-    image: 'https://tinyurl.com/2c3qp9bm',
+    image: 'https://tinyurl.com/23h3uvrt',
     tags: ['API']
   },
   {
@@ -61,7 +61,7 @@ const blogPosts: BlogPost[] = [
     title: 'Understanding RESTful API Design Principles',
     excerpt: 'Learn the core principles of designing RESTful APIs for scalability and ease of use.',
     date: '2023-11-16',
-    image: 'https://tinyurl.com/2xmqc7x9',
+    image: 'https://tinyurl.com/2auswzvn',
     tags: ['API']
   },
 
@@ -71,7 +71,7 @@ const blogPosts: BlogPost[] = [
     title: 'Building a Secure Backend with Node.js and JWT',
     excerpt: 'A step-by-step guide to creating a secure backend API using Node.js and JSON Web Tokens.',
     date: '2023-11-20',
-    image: 'https://tinyurl.com/29l56qer',
+    image: 'https://tinyurl.com/2ycpgm5r',
     tags: ['Backend']
   },
   {
@@ -79,7 +79,7 @@ const blogPosts: BlogPost[] = [
     title: 'Efficient Data Handling in Backend Systems',
     excerpt: 'Learn techniques for efficiently managing and processing data in your backend system.',
     date: '2023-11-21',
-    image: 'https://tinyurl.com/2yl5a8n8',
+    image: 'https://tinyurl.com/22m4dbwo',
     tags: ['Backend']
   },
 
@@ -89,7 +89,7 @@ const blogPosts: BlogPost[] = [
     title: 'Intro to Cloud Computing and Its Benefits',
     excerpt: 'An introduction to cloud computing and how it is transforming modern businesses.',
     date: '2023-11-25',
-    image: 'https://tinyurl.com/246sx5o9',
+    image: 'https://tinyurl.com/23ubv94k',
     tags: ['Cloud Computing']
   },
   {
