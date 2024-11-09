@@ -18,8 +18,8 @@ const Footer: React.FC = () => {
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
   };
 
-  const iconHoverColors = ["text-blue-400", "text-purple-400", "text-pink-400", "text-yellow-400"];
-  const quickLinkHoverColors = ["text-blue-300", "text-purple-300", "text-pink-300", "text-yellow-300"];
+  const iconHoverColors = ["hover:text-blue-400", "hover:text-purple-400", "hover:text-pink-400", "hover:text-yellow-400"];
+  const quickLinkHoverColors = ["hover:text-blue-300", "hover:text-purple-300", "hover:text-pink-300", "hover:text-yellow-300"];
 
   return (
     <motion.footer
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.2, y: -5 }}
                   className={`${iconHoverColors[index % iconHoverColors.length]} transition-transform duration-300`}
                 >
                   <item.icon size={28} />
