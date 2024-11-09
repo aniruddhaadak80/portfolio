@@ -25,7 +25,7 @@ const App: React.FC = () => {
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Outer Circle */}
           <motion.div
-            className="absolute w-[60vw] h-[60vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[70vw] h-[70vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF7F50',
               borderRightColor: '#FFD700',
@@ -45,7 +45,7 @@ const App: React.FC = () => {
 
           {/* Middle Circle */}
           <motion.div
-            className="absolute w-[50vw] h-[50vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[60vw] h-[60vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF6347',
               borderRightColor: '#ADFF2F',
@@ -65,7 +65,7 @@ const App: React.FC = () => {
 
           {/* Inner Circle */}
           <motion.div
-            className="absolute w-[40vw] h-[40vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[50vw] h-[50vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF4500',
               borderRightColor: '#800080',
@@ -85,7 +85,7 @@ const App: React.FC = () => {
 
           {/* Extra Inner Circle */}
           <motion.div
-            className="absolute w-[30vw] h-[30vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[40vw] h-[40vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#32CD32',
               borderRightColor: '#00FFFF',
@@ -105,7 +105,7 @@ const App: React.FC = () => {
 
           {/* Additional Circle */}
           <motion.div
-            className="absolute w-[25vw] h-[25vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[30vw] h-[30vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#8A2BE2',
               borderRightColor: '#00BFFF',
@@ -123,25 +123,45 @@ const App: React.FC = () => {
             }}
           />
 
-          {/* Loading Text with Pulse and Gradient Animation */}
+          {/* Another Circle */}
           <motion.div
-            className="absolute text-white text-xl font-bold animate-pulse"
-            initial={{ opacity: 0 }}
+            className="absolute w-[20vw] h-[20vw] border-8 border-t-8 border-transparent rounded-full"
+            style={{
+              borderTopColor: '#FF69B4',
+              borderRightColor: '#FFD700',
+              borderBottomColor: '#8A2BE2',
+              borderLeftColor: '#32CD32',
+            }}
             animate={{
-              opacity: [0, 1, 0],
-              scale: [0.8, 1, 0.8],
-              background: ['linear-gradient(90deg, #ff007f, #ff9900)', 'linear-gradient(90deg, #ff9900, #ff007f)'],
+              rotate: -360,
+              scale: [1, 1.1, 1],
             }}
             transition={{
-              delay: 2,
-              duration: 1.2,
               repeat: Infinity,
-              repeatDelay: 0.4,
+              duration: 2.8,
               ease: 'easeInOut',
             }}
-          >
-            <span className="text-transparent bg-clip-text">Loading...</span>
-          </motion.div>
+          />
+
+          {/* Additional Circle */}
+          <motion.div
+            className="absolute w-[15vw] h-[15vw] border-8 border-t-8 border-transparent rounded-full"
+            style={{
+              borderTopColor: '#00FFFF',
+              borderRightColor: '#FF7F50',
+              borderBottomColor: '#20B2AA',
+              borderLeftColor: '#1E90FF',
+            }}
+            animate={{
+              rotate: 360,
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 3,
+              ease: 'easeInOut',
+            }}
+          />
         </div>
       </div>
     );
