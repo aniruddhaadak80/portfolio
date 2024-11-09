@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -26,16 +27,31 @@ const Contact: React.FC = () => {
   return (
     <section id="contact" className="py-20 bg-gradient-to-r from-purple-100 via-blue-100 to-pink-100">
       <div className="container mx-auto px-4">
-        <h2 className="text-5xl font-extrabold mb-12 text-center text-gray-800 animate-fade-in-down">Contact Me</h2>
+        <motion.h2
+          className="text-5xl font-extrabold mb-12 text-center text-gray-800"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          Contact Me
+        </motion.h2>
         <div className="flex flex-wrap -mx-4">
           <div className="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
-            <form
+            <motion.form
               onSubmit={handleSubmit}
               className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
               <div className="mb-6">
-                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2 text-lg">Name</label>
-                <input
+                <label
+                  htmlFor="name"
+                  className="block text-gray-700 font-semibold mb-2 text-lg"
+                >
+                  Name
+                </label>
+                <motion.input
                   type="text"
                   id="name"
                   name="name"
@@ -43,11 +59,20 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-3 text-gray-800 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-inner"
                   required
+                  whileFocus={{ scale: 1.05, transition: { duration: 0.2 } }}
+                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  transition={{ delay: 0.3 }}
                 />
               </div>
               <div className="mb-6">
-                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2 text-lg">Email</label>
-                <input
+                <label
+                  htmlFor="email"
+                  className="block text-gray-700 font-semibold mb-2 text-lg"
+                >
+                  Email
+                </label>
+                <motion.input
                   type="email"
                   id="email"
                   name="email"
@@ -55,11 +80,20 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-3 text-gray-800 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-inner"
                   required
+                  whileFocus={{ scale: 1.05, transition: { duration: 0.2 } }}
+                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  transition={{ delay: 0.4 }}
                 />
               </div>
               <div className="mb-6">
-                <label htmlFor="message" className="block text-gray-700 font-semibold mb-2 text-lg">Message</label>
-                <textarea
+                <label
+                  htmlFor="message"
+                  className="block text-gray-700 font-semibold mb-2 text-lg"
+                >
+                  Message
+                </label>
+                <motion.textarea
                   id="message"
                   name="message"
                   value={formData.message}
@@ -67,33 +101,69 @@ const Contact: React.FC = () => {
                   rows={4}
                   className="w-full px-4 py-3 text-gray-800 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-inner"
                   required
-                ></textarea>
+                  whileFocus={{ scale: 1.05, transition: { duration: 0.2 } }}
+                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  transition={{ delay: 0.5 }}
+                />
               </div>
-              <button
+              <motion.button
                 type="submit"
                 className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                whileHover={{ scale: 1.1, rotate: 10 }}
+                transition={{ duration: 0.3 }}
               >
                 <Send size={20} className="mr-2" />
                 Send Message
-              </button>
-            </form>
+              </motion.button>
+            </motion.form>
           </div>
           <div className="w-full lg:w-1/2 px-4">
-            <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500">
+            <motion.div
+              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
               <h3 className="text-3xl font-bold mb-6 text-gray-800">Get in Touch</h3>
-              <div className="flex items-center mb-6 group">
+              <motion.div
+                className="flex items-center mb-6 group"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+              >
                 <Mail className="text-blue-500 mr-4 group-hover:animate-pulse transition duration-300" />
-                <a href="mailto:aniruddhaadak80@gmail.com" className="text-gray-700 text-lg hover:text-blue-500 transition-colors duration-300">aniruddhaadak80@gmail.com</a>
-              </div>
-              <div className="flex items-center mb-6 group">
+                <a
+                  href="mailto:aniruddhaadak80@gmail.com"
+                  className="text-gray-700 text-lg hover:text-blue-500 transition-colors duration-300"
+                >
+                  aniruddhaadak80@gmail.com
+                </a>
+              </motion.div>
+              <motion.div
+                className="flex items-center mb-6 group"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+              >
                 <Phone className="text-blue-500 mr-4 group-hover:animate-pulse transition duration-300" />
-                <a href="tel:+917029155691" className="text-gray-700 text-lg hover:text-blue-500 transition-colors duration-300">+91 7029155691</a>
-              </div>
-              <div className="flex items-center group">
+                <a
+                  href="tel:+917029155691"
+                  className="text-gray-700 text-lg hover:text-blue-500 transition-colors duration-300"
+                >
+                  +91 7029155691
+                </a>
+              </motion.div>
+              <motion.div
+                className="flex items-center group"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
                 <MapPin className="text-blue-500 mr-4 group-hover:animate-pulse transition duration-300" />
                 <span className="text-gray-700 text-lg">West Bengal, India</span>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>
