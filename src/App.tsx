@@ -24,7 +24,7 @@ const App: React.FC = () => {
       <div className="flex items-center justify-center h-screen bg-gray-900">
         {/* Container for spinner and text */}
         <div className="relative">
-          {/* Framer Motion Spinner */}
+          {/* Bouncing Framer Motion Spinner */}
           <motion.div
             className="w-32 h-32 border-8 border-t-8 border-transparent rounded-full"
             style={{
@@ -33,8 +33,16 @@ const App: React.FC = () => {
               borderBottomColor: '#32CD32',
               borderLeftColor: '#1E90FF',
             }}
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}
+            animate={{
+              rotate: 360, // Continuous spinning
+              y: ['0%', '-20%', '0%'], // Bouncing effect
+            }}
+            transition={{
+              repeat: Infinity, // Repeats indefinitely
+              duration: 2, // Complete spin duration
+              ease: 'easeInOut', // Smooth ease in and out for bounce
+              times: [0, 0.5, 1], // Bounce timing
+            }}
           />
           
           {/* Text Overlay */}
