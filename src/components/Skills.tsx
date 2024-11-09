@@ -34,9 +34,24 @@ const Skills: React.FC = () => {
   const filteredSkills = filter === 'All' ? skills : skills.filter(skill => skill.category === filter);
 
   const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const categoryRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
 
-  // GSAP animations on skill cards
+  // GSAP animations
   useEffect(() => {
+    // Animate section title
+    gsap.from(titleRef.current, { opacity: 0, y: -50, duration: 1, ease: 'power3.out' });
+
+    // Animate category buttons
+    gsap.from(categoryRefs.current, {
+      opacity: 0,
+      y: 30,
+      stagger: 0.1,
+      duration: 1,
+      ease: 'power3.out',
+    });
+
+    // Animate skill cards
     gsap.from(skillRefs.current, {
       opacity: 0,
       y: 50,
@@ -63,11 +78,12 @@ const Skills: React.FC = () => {
   return (
     <section id="skills" className="py-20 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">Skills</h2>
+        <h2 ref={titleRef} className="text-4xl font-bold mb-12 text-center text-gray-800">Skills</h2>
         <div className="flex justify-center mb-8 flex-wrap">
           {categories.map((category, index) => (
             <button
               key={category}
+              ref={(el) => (categoryRefs.current[index] = el)}
               onClick={() => setFilter(category)}
               className={`m-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${filter === category ? `bg-gradient-to-r ${getCategoryColor(category)} text-white shadow-lg` : 'bg-white text-gray-800 hover:bg-gray-100'}`}
             >
@@ -86,7 +102,9 @@ const Skills: React.FC = () => {
               }}
             >
               <div className="flex items-center mb-4">
-                <skill.icon size={32} color={skill.color} className="mr-4" />
+                <div className="icon-container animate__animated animate__fadeInUp">
+                  <skill.icon size={32} color={skill.color} className="mr-4" />
+                </div>
                 <h3 className="text-xl font-semibold text-gray-800">{skill.name}</h3>
               </div>
               <div className="relative pt-1">
