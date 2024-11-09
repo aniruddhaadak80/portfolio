@@ -5,7 +5,10 @@ import { motion } from 'framer-motion';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check for saved dark mode preference in local storage
+    return localStorage.getItem('darkMode') === 'true';
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,7 +19,10 @@ const Header: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    // Toggle dark mode on document
     document.documentElement.classList.toggle('dark', isDarkMode);
+    // Save dark mode preference in localStorage
+    localStorage.setItem('darkMode', String(isDarkMode));
   }, [isDarkMode]);
 
   const menuItems = [
@@ -27,6 +33,10 @@ const Header: React.FC = () => {
     { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
     { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
   ];
+
+  const getRandomRotation = () => {
+    return Math.floor(Math.random() * (20 - (-20) + 1)) + (-20); // Random rotation between -20deg and 20deg
+  };
 
   return (
     <header
@@ -57,7 +67,7 @@ const Header: React.FC = () => {
               className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
               whileHover={{
                 scale: 1.1,
-                rotate: 10,
+                rotate: getRandomRotation(), // Random rotation on hover
                 transition: { type: 'spring', stiffness: 200 }
               }}
             >
@@ -99,7 +109,7 @@ const Header: React.FC = () => {
                 className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
                 whileHover={{
                   scale: 1.1,
-                  rotate: 10,
+                  rotate: getRandomRotation(), // Random rotation on hover
                   transition: { type: 'spring', stiffness: 200 }
                 }}
               >
