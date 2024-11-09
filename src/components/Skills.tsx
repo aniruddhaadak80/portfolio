@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { FaJs, FaReact, FaNodeJs, FaPython, FaJava, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
-import gsap from 'gsap';
 
 const skills = [
   { name: 'JavaScript', category: 'Frontend', level: 95, icon: FaJs, color: '#F7DF1E', bgColor: '#FFF8D6' },
@@ -33,48 +32,6 @@ const Skills: React.FC = () => {
   const categories = ['All', ...new Set(skills.map(skill => skill.category))];
 
   const filteredSkills = filter === 'All' ? skills : skills.filter(skill => skill.category === filter);
-  const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // Function to generate random animation directions
-  const getRandomDirection = () => {
-    const directions = ['left', 'right', 'top', 'bottom'];
-    return directions[Math.floor(Math.random() * directions.length)];
-  };
-
-  useEffect(() => {
-    // Trigger animations after filtering
-    gsap.from(skillRefs.current, {
-      opacity: 0,
-      y: 50,
-      stagger: 0.1,
-      duration: 0.6,
-      ease: 'power3.out',
-      onStart: () => {
-        // Randomize directions for each card animation
-        skillRefs.current.forEach((card, index) => {
-          const direction = getRandomDirection();
-          const animationProps: { x?: number; y?: number } = {};
-
-          switch (direction) {
-            case 'left':
-              animationProps.x = -100;
-              break;
-            case 'right':
-              animationProps.x = 100;
-              break;
-            case 'top':
-              animationProps.y = -100;
-              break;
-            case 'bottom':
-              animationProps.y = 100;
-              break;
-          }
-
-          gsap.from(card, { ...animationProps, opacity: 0, duration: 0.6, delay: index * 0.1, ease: 'power3.out' });
-        });
-      }
-    });
-  }, [filteredSkills]); // Re-run animation on filter change
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -114,8 +71,7 @@ const Skills: React.FC = () => {
           {filteredSkills.map((skill, index) => (
             <div 
               key={skill.name} 
-              ref={(el) => (skillRefs.current[index] = el)} 
-              className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-2xl"
+              className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-2xl" 
               style={{
                 animationDelay: `${index * 0.1}s`,
                 backgroundColor: skill.bgColor,
