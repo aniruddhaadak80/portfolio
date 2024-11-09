@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 interface BlogPost {
   id: number;
@@ -39,6 +40,7 @@ const blogPosts: BlogPost[] = [
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const postRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (selectedTag) {
@@ -47,6 +49,17 @@ const Blog: React.FC = () => {
       setPosts(blogPosts);
     }
   }, [selectedTag]);
+
+  useEffect(() => {
+    // GSAP animation for blog posts
+    gsap.from(postRefs.current, {
+      opacity: 0,
+      y: 50,
+      stagger: 0.2,
+      duration: 0.6,
+      ease: 'power3.out',
+    });
+  }, [posts]); // Runs when posts change
 
   const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
 
@@ -57,9 +70,7 @@ const Blog: React.FC = () => {
         <div className="flex flex-wrap justify-center mb-8">
           <button
             onClick={() => setSelectedTag(null)}
-            className={`m-2 px-4 py-2 rounded-full ${
-              selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
-            }`}
+            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}
           >
             All
           </button>
@@ -67,17 +78,19 @@ const Blog: React.FC = () => {
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`m-2 px-4 py-2 rounded-full ${
-                selectedTag === tag ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
-              }`}
+              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}
             >
               {tag}
             </button>
           ))}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map(post => (
-            <div key={post.id} className="bg-white rounded-lg overflow-hidden shadow-lg">
+          {posts.map((post, index) => (
+            <div
+              key={post.id}
+              ref={(el) => (postRefs.current[index] = el)}
+              className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300"
+            >
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
@@ -86,7 +99,10 @@ const Blog: React.FC = () => {
                   <div className="text-sm text-gray-500">{post.date}</div>
                   <div className="flex flex-wrap">
                     {post.tags.map(tag => (
-                      <span key={tag} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+                      <span
+                        key={tag}
+                        className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded transition-transform transform hover:scale-110"
+                      >
                         {tag}
                       </span>
                     ))}
