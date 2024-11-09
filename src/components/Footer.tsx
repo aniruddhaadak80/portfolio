@@ -37,12 +37,12 @@ const Footer: React.FC = () => {
       hover: { x: 12 },
     },
     quickLinks: [
-      { animate: { y: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: -10 } },
-      { animate: { y: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: 10 } },
-      { animate: { x: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { x: -10 } },
-      { animate: { x: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { x: 10 } },
-      { animate: { y: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: -10 } },
-      { animate: { y: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: 10 } },
+      { animate: { y: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 2 } }, hover: { y: -10 } },
+      { animate: { y: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 2 } }, hover: { y: 10 } },
+      { animate: { x: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 2 } }, hover: { x: -10 } },
+      { animate: { x: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 2 } }, hover: { x: 10 } },
+      { animate: { y: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 2 } }, hover: { y: -10 } },
+      { animate: { y: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 2 } }, hover: { y: 10 } },
     ],
   };
 
