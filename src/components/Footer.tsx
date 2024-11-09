@@ -18,8 +18,13 @@ const Footer: React.FC = () => {
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
   };
 
-  const iconHoverColors = ["hover:text-blue-400", "hover:text-purple-400", "hover:text-pink-400", "hover:text-yellow-400"];
-  const quickLinkHoverColors = ["hover:text-blue-300", "hover:text-purple-300", "hover:text-pink-300", "hover:text-yellow-300"];
+  // Static colors and unique hover colors
+  const iconStyles = [
+    { static: "text-blue-500", hover: "hover:text-blue-300" },
+    { static: "text-purple-500", hover: "hover:text-purple-300" },
+    { static: "text-pink-500", hover: "hover:text-pink-300" },
+    { static: "text-yellow-500", hover: "hover:text-yellow-300" },
+  ];
 
   return (
     <motion.footer
@@ -36,7 +41,7 @@ const Footer: React.FC = () => {
             className="w-full md:w-1/3 mb-6 md:mb-0"
             variants={itemVariants}
           >
-            <h3 className="text-3xl font-extrabold mb-2 hover:text-purple-400 transition-colors duration-300">
+            <h3 className="text-3xl font-extrabold mb-2 text-blue-500 hover:text-purple-400 transition-colors duration-300">
               ANIRUDDHA ADAK
             </h3>
             <p className="text-gray-300 hover:text-pink-300 transition-colors duration-300 text-lg">
@@ -49,7 +54,7 @@ const Footer: React.FC = () => {
             className="w-full md:w-1/3 mb-6 md:mb-0"
             variants={itemVariants}
           >
-            <h4 className="text-xl font-semibold mb-4 text-gray-200 hover:text-blue-400 transition-colors duration-300">
+            <h4 className="text-xl font-semibold mb-4 text-purple-400 hover:text-blue-400 transition-colors duration-300">
               Quick Links
             </h4>
             <motion.ul className="space-y-3 text-lg" variants={containerVariants}>
@@ -58,7 +63,7 @@ const Footer: React.FC = () => {
                   key={item}
                   variants={itemVariants}
                   whileHover={{ scale: 1.05, x: 10 }}
-                  className={`${quickLinkHoverColors[index % quickLinkHoverColors.length]} transition-colors duration-300`}
+                  className={`text-${['blue', 'purple', 'pink', 'yellow'][index % 4]}-500 transition-colors duration-300 hover:text-${['blue', 'purple', 'pink', 'yellow'][index % 4]}-300`}
                 >
                   <a href={`#${item.toLowerCase()}`}>
                     {item}
@@ -73,15 +78,15 @@ const Footer: React.FC = () => {
             className="w-full md:w-1/3"
             variants={itemVariants}
           >
-            <h4 className="text-xl font-semibold mb-4 text-gray-200 hover:text-purple-300 transition-colors duration-300">
+            <h4 className="text-xl font-semibold mb-4 text-pink-400 hover:text-purple-300 transition-colors duration-300">
               Connect With Me
             </h4>
             <div className="flex space-x-6 mb-4">
               {[
-                { href: 'https://github.com/aniruddhaadak80', icon: GithubIcon },
-                { href: 'https://www.linkedin.com/in/aniruddha-adak/', icon: LinkedinIcon },
-                { href: 'https://x.com/skillful_mind', icon: TwitterIcon },
-                { href: 'https://www.instagram.com/skillful__mind/', icon: InstagramIcon },
+                { href: 'https://github.com/aniruddhaadak80', icon: GithubIcon, color: iconStyles[0] },
+                { href: 'https://www.linkedin.com/in/aniruddha-adak/', icon: LinkedinIcon, color: iconStyles[1] },
+                { href: 'https://x.com/skillful_mind', icon: TwitterIcon, color: iconStyles[2] },
+                { href: 'https://www.instagram.com/skillful__mind/', icon: InstagramIcon, color: iconStyles[3] },
               ].map((item, index) => (
                 <motion.a
                   key={index}
@@ -89,7 +94,7 @@ const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, y: -5 }}
-                  className={`${iconHoverColors[index % iconHoverColors.length]} transition-transform duration-300`}
+                  className={`transition-transform duration-300 ${item.color.static} ${item.color.hover}`}
                 >
                   <item.icon size={28} />
                 </motion.a>
@@ -100,14 +105,14 @@ const Footer: React.FC = () => {
             <div className="mt-4 space-y-3">
               <motion.a
                 href="mailto:aniruddhaadak80@gmail.com"
-                className="flex items-center hover:text-yellow-400 transition-colors duration-300"
+                className="flex items-center text-yellow-500 hover:text-yellow-300 transition-colors duration-300"
               >
                 <Mail size={20} className="mr-2" />
                 aniruddhaadak80@gmail.com
               </motion.a>
               <motion.a
                 href="tel:+917029155691"
-                className="flex items-center hover:text-green-400 transition-colors duration-300"
+                className="flex items-center text-green-500 hover:text-green-300 transition-colors duration-300"
               >
                 <Phone size={20} className="mr-2" />
                 +91 7029155691
