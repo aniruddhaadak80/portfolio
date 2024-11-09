@@ -55,38 +55,37 @@ const Blog: React.FC = () => {
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12 text-center">Blog</h2>
         <div className="flex flex-wrap justify-center mb-8">
+          {/* "All" button */}
           <button
             onClick={() => setSelectedTag(null)}
-            className={m-2 px-4 py-2 rounded-full ${
-              selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
-            }}
+            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
           >
             All
           </button>
+          {/* Buttons for each tag */}
           {allTags.map(tag => (
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={m-2 px-4 py-2 rounded-full ${
-                selectedTag === tag ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'
-              }}
+              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
             >
               {tag}
             </button>
           ))}
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map(post => (
-            <div key={post.id} className="bg-white rounded-lg overflow-hidden shadow-lg">
+            <div key={post.id} className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
                 <div className="flex justify-between items-center">
                   <div className="text-sm text-gray-500">{post.date}</div>
                   <div className="flex flex-wrap">
                     {post.tags.map(tag => (
-                      <span key={tag} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+                      <span key={tag} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
                         {tag}
                       </span>
                     ))}
