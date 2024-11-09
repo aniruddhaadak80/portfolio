@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 interface BlogPost {
   id: number;
@@ -56,27 +57,45 @@ const Blog: React.FC = () => {
         <h2 className="text-4xl font-bold mb-12 text-center">Blog</h2>
         <div className="flex flex-wrap justify-center mb-8">
           {/* "All" button */}
-          <button
+          <motion.button
             onClick={() => setSelectedTag(null)}
             className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
           >
             All
-          </button>
+          </motion.button>
           {/* Buttons for each tag */}
           {allTags.map(tag => (
-            <button
+            <motion.button
               key={tag}
               onClick={() => setSelectedTag(tag)}
               className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
               {tag}
-            </button>
+            </motion.button>
           ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map(post => (
-            <div key={post.id} className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+            <motion.div
+              key={post.id}
+              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
+              initial={{ opacity: 0, rotateY: -180 }}
+              animate={{ opacity: 1, rotateY: 0 }}
+              transition={{ duration: 1, type: 'spring', stiffness: 100 }}
+              whileHover={{
+                scale: 1.05,
+                rotateX: 10,
+                rotateY: 10,
+                transition: { duration: 0.3 },
+              }}
+            >
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
@@ -92,7 +111,7 @@ const Blog: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
