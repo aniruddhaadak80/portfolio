@@ -18,36 +18,32 @@ const Footer: React.FC = () => {
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
   };
 
-  // Different bounce directions for each icon
+  // Different bounce directions for each icon and link
   const directionalBounce = {
     github: {
-      animate: {
-        y: [0, -5, 0],
-        transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 },
-      },
+      animate: { y: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } },
       hover: { y: -12 },
     },
     linkedin: {
-      animate: {
-        y: [0, 5, 0],
-        transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 },
-      },
+      animate: { y: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } },
       hover: { y: 12 },
     },
     twitter: {
-      animate: {
-        x: [0, -5, 0],
-        transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 },
-      },
+      animate: { x: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } },
       hover: { x: -12 },
     },
     instagram: {
-      animate: {
-        x: [0, 5, 0],
-        transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 },
-      },
+      animate: { x: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } },
       hover: { x: 12 },
     },
+    quickLinks: [
+      { animate: { y: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: -10 } },
+      { animate: { y: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: 10 } },
+      { animate: { x: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { x: -10 } },
+      { animate: { x: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { x: 10 } },
+      { animate: { y: [0, -5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: -10 } },
+      { animate: { y: [0, 5, 0], transition: { repeat: Infinity, repeatType: "mirror", duration: 1.2 } }, hover: { y: 10 } },
+    ],
   };
 
   const iconStyles = [
@@ -80,7 +76,7 @@ const Footer: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Quick Links */}
+          {/* Quick Links with Directional Bounce */}
           <motion.div
             className="w-full md:w-1/3 mb-6 md:mb-0"
             variants={itemVariants}
@@ -92,8 +88,8 @@ const Footer: React.FC = () => {
               {['Home', 'About', 'Skills', 'Projects', 'Blog', 'Contact'].map((item, index) => (
                 <motion.li
                   key={item}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05, x: 10 }}
+                  {...directionalBounce.quickLinks[index]}
+                  whileHover={directionalBounce.quickLinks[index].hover}
                   className={`text-${['blue', 'purple', 'pink', 'yellow'][index % 4]}-500 transition-colors duration-300 hover:text-${['blue', 'purple', 'pink', 'yellow'][index % 4]}-300`}
                 >
                   <a href={`#${item.toLowerCase()}`}>
