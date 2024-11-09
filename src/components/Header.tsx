@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, User, Settings, Folder, FileText, Mail, Sun, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,48 +35,80 @@ const Header: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <motion.a
+          href="#"
+          className="text-2xl font-bold text-blue-600 dark:text-blue-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           MyPortfolio
-        </a>
-        <nav className="hidden md:flex space-x-6">
+        </motion.a>
+        <motion.nav
+          className="hidden md:flex space-x-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           {menuItems.map((item) => (
-            <a
+            <motion.a
               key={item.name}
               href={`#${item.name.toLowerCase()}`}
               className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
+              whileHover={{
+                scale: 1.1,
+                rotate: 10,
+                transition: { type: 'spring', stiffness: 200 }
+              }}
             >
               {item.icon}
               <span>{item.name}</span>
-            </a>
+            </motion.a>
           ))}
-        </nav>
+        </motion.nav>
         <div className="flex items-center space-x-4">
-          <button
+          <motion.button
             onClick={() => setIsDarkMode(!isDarkMode)}
             className="p-2 rounded-full bg-gray-200 dark:bg-gray-600 transition-all hover:bg-gray-300 dark:hover:bg-gray-500"
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: 'spring', stiffness: 300 }}
           >
-            {isDarkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-800" />}
-          </button>
+            {isDarkMode ? (
+              <Sun size={20} className="text-yellow-400" />
+            ) : (
+              <Moon size={20} className="text-gray-800" />
+            )}
+          </motion.button>
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-800 transition-all duration-300">
+        <motion.div
+          className="md:hidden bg-white dark:bg-gray-800 transition-all duration-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <nav className="flex flex-col items-center py-4 space-y-2">
             {menuItems.map((item) => (
-              <a
+              <motion.a
                 key={item.name}
                 href={`#${item.name.toLowerCase()}`}
                 className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
+                whileHover={{
+                  scale: 1.1,
+                  rotate: 10,
+                  transition: { type: 'spring', stiffness: 200 }
+                }}
               >
                 {item.icon}
                 <span>{item.name}</span>
-              </a>
+              </motion.a>
             ))}
           </nav>
-        </div>
+        </motion.div>
       )}
     </header>
   );
