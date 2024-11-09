@@ -51,8 +51,15 @@ const Projects: React.FC = () => {
               className="bg-gray-100 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
               onClick={() => setSelectedProject(project.id)}
               whileHover={{
-                x: ["0%", "-10%", "10%", "0%"],  // Shaking effect on X axis
-                transition: { type: "spring", stiffness: 100, damping: 10 }
+                x: ["0%", "-15%", "15%", "0%"],  // Increased shake range
+                scale: 1.05,  // Slight scale up for emphasis
+                transition: { 
+                  type: "spring", 
+                  stiffness: 100, 
+                  damping: 20, 
+                  duration: 0.6,  // Smoother and longer shake
+                  ease: "easeInOut"  // Smooth easing for better effect
+                }
               }}
               whileTap={{ scale: 0.95 }}
             >
