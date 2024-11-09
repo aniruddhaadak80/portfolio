@@ -18,13 +18,8 @@ const Footer: React.FC = () => {
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
   };
 
-  const iconVariants = {
-    hover: {
-      scale: 1.3,
-      rotate: 15,
-      transition: { type: 'spring', stiffness: 200, damping: 10 },
-    },
-  };
+  const iconHoverColors = ["text-blue-400", "text-purple-400", "text-pink-400", "text-yellow-400"];
+  const quickLinkHoverColors = ["text-blue-300", "text-purple-300", "text-pink-300", "text-yellow-300"];
 
   return (
     <motion.footer
@@ -41,10 +36,10 @@ const Footer: React.FC = () => {
             className="w-full md:w-1/3 mb-6 md:mb-0"
             variants={itemVariants}
           >
-            <h3 className="text-3xl font-extrabold mb-2 text-white hover:text-blue-400 transition-colors duration-300">
+            <h3 className="text-3xl font-extrabold mb-2 hover:text-purple-400 transition-colors duration-300">
               ANIRUDDHA ADAK
             </h3>
-            <p className="text-gray-300 hover:text-white transition-colors duration-300 text-lg">
+            <p className="text-gray-300 hover:text-pink-300 transition-colors duration-300 text-lg">
               Full Stack Developer & AI Enthusiast
             </p>
           </motion.div>
@@ -62,12 +57,10 @@ const Footer: React.FC = () => {
                 <motion.li
                   key={item}
                   variants={itemVariants}
-                  whileHover={{ scale: 1.1, x: 10 }}
+                  whileHover={{ scale: 1.05, x: 10 }}
+                  className={`${quickLinkHoverColors[index % quickLinkHoverColors.length]} transition-colors duration-300`}
                 >
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    className="hover:text-blue-400 transition-colors duration-300"
-                  >
+                  <a href={`#${item.toLowerCase()}`}>
                     {item}
                   </a>
                 </motion.li>
@@ -80,7 +73,7 @@ const Footer: React.FC = () => {
             className="w-full md:w-1/3"
             variants={itemVariants}
           >
-            <h4 className="text-xl font-semibold mb-4 text-gray-200 hover:text-blue-400 transition-colors duration-300">
+            <h4 className="text-xl font-semibold mb-4 text-gray-200 hover:text-purple-300 transition-colors duration-300">
               Connect With Me
             </h4>
             <div className="flex space-x-6 mb-4">
@@ -95,9 +88,8 @@ const Footer: React.FC = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-400 transition-colors duration-300"
-                  variants={iconVariants}
-                  whileHover="hover"
+                  whileHover={{ scale: 1.1 }}
+                  className={`${iconHoverColors[index % iconHoverColors.length]} transition-transform duration-300`}
                 >
                   <item.icon size={28} />
                 </motion.a>
@@ -108,18 +100,14 @@ const Footer: React.FC = () => {
             <div className="mt-4 space-y-3">
               <motion.a
                 href="mailto:aniruddhaadak80@gmail.com"
-                className="flex items-center hover:text-blue-400 transition-colors duration-300"
-                variants={iconVariants}
-                whileHover="hover"
+                className="flex items-center hover:text-yellow-400 transition-colors duration-300"
               >
                 <Mail size={20} className="mr-2" />
                 aniruddhaadak80@gmail.com
               </motion.a>
               <motion.a
                 href="tel:+917029155691"
-                className="flex items-center hover:text-blue-400 transition-colors duration-300"
-                variants={iconVariants}
-                whileHover="hover"
+                className="flex items-center hover:text-green-400 transition-colors duration-300"
               >
                 <Phone size={20} className="mr-2" />
                 +91 7029155691
@@ -130,7 +118,7 @@ const Footer: React.FC = () => {
 
         {/* Copyright */}
         <motion.div
-          className="mt-8 text-center text-gray-400 hover:text-white transition-colors duration-300"
+          className="mt-8 text-center text-gray-400 hover:text-pink-300 transition-colors duration-300"
           variants={itemVariants}
         >
           <p>
