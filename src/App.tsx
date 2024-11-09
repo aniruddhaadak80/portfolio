@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -21,7 +22,31 @@ const App: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-900">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+        {/* Container for spinner and text */}
+        <div className="relative">
+          {/* Framer Motion Spinner */}
+          <motion.div
+            className="w-32 h-32 border-8 border-t-8 border-transparent rounded-full"
+            style={{
+              borderTopColor: '#FF7F50',
+              borderRightColor: '#FFD700',
+              borderBottomColor: '#32CD32',
+              borderLeftColor: '#1E90FF',
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}
+          />
+          
+          {/* Text Overlay */}
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8, duration: 0.3 }}
+          >
+            <span>Loading...</span>
+          </motion.div>
+        </div>
       </div>
     );
   }
