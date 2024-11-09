@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaJs, FaReact, FaNodeJs, FaPython,FaJava , FaDatabase } from 'react-icons/fa';
+import { FaJs, FaReact, FaNodeJs, FaPython, FaJava, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
 
@@ -16,7 +16,7 @@ const skills = [
   { name: 'Next.js', category: 'Frontend', level: 85, icon: SiNextdotjs, color: '#000000', bgColor: '#F0F7FF' },
   { name: 'Qwik.js', category: 'Frontend', level: 75, icon: SiQwiklabs, color: '#FF1E56', bgColor: '#FFE6EC' },
   { name: 'Astro.js', category: 'Frontend', level: 80, icon: SiAstro, color: '#FF5D01', bgColor: '#FFF0E6' },
-  
+
   // New Skills
   { name: 'C', category: 'Programming', level: 80, icon: CgCPlusPlus, color: '#A8B9CC', bgColor: '#E6F2FF' },
   { name: 'C++', category: 'Programming', level: 85, icon: CgCPlusPlus, color: '#00599C', bgColor: '#E6F0FF' },
@@ -56,12 +56,12 @@ const Skills: React.FC = () => {
             <button
               key={category}
               onClick={() => setFilter(category)}
-              className={m-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${
+              className={`m-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${
                 filter === category 
-                ? bg-gradient-to-r ${getCategoryColor(category)} text-white shadow-lg 
+                ? `bg-gradient-to-r ${getCategoryColor(category)} text-white shadow-lg` 
                 : 'bg-white text-gray-800 hover:bg-gray-100'
-              }}
-              style={{animationDelay: ${index * 0.1}s}}
+              }`}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               {category}
             </button>
@@ -73,7 +73,7 @@ const Skills: React.FC = () => {
               key={skill.name} 
               className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-2xl" 
               style={{
-                animationDelay: ${index * 0.1}s,
+                animationDelay: `${index * 0.1}s`,
                 backgroundColor: skill.bgColor,
               }}
             >
@@ -84,7 +84,7 @@ const Skills: React.FC = () => {
               <div className="relative pt-1">
                 <div className="flex mb-2 items-center justify-between">
                   <div>
-                    <span className={text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white bg-gradient-to-r ${getCategoryColor(skill.category)}}>
+                    <span className={`text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white bg-gradient-to-r ${getCategoryColor(skill.category)}`}>
                       {skill.category}
                     </span>
                   </div>
@@ -96,7 +96,7 @@ const Skills: React.FC = () => {
                 </div>
                 <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
                   <div
-                    style={{ width: ${skill.level}%, backgroundColor: skill.color }}
+                    style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
                     className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center animate-expand-right"
                   ></div>
                 </div>
