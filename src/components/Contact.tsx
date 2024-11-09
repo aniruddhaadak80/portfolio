@@ -57,7 +57,7 @@ const Contact: React.FC = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 text-gray-800 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-inner"
+                  className="w-full px-4 py-3 text-gray-800 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 shadow-inner bg-gradient-to-r from-pink-100 to-yellow-100 hover:scale-105"
                   required
                   whileFocus={{ scale: 1.05, transition: { duration: 0.2 } }}
                   animate={{ opacity: 1 }}
@@ -78,7 +78,7 @@ const Contact: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 text-gray-800 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-inner"
+                  className="w-full px-4 py-3 text-gray-800 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 shadow-inner bg-gradient-to-r from-green-100 to-teal-100 hover:scale-105"
                   required
                   whileFocus={{ scale: 1.05, transition: { duration: 0.2 } }}
                   animate={{ opacity: 1 }}
@@ -99,7 +99,7 @@ const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 py-3 text-gray-800 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-inner"
+                  className="w-full px-4 py-3 text-gray-800 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 shadow-inner bg-gradient-to-r from-indigo-100 to-purple-100 hover:scale-105"
                   required
                   whileFocus={{ scale: 1.05, transition: { duration: 0.2 } }}
                   animate={{ opacity: 1 }}
