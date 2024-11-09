@@ -112,96 +112,87 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 12,
-    title: 'Optimizing Database Performance for Large Applications',
-    excerpt: 'Techniques for improving database performance in applications with high traffic.',
+    title: 'Optimizing Database Performance for Web Applications',
+    excerpt: 'Learn how to optimize your database performance for better speed and scalability.',
     date: '2023-12-01',
-    image: 'https://images.unsplash.com/photo-1614085091608-9a15a83fda5c?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg1NzF8MHx8c2VhY2h8NXx8cGFyYWJvbGxvY3lfZGF0YWJhc2VfY29tcGxleHNpdGVzfDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080',
+    image: 'https://images.unsplash.com/photo-1570895484692-b04234c14049?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg1NzF8MHx8c2VhY2h8MXx8ZGF0YWJhc2VfY2xvYWRpbmd8fDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080',
     tags: ['Databases']
   }
 ];
 
+const getTagColor = (tag: string) => {
+  const tagColors: { [key: string]: string } = {
+    AI: '#D32F2F',
+    'Web Development': '#1976D2',
+    API: '#388E3C',
+    Backend: '#FBC02D',
+    'Cloud Computing': '#8E24AA',
+    Databases: '#0288D1'
+  };
+  return tagColors[tag] || '#000'; // Default color for untagged items
+};
 
-
-const Blog: React.FC = () => {
-  const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
+const BlogPostList: React.FC = () => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (selectedTag) {
-      setPosts(blogPosts.filter(post => post.tags.includes(selectedTag)));
-    } else {
-      setPosts(blogPosts);
-    }
-  }, [selectedTag]);
-
-  const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
+  const filteredBlogPosts = selectedTag
+    ? blogPosts.filter((post) => post.tags.includes(selectedTag))
+    : blogPosts;
 
   return (
-    <section id="blog" className="py-20 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center">Blog</h2>
-        <div className="flex flex-wrap justify-center mb-8">
-          {/* "All" button */}
+    <div className="blog-post-list">
+      <div className="tag-filters">
+        {['AI', 'Web Development', 'API', 'Backend', 'Cloud Computing', 'Databases'].map((tag) => (
           <motion.button
-            onClick={() => setSelectedTag(null)}
-            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            key={tag}
+            style={{ backgroundColor: getTagColor(tag) }}
+            onClick={() => setSelectedTag(tag)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="tag-filter"
           >
-            All
+            {tag}
           </motion.button>
-          {/* Buttons for each tag */}
-          {allTags.map(tag => (
-            <motion.button
-              key={tag}
-              onClick={() => setSelectedTag(tag)}
-              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              {tag}
-            </motion.button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map(post => (
-            <motion.div
-              key={post.id}
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
-              initial={{ opacity: 0, rotateY: -180 }}
-              animate={{ opacity: 1, rotateY: 0 }}
-              transition={{ duration: 1, type: 'spring', stiffness: 100 }}
-              whileHover={{
-                scale: 1.05,
-                rotateX: 10,
-                rotateY: 10,
-                transition: { duration: 0.3 },
-              }}
-            >
-              <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
-                <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                <div className="flex justify-between items-center">
-                  <div className="text-sm text-gray-500">{post.date}</div>
-                  <div className="flex flex-wrap">
-                    {post.tags.map(tag => (
-                      <span key={tag} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        ))}
+        <motion.button
+          onClick={() => setSelectedTag(null)}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="tag-filter"
+        >
+          All
+        </motion.button>
       </div>
-    </section>
+      <div className="blog-post-cards">
+        {filteredBlogPosts.map((post) => (
+          <motion.div
+            key={post.id}
+            className="blog-post-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img src={post.image} alt={post.title} />
+            <h3>{post.title}</h3>
+            <p>{post.excerpt}</p>
+            <span>{post.date}</span>
+            <div className="tags">
+              {post.tags.map((tag) => (
+                <motion.span
+                  key={tag}
+                  style={{ backgroundColor: getTagColor(tag) }}
+                  whileHover={{ scale: 1.1 }}
+                  className="tag"
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default Blog;
+export default BlogPostList;
