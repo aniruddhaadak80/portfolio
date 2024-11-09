@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { FaJs, FaReact, FaNodeJs, FaPython,FaJava , FaDatabase } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { FaJs, FaReact, FaNodeJs, FaPython, FaJava, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
 
@@ -30,27 +31,28 @@ const skills = [
 const Skills: React.FC = () => {
   const [filter, setFilter] = useState('All');
   const categories = ['All', ...new Set(skills.map(skill => skill.category))];
+  const cardsRef = useRef<HTMLDivElement[]>([]);
 
   const filteredSkills = filter === 'All' ? skills : skills.filter(skill => skill.category === filter);
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'Frontend': return 'from-blue-500 to-cyan-500';
-      case 'Backend': return 'from-green-500 to-teal-500';
-      case 'AI/ML': return 'from-purple-500 to-pink-500';
-      case 'Database': return 'from-yellow-500 to-orange-500';
-      case 'Programming': return 'from-indigo-500 to-blue-500';
-      case 'DevOps': return 'from-blue-600 to-indigo-600';
-      case 'Tools': return 'from-orange-500 to-red-500';
-      case 'Design': return 'from-teal-500 to-green-500';
-      default: return 'from-gray-500 to-gray-700';
-    }
+  const animateCards = () => {
+    gsap.fromTo(
+      cardsRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, stagger: 0.1, duration: 0.5, ease: 'power3.out' }
+    );
   };
+
+  useEffect(() => {
+    animateCards();
+  }, [filter]);
 
   return (
     <section id="skills" className="py-20 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 animate-fade-in-down">Skills</h2>
+        
+        {/* Filter Buttons */}
         <div className="flex justify-center mb-8 flex-wrap">
           {categories.map((category, index) => (
             <button
@@ -61,21 +63,21 @@ const Skills: React.FC = () => {
                 ? `bg-gradient-to-r ${getCategoryColor(category)} text-white shadow-lg` 
                 : 'bg-white text-gray-800 hover:bg-gray-100'
               }`}
-              style={{animationDelay: `${index * 0.1}s`}}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               {category}
             </button>
           ))}
         </div>
+        
+        {/* Skill Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredSkills.map((skill, index) => (
-            <div 
-              key={skill.name} 
-              className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-2xl" 
-              style={{
-                animationDelay: `${index * 0.1}s`,
-                backgroundColor: skill.bgColor,
-              }}
+            <div
+              key={skill.name}
+              ref={(el) => (cardsRef.current[index] = el!)}
+              className="bg-white p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              style={{ backgroundColor: skill.bgColor }}
             >
               <div className="flex items-center mb-4">
                 <skill.icon size={32} color={skill.color} className="mr-4" />
@@ -94,10 +96,12 @@ const Skills: React.FC = () => {
                     </span>
                   </div>
                 </div>
+                
+                {/* Progress Bar Animation */}
                 <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
                   <div
                     style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
-                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center animate-expand-right"
+                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500 ease-in-out"
                   ></div>
                 </div>
               </div>
