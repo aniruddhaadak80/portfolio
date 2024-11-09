@@ -25,7 +25,7 @@ const App: React.FC = () => {
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Outer Circle */}
           <motion.div
-            className="absolute w-[50vw] h-[50vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[60vw] h-[60vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF7F50',
               borderRightColor: '#FFD700',
@@ -45,7 +45,7 @@ const App: React.FC = () => {
 
           {/* Middle Circle */}
           <motion.div
-            className="absolute w-[35vw] h-[35vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[50vw] h-[50vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF6347',
               borderRightColor: '#ADFF2F',
@@ -65,7 +65,7 @@ const App: React.FC = () => {
 
           {/* Inner Circle */}
           <motion.div
-            className="absolute w-[20vw] h-[20vw] border-8 border-t-8 border-transparent rounded-full"
+            className="absolute w-[40vw] h-[40vw] border-8 border-t-8 border-transparent rounded-full"
             style={{
               borderTopColor: '#FF4500',
               borderRightColor: '#800080',
@@ -79,6 +79,46 @@ const App: React.FC = () => {
             transition={{
               repeat: Infinity,
               duration: 2,
+              ease: 'easeInOut',
+            }}
+          />
+
+          {/* Extra Inner Circle */}
+          <motion.div
+            className="absolute w-[30vw] h-[30vw] border-8 border-t-8 border-transparent rounded-full"
+            style={{
+              borderTopColor: '#32CD32',
+              borderRightColor: '#00FFFF',
+              borderBottomColor: '#8A2BE2',
+              borderLeftColor: '#FF69B4',
+            }}
+            animate={{
+              rotate: -360,
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 2.2,
+              ease: 'easeInOut',
+            }}
+          />
+
+          {/* Additional Circle */}
+          <motion.div
+            className="absolute w-[25vw] h-[25vw] border-8 border-t-8 border-transparent rounded-full"
+            style={{
+              borderTopColor: '#8A2BE2',
+              borderRightColor: '#00BFFF',
+              borderBottomColor: '#FF6347',
+              borderLeftColor: '#FFD700',
+            }}
+            animate={{
+              rotate: 360,
+              scale: [1, 1.15, 1],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 2.7,
               ease: 'easeInOut',
             }}
           />
