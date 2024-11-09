@@ -18,6 +18,20 @@ const Footer: React.FC = () => {
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
   };
 
+  // Animation for continuous bouncing
+  const continuousBounce = {
+    animate: {
+      y: [0, -5, 0], // bounce up and down
+      transition: {
+        repeat: Infinity,
+        repeatType: "loop",
+        duration: 1.5,
+        ease: "easeInOut",
+      },
+    },
+    hover: { scale: 1.3, y: -10 }, // intensified bounce on hover
+  };
+
   const iconStyles = [
     { static: "text-blue-500", hover: "hover:text-blue-300" },
     { static: "text-purple-500", hover: "hover:text-purple-300" },
@@ -34,7 +48,7 @@ const Footer: React.FC = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-between items-center">
-
+          
           {/* Name and Title */}
           <motion.div
             className="w-full md:w-1/3 mb-6 md:mb-0"
@@ -92,7 +106,7 @@ const Footer: React.FC = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.3, y: -8 }} // Increased bounce height
+                  {...continuousBounce}
                   className={`transition-transform duration-300 ${item.color.static} ${item.color.hover}`}
                 >
                   <item.icon size={28} />
@@ -104,7 +118,7 @@ const Footer: React.FC = () => {
             <div className="mt-4 space-y-3">
               <motion.a
                 href="mailto:aniruddhaadak80@gmail.com"
-                whileHover={{ scale: 1.3, y: -8 }} // Added bounce and scale for email
+                {...continuousBounce}
                 className="flex items-center text-yellow-500 hover:text-yellow-300 transition-colors duration-300"
               >
                 <Mail size={20} className="mr-2" />
@@ -112,7 +126,7 @@ const Footer: React.FC = () => {
               </motion.a>
               <motion.a
                 href="tel:+917029155691"
-                whileHover={{ scale: 1.3, y: -8 }} // Added bounce and scale for phone
+                {...continuousBounce}
                 className="flex items-center text-green-500 hover:text-green-300 transition-colors duration-300"
               >
                 <Phone size={20} className="mr-2" />
