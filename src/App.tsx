@@ -15,16 +15,15 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time
-    setTimeout(() => setIsLoading(false), 3000); // Increase time for better viewing of animation
+    setTimeout(() => setIsLoading(false), 3000);
   }, []);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-900">
-        {/* Container for spinner and text */}
+        {/* Spinner Container */}
         <div className="relative">
-          {/* Bouncing Framer Motion Spinner */}
+          {/* First Spinner with Bounce and Color Pulse */}
           <motion.div
             className="w-32 h-32 border-8 border-t-8 border-transparent rounded-full"
             style={{
@@ -34,26 +33,49 @@ const App: React.FC = () => {
               borderLeftColor: '#1E90FF',
             }}
             animate={{
-              rotate: 360, // Continuous spinning
-              y: ['0%', '-20%', '0%'], // Bouncing effect
-              scale: [1, 1.2, 1], // Scaling effect
-              boxShadow: ['0px 0px 0px rgba(255, 255, 255, 0)', '0px 0px 15px rgba(255, 255, 255, 0.5)', '0px 0px 0px rgba(255, 255, 255, 0)'], // Subtle shadow
+              rotate: 360,
+              y: ['0%', '-20%', '0%'],
+              scale: [1, 1.3, 1],
+              boxShadow: ['0px 0px 0px rgba(255, 255, 255, 0)', '0px 0px 15px rgba(255, 255, 255, 0.5)', '0px 0px 0px rgba(255, 255, 255, 0)'],
             }}
             transition={{
-              repeat: Infinity, // Repeats indefinitely
-              duration: 2, // Complete spin duration
-              ease: 'easeInOut', // Smooth ease-in and ease-out for bounce and scale
-              times: [0, 0.5, 1], // Bounce timing
+              repeat: Infinity,
+              duration: 2,
+              ease: 'easeInOut',
+              times: [0, 0.5, 1],
+            }}
+          />
+          {/* Second Spinner with Delayed Timing */}
+          <motion.div
+            className="w-24 h-24 border-8 border-t-8 border-transparent rounded-full absolute inset-0"
+            style={{
+              borderTopColor: '#FF6347',
+              borderRightColor: '#ADFF2F',
+              borderBottomColor: '#20B2AA',
+              borderLeftColor: '#FF1493',
+            }}
+            animate={{
+              rotate: -360,
+              y: ['0%', '-30%', '0%'],
+              scale: [1, 1.3, 1],
+              boxShadow: ['0px 0px 0px rgba(255, 255, 255, 0)', '0px 0px 25px rgba(255, 255, 255, 0.7)', '0px 0px 0px rgba(255, 255, 255, 0)'],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 2.5,
+              ease: 'easeInOut',
+              times: [0, 0.5, 1],
             }}
           />
           
-          {/* Text Overlay */}
+          {/* Loading Text with Gradient and Pulse Effect */}
           <motion.div
             className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold"
             initial={{ opacity: 0 }}
             animate={{
-              opacity: [0, 1, 0], // Fade in, then out
-              scale: [0.8, 1, 0.8], // Pulse effect for text
+              opacity: [0, 1, 0],
+              scale: [0.8, 1, 0.8],
+              background: ['linear-gradient(90deg, #ff007f, #ff9900)', 'linear-gradient(90deg, #ff9900, #ff007f)'],
             }}
             transition={{
               delay: 1.8,
@@ -63,7 +85,7 @@ const App: React.FC = () => {
               ease: 'easeInOut',
             }}
           >
-            <span>Loading...</span>
+            <span className="text-transparent bg-clip-text">Loading...</span>
           </motion.div>
         </div>
       </div>
