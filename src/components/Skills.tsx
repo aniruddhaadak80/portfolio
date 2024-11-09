@@ -74,7 +74,7 @@ const Skills: React.FC = () => {
         });
       }
     });
-  }, [filteredSkills]);
+  }, [filteredSkills]); // Re-run animation on filter change
 
   const getCategoryColor = (category: string) => {
     switch (category) {
