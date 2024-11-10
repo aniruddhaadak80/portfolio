@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
+import anime from 'animejs/lib/anime.es.js';
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
+    // Typed.js for Title and Subtitle
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
       typeSpeed: 50,
@@ -28,6 +31,43 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
+    // Anime.js Animation for "View My Work" Button
+    if (buttonRef.current) {
+      anime({
+        targets: buttonRef.current,
+        scale: [1, 1.1],           // Scale animation on hover
+        opacity: [1, 0.7],         // Fade effect
+        duration: 1000,            // Duration of animation
+        easing: 'easeInOutQuad',   // Easing for smoothness
+        loop: true,                // Loop the animation
+        direction: 'alternate',    // Alternate between scale and opacity
+        autoplay: true,            // Start animation immediately
+      });
+
+      // Hover effect with Anime.js
+      buttonRef.current.addEventListener('mouseenter', () => {
+        anime({
+          targets: buttonRef.current,
+          scale: 1.15,          // Scale up on hover
+          opacity: 1,           // Make it fully opaque
+          duration: 500,
+          easing: 'easeOutQuad',
+        });
+      });
+
+      // Revert on hover out
+      buttonRef.current.addEventListener('mouseleave', () => {
+        anime({
+          targets: buttonRef.current,
+          scale: 1,             // Revert to original scale
+          opacity: 0.7,         // Revert opacity
+          duration: 500,
+          easing: 'easeInQuad',
+        });
+      });
+    }
+
+    // Cleanup the Typed.js instances
     return () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
@@ -44,6 +84,7 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
         <a
+          ref={buttonRef}
           href="#projects"
           className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 animate-pulse"
         >
