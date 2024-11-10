@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: '<>',
+      cursorChar: '<🔧>',
     });
 
     return () => {
