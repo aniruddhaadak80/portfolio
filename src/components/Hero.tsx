@@ -76,7 +76,7 @@ const Hero: React.FC = () => {
         </p>
         <button
           ref={buttonRef}
-          className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 animate-pulse"
+          className="relative bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 animate-pulse transform hover:scale-110"
         >
           View My Work
         </button>
