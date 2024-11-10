@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import { gsap } from 'gsap';
+import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
@@ -31,58 +31,8 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
-    // GSAP Motion Path animation for "View My Work" Button
-    const motionPathAnimation = gsap.to(buttonRef.current, {
-      duration: 2,
-      x: 300, // Move horizontally along the X-axis
-      y: 150, // Move vertically along the Y-axis
-      repeat: -1, // Loop indefinitely
-      yoyo: true, // Make it go back and forth
-      paused: true, // Initially paused
-      ease: 'power2.inOut',
-    });
-
-    // Hover animation to trigger motion path
-    if (buttonRef.current) {
-      buttonRef.current.addEventListener('mouseenter', () => {
-        motionPathAnimation.play(); // Start moving along the path
-      });
-      buttonRef.current.addEventListener('mouseleave', () => {
-        motionPathAnimation.reverse(); // Reverse back to the start
-      });
-    }
-
-    // Button Click Animation
-    const clickAnimation = gsap.to(buttonRef.current, {
-      duration: 0.5,
-      scale: 0.9, // Shrink the button
-      repeat: 0,
-      paused: true,
-      ease: 'power1.out',
-      onComplete: () => {
-        gsap.to(buttonRef.current, {
-          duration: 0.2,
-          scale: 1,
-          ease: 'power1.in',
-        });
-      },
-    });
-
-    if (buttonRef.current) {
-      buttonRef.current.addEventListener('click', () => {
-        clickAnimation.play(); // Trigger click animation
-      });
-    }
-
     return () => {
-      // Cleanup event listeners
-      if (buttonRef.current) {
-        buttonRef.current.removeEventListener('mouseenter', () => motionPathAnimation.play());
-        buttonRef.current.removeEventListener('mouseleave', () => motionPathAnimation.reverse());
-        buttonRef.current.removeEventListener('click', () => clickAnimation.play());
-      }
-
-      // Destroy Typed instances
+      // Cleanup Typed.js instances
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
@@ -97,14 +47,31 @@ const Hero: React.FC = () => {
         <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
           <span ref={subtitleRef} />
         </p>
-        <a
+        
+        {/* Framer Motion for the button */}
+        <motion.a
           ref={buttonRef}
           href="#projects"
           className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
+          initial={{ scale: 1 }}
+          whileHover={{
+            scale: 1.1,
+            transition: { duration: 0.3 },
+          }}
+          whileTap={{
+            scale: 0.9,
+            transition: { duration: 0.2 },
+          }}
+          animate={{
+            x: [0, 20, 0], // Move back and forth on the X-axis
+            y: [0, 10, 0], // Move up and down on the Y-axis
+            transition: { duration: 2, repeat: Infinity, repeatType: 'reverse' },
+          }}
         >
           View My Work
-        </a>
+        </motion.a>
       </div>
+
       <a
         href="#about"
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
