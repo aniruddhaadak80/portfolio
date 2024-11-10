@@ -36,8 +36,8 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
-      typeSpeed: 50,
-      backSpeed: 30,
+      typeSpeed: 90,
+      backSpeed: 60,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 10000,
