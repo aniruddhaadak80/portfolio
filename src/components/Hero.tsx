@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import anime from 'animejs/lib/anime.es.js';
+import { gsap } from 'gsap';
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
@@ -31,16 +31,15 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
-    // Motion Path animation for "View My Work" Button
-    const motionPathAnimation = anime({
-      targets: buttonRef.current,
-      translateX: [0, 300], // Move horizontally along the X-axis
-      translateY: [0, 150], // Move vertically along the Y-axis
-      duration: 2000,
-      easing: 'easeInOutQuad',
-      autoplay: false,
-      loop: true,
-      direction: 'alternate', // Move back and forth
+    // GSAP Motion Path animation for "View My Work" Button
+    const motionPathAnimation = gsap.to(buttonRef.current, {
+      duration: 2,
+      x: 300, // Move horizontally along the X-axis
+      y: 150, // Move vertically along the Y-axis
+      repeat: -1, // Loop indefinitely
+      yoyo: true, // Make it go back and forth
+      paused: true, // Initially paused
+      ease: 'power2.inOut',
     });
 
     // Hover animation to trigger motion path
@@ -53,31 +52,25 @@ const Hero: React.FC = () => {
       });
     }
 
-    // Button Click Animation (reset back to origin after path animation)
-    const clickAnimation = anime({
-      targets: buttonRef.current,
-      translateX: [0, 300], // Path motion on click
-      translateY: [0, 150], // Path motion on click
-      scale: [1, 0.9], // Shrink the button
-      duration: 500,
-      easing: 'easeOutQuad',
-      autoplay: false,
-      complete: function () {
-        // Reset to the original position after animation
-        anime({
-          targets: buttonRef.current,
-          translateX: 0,
-          translateY: 0,
+    // Button Click Animation
+    const clickAnimation = gsap.to(buttonRef.current, {
+      duration: 0.5,
+      scale: 0.9, // Shrink the button
+      repeat: 0,
+      paused: true,
+      ease: 'power1.out',
+      onComplete: () => {
+        gsap.to(buttonRef.current, {
+          duration: 0.2,
           scale: 1,
-          duration: 200,
-          easing: 'easeInOutQuad',
+          ease: 'power1.in',
         });
       },
     });
 
     if (buttonRef.current) {
       buttonRef.current.addEventListener('click', () => {
-        clickAnimation.play(); // Play the click animation
+        clickAnimation.play(); // Trigger click animation
       });
     }
 
