@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
       typeSpeed: 50,
-      backSpeed: 50,    // Adjusted backSpeed to make it smooth
+      backSpeed: 30,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: false,  // Don't loop for the heading, it will repeat after the subtitle
       showCursor: false,
@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
       strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
       startDelay: 500,  // Delay for the subtitle to start after heading
       typeSpeed: 40,   // Speed for typing subtitle
-      backSpeed: 40,   // Adjusted backSpeed for subtitle to match the typing speed
+      backSpeed: 20,
       backDelay: 3000, // Pause for 3 seconds after completing typing
       loop: false,     // Don't loop for the subtitle
       showCursor: true,
