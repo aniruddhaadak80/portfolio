@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
+import Vivus from 'vivus';
 
 const Hero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const arrowRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -60,6 +61,16 @@ const Hero: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (arrowRef.current) {
+      new Vivus(arrowRef.current, {
+        type: 'oneByOne',
+        duration: 100,
+        animTimingFunction: Vivus.EASE,
+      });
+    }
+  }, []);
+
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0" />
@@ -79,9 +90,19 @@ const Hero: React.FC = () => {
       </div>
       <a
         href="#about"
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <ArrowDown size={32} className="text-white" />
+        <svg
+          ref={arrowRef}
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="text-white"
+        >
+          <path d="M12 4v16m8-8l-8 8-8-8" stroke="currentColor" strokeWidth="2" />
+        </svg>
       </a>
     </section>
   );
