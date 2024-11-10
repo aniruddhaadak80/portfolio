@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
       backDelay: 6000,
       loop: true,
       loopDelay: 10000,
-      showCursor: true,
+      showCursor: false,
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
       backDelay: 3000,
       loop: true,
       loopDelay: 10000,
-      showCursor: true,
+      showCursor: false,
       // cursorChar: '🔥',
     });
 
