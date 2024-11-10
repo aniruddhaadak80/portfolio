@@ -169,13 +169,18 @@ const Contact: React.FC = () => {
                   style={{ borderColor: currentColor }}
                 />
               </div>
-              <motion.button
+              
+               <motion.button
                 type="submit"
-                className="bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 focus:outline-none transition-all duration-300"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                whileHover={{ scale: 1.1, rotate: 10 }}
+                transition={{ duration: 0.3 }}
                 style={{ backgroundColor: buttonColor }}
               >
-                Send Message <Send size={20} className="ml-2" />
+                <Send size={20} className="mr-2" />
+                Send Message
               </motion.button>
+
             </motion.form>
           </div>
           <div className="w-full lg:w-1/2 px-4">
