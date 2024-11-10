@@ -30,11 +30,10 @@ const Hero: React.FC = () => {
     '#ff2f92', '#ff9800', '#cc00ff', '#7c4dff', '#90a4ae'
   ];
 
-  const cursorIconsForTitle = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
-  const cursorIconsForSubtitle = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
+  const titleCursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
+  const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
 
-  const getRandomCursorForTitle = () => cursorIconsForTitle[Math.floor(Math.random() * cursorIconsForTitle.length)];
-  const getRandomCursorForSubtitle = () => cursorIconsForSubtitle[Math.floor(Math.random() * cursorIconsForSubtitle.length)];
+  const getRandomCursor = (cursorList: string[]) => cursorList[Math.floor(Math.random() * cursorList.length)];
 
   const getRandomColor = (excludeColor: string) => {
     let color;
@@ -44,7 +43,7 @@ const Hero: React.FC = () => {
     return color;
   };
 
-  // Initialize Typed.js for the title
+  // Initialize Typed.js without setting a static cursor
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -54,10 +53,8 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: getRandomCursorForTitle(),  // Cursor for title
     });
 
-    // Initialize Typed.js for the subtitle
     const subtitleTyped = new Typed(subtitleRef.current, {
       strings: ['🅰️ Full-Stack Developer |🤖 AI Enthusiast | 🅿️roblem Solver'],
       startDelay: 2000,
@@ -67,7 +64,7 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: '🔥',  // Default cursor emoji
+      cursorChar: '🔥',
     });
 
     return () => {
@@ -76,16 +73,26 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update cursor emoji for subtitle every second
+  // Update cursor emoji every second for both title and subtitle
   useEffect(() => {
-    const cursorInterval = setInterval(() => {
+    const titleCursorInterval = setInterval(() => {
       const cursorElement = document.querySelector('.typed-cursor');
       if (cursorElement) {
-        cursorElement.innerHTML = getRandomCursorForSubtitle();  // Randomize the cursor for subtitle
+        cursorElement.innerHTML = getRandomCursor(titleCursorIcons);
       }
     }, 1000);
 
-    return () => clearInterval(cursorInterval);
+    const subtitleCursorInterval = setInterval(() => {
+      const subtitleCursorElement = document.querySelector('.typed-cursor') as HTMLElement;
+      if (subtitleCursorElement) {
+        subtitleCursorElement.innerHTML = getRandomCursor(subtitleCursorIcons);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(titleCursorInterval);
+      clearInterval(subtitleCursorInterval);
+    };
   }, []);
 
   useEffect(() => {
