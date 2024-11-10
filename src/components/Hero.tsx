@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
       startDelay: 2000,
       typeSpeed: 40,
       backSpeed: 20,
-      backDelay: 2000,  // Pause for 2 seconds after completing typing
+      backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 10000,
       showCursor: true,
