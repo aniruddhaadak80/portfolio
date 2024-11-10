@@ -104,6 +104,7 @@ const Contact: React.FC = () => {
                   type="text"
                   id="name"
                   name="name"
+                  aria-label="Name"
                   value={formData.name}
                   onChange={handleChange}
                   className="w-full px-4 py-3 text-gray-800 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 shadow-inner bg-gradient-to-r from-pink-100 to-yellow-100 hover:scale-105"
@@ -126,6 +127,7 @@ const Contact: React.FC = () => {
                   type="email"
                   id="email"
                   name="email"
+                  aria-label="Email"
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-4 py-3 text-gray-800 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 shadow-inner bg-gradient-to-r from-green-100 to-teal-100 hover:scale-105"
@@ -147,6 +149,7 @@ const Contact: React.FC = () => {
                 <motion.textarea
                   id="message"
                   name="message"
+                  aria-label="Message"
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
