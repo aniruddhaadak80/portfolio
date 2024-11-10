@@ -41,6 +41,7 @@ const Hero: React.FC = () => {
     return color;
   };
 
+  // Initialize Typed.js without setting a static cursor
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -70,7 +71,7 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update cursor emoji for the title every second
+  // Update cursor emoji every second
   useEffect(() => {
     const cursorInterval = setInterval(() => {
       const cursorElement = document.querySelector('.typed-cursor');
@@ -82,19 +83,18 @@ const Hero: React.FC = () => {
     return () => clearInterval(cursorInterval);
   }, []);
 
-  // Update cursor emoji for subtitle every second
   useEffect(() => {
-    const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
+    if (!isHovering) {
+      const colorInterval = setInterval(() => {
+        setCurrentColor(getRandomColor(currentColor));
+        setArrowColor(getRandomColor(arrowColor));
+        setTitleColor(getRandomColor(titleColor));
+        setSubtitleColor(getRandomColor(subtitleColor));
+      }, 1000);
 
-    const subtitleCursorInterval = setInterval(() => {
-      const cursorElement = document.querySelector('.typed-cursor');
-      if (cursorElement) {
-        cursorElement.innerHTML = subtitleCursorIcons[Math.floor(Math.random() * subtitleCursorIcons.length)];
-      }
-    }, 1000);
-
-    return () => clearInterval(subtitleCursorInterval); // Clear the interval when the component is unmounted
-  }, []);
+      return () => clearInterval(colorInterval);
+    }
+  }, [isHovering, currentColor, arrowColor, titleColor, subtitleColor]);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
