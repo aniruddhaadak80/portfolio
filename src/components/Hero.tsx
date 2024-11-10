@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import Typed from 'typed.js';
 
 const Hero: React.FC = () => {
@@ -6,11 +7,9 @@ const Hero: React.FC = () => {
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color for button
   const [arrowColor, setArrowColor] = useState<string>('#8a4af3'); // Initial color for arrow
-  const [headingColor, setHeadingColor] = useState<string>('#8a4af3'); // Initial color for heading
-  const [subheadingColor, setSubheadingColor] = useState<string>('#8a4af3'); // Initial color for subheading
   const [isHovering, setIsHovering] = useState(false); // Track hover state
 
-  // 20 colors array for button, arrow, heading, and subheading
+  // 20 colors array for button and arrow
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
     '#6366f1', '#e11d48', '#9333ea', '#14b8a6', '#ff4500', '#00bfff',
@@ -22,47 +21,31 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
-      typeSpeed: 40, // Reduced speed further for typing
+      typeSpeed: 50,
       backSpeed: 30,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
-      loopDelay: 3000,  // Ensure 3 seconds delay before it starts again
+      loopDelay: 10000,
       showCursor: false,
-      onStart: () => {
-        // Set random color for heading when typing starts
-        setHeadingColor(getRandomColor(headingColor));
-      },
-      onComplete: () => {
-        // Set random color for heading when typing completes
-        setHeadingColor(getRandomColor(headingColor));
-      },
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
       strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
       startDelay: 2000,
-      typeSpeed: 30,  // Reduced speed further for subtitle typing
+      typeSpeed: 40,
       backSpeed: 20,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
-      loopDelay: 3000,  // Ensure 3 seconds delay before it starts again
+      loopDelay: 10000,
       showCursor: true,
       cursorChar: '|',
-      onStart: () => {
-        // Set random color for subheading when typing starts
-        setSubheadingColor(getRandomColor(subheadingColor));
-      },
-      onComplete: () => {
-        // Set random color for subheading when typing completes
-        setSubheadingColor(getRandomColor(subheadingColor));
-      },
     });
 
     return () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
-  }, [headingColor, subheadingColor]); // Adding these to dependencies ensures color changes are updated
+  }, []);
 
   // Function to get random color that is not the same as the last one
   const getRandomColor = (excludeColor: string) => {
@@ -91,29 +74,39 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
-        {/* Title with random color changes */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-4" style={{ color: headingColor }}>
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
           <span ref={titleRef} />
         </h1>
-
-        {/* Subtitle with random color changes */}
-        <p className="text-2xl md:text-2xl mb-8" style={{ color: subheadingColor }}>
+        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
           <span ref={subtitleRef} />
         </p>
 
         {/* View My Work Button with Continuous Color Change, Hover Effects, and Glowing Animation */}
-        <a
+        <motion.a
           href="#projects"
           className="px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
           style={{
             backgroundColor: currentColor,
             boxShadow: `0 0 15px ${currentColor}`, // Glowing effect based on the current color
           }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            transition: { type: 'spring', stiffness: 300, damping: 30, duration: 1 },
+          }}
+          whileHover={{
+            scale: 1.1, // Scale up slightly on hover
+            opacity: 0.8,
+            transition: { duration: 0.3 },
+            boxShadow: `0 0 25px ${currentColor}`, // Glowing effect on hover
+            backgroundColor: currentColor, // Keep the same color on hover
+          }}
           onMouseEnter={() => setIsHovering(true)} // Stop the automatic color change on hover
           onMouseLeave={() => setIsHovering(false)} // Resume color change after hover
         >
           View My Work
-        </a>
+        </motion.a>
       </div>
 
       {/* Bouncing Arrow with Random Color Change */}
