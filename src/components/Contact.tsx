@@ -15,6 +15,10 @@ const Contact: React.FC = () => {
   const [labelColor, setLabelColor] = useState<string>('#8a4af3');
   const [cursorEmoji, setCursorEmoji] = useState<string>('🔥');
 
+  const [emailColor, setEmailColor] = useState<string>('#8a4af3');
+  const [phoneColor, setPhoneColor] = useState<string>('#8a4af3');
+  const [addressColor, setAddressColor] = useState<string>('#8a4af3');
+
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
     '#6366f1', '#e11d48', '#9333ea', '#14b8a6', '#ff4500', '#00bfff',
@@ -51,11 +55,14 @@ const Contact: React.FC = () => {
       setCurrentColor(getRandomColor(currentColor));
       setButtonColor(getRandomColor(buttonColor));
       setIconColor(getRandomColor(iconColor));
+      setEmailColor(getRandomColor(emailColor));
+      setPhoneColor(getRandomColor(phoneColor));
+      setAddressColor(getRandomColor(addressColor));
       setCursorEmoji(getRandomCursor());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [currentColor, labelColor, buttonColor, iconColor]);
+  }, [currentColor, labelColor, buttonColor, iconColor, emailColor, phoneColor, addressColor]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -164,13 +171,10 @@ const Contact: React.FC = () => {
               </div>
               <motion.button
                 type="submit"
-                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
-                whileHover={{ scale: 1.1, rotate: 10 }}
-                transition={{ duration: 0.3 }}
+                className="bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 focus:outline-none transition-all duration-300"
                 style={{ backgroundColor: buttonColor }}
               >
-                <Send size={20} className="mr-2" />
-                Send Message
+                Send Message <Send size={20} className="ml-2" />
               </motion.button>
             </motion.form>
           </div>
@@ -183,19 +187,29 @@ const Contact: React.FC = () => {
             >
               <div className="flex items-center mb-6">
                 <Mail size={30} color={iconColor} className="mr-4" />
-                <a href="mailto:aniruddhaadak80@gmail.com" className="text-gray-700">
+                <a
+                  href="mailto:aniruddhaadak80@gmail.com"
+                  className="text-gray-700"
+                  style={{ color: emailColor }}
+                >
                   aniruddhaadak80@gmail.com
                 </a>
               </div>
               <div className="flex items-center mb-6">
                 <Phone size={30} color={iconColor} className="mr-4" />
-                <a href="tel:+917029155691" className="text-gray-700">
+                <a
+                  href="tel:+917029155691"
+                  className="text-gray-700"
+                  style={{ color: phoneColor }}
+                >
                   +917029155691
                 </a>
               </div>
               <div className="flex items-center">
                 <MapPin size={30} color={iconColor} className="mr-4" />
-                <p className="text-gray-700">Kolkata, West Bengal, India</p>
+                <p className="text-gray-700" style={{ color: addressColor }}>
+                  Kolkata, West Bengal, India
+                </p>
               </div>
             </motion.div>
           </div>
