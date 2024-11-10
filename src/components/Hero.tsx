@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
-import { motion } from 'framer-motion';
 import Typed from 'typed.js';
 
 const Hero: React.FC = () => {
@@ -45,11 +44,6 @@ const Hero: React.FC = () => {
   };
 
   useEffect(() => {
-    setTitleColor(getRandomColor('#8a4af3'));
-    setSubtitleColor(getRandomColor('#8a4af3'));
-    setCurrentColor(getRandomColor('#8a4af3'));
-    setArrowColor(getRandomColor('#8a4af3'));
-
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
       typeSpeed: 90,
@@ -76,6 +70,22 @@ const Hero: React.FC = () => {
       subtitleTyped.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    setTitleColor(getRandomColor('#8a4af3'));
+    setSubtitleColor(getRandomColor('#8a4af3'));
+    setCurrentColor(getRandomColor('#8a4af3'));
+    setArrowColor(getRandomColor('#8a4af3'));
+
+    const interval = setInterval(() => {
+      setTitleColor(getRandomColor(titleColor));
+      setSubtitleColor(getRandomColor(subtitleColor));
+      setArrowColor(getRandomColor(arrowColor));
+      setCurrentColor(getRandomColor(currentColor));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [titleColor, subtitleColor, arrowColor, currentColor]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -134,47 +144,33 @@ const Hero: React.FC = () => {
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 font-serif" style={{ color: titleColor }}>
+        <h1
+          className="text-5xl md:text-7xl font-bold mb-4 font-serif"
+          style={{ color: titleColor }}
+        >
           <span ref={titleRef} />
+          <span>{getRandomCursor(titleCursorIcons)}</span>
         </h1>
-        <p className="text-xl md:text-2xl mb-8 font-sans" style={{ color: subtitleColor }}>
+        <p
+          className="text-xl md:text-2xl mb-8 font-sans"
+          style={{ color: subtitleColor }}
+        >
           <span ref={subtitleRef} />
+          <span>{getRandomCursor(subtitleCursorIcons)}</span>
         </p>
 
-        <motion.a
+        <a
           href="#projects"
-          className="px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
+          className="bg-pink-500 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
           style={{
             backgroundColor: currentColor,
             boxShadow: `0 0 15px ${currentColor}`,
           }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            transition: { type: 'spring', stiffness: 300, damping: 30, duration: 1 },
-          }}
-          whileHover={{
-            scale: 1.1,
-            opacity: 0.8,
-            transition: { duration: 0.3 },
-            boxShadow: `0 0 25px ${currentColor}`,
-            backgroundColor: currentColor,
-          }}
         >
           View My Work
-        </motion.a>
+        </a>
       </div>
 
       <a
         href="#about"
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
-        style={{ color: arrowColor }}
-      >
-        <ArrowDown size={32} className="text-white" />
-      </a>
-    </section>
-  );
-};
-
-export default Hero;
+        className="absolute bottom-8 left-1/2 transform -
