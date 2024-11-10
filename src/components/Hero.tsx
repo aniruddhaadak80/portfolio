@@ -7,9 +7,11 @@ const Hero: React.FC = () => {
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color for button
   const [arrowColor, setArrowColor] = useState<string>('#8a4af3'); // Initial color for arrow
+  const [titleColor, setTitleColor] = useState<string>('#8a4af3'); // Initial color for title
+  const [subtitleColor, setSubtitleColor] = useState<string>('#8a4af3'); // Initial color for subtitle
   const [isHovering, setIsHovering] = useState(false); // Track hover state
 
-  // 20 colors array for button and arrow
+  // 20 colors array for button, arrow, title, and subtitle
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
     '#6366f1', '#e11d48', '#9333ea', '#14b8a6', '#ff4500', '#00bfff',
@@ -56,28 +58,32 @@ const Hero: React.FC = () => {
     return color;
   };
 
-  // Randomly change button and arrow color every 1 second
+  // Randomly change button, arrow, title, and subtitle color every 1 second
   useEffect(() => {
     if (!isHovering) {
       const colorInterval = setInterval(() => {
         const newButtonColor = getRandomColor(currentColor); // New color for button
         const newArrowColor = getRandomColor(arrowColor); // New color for arrow
+        const newTitleColor = getRandomColor(titleColor); // New color for title
+        const newSubtitleColor = getRandomColor(subtitleColor); // New color for subtitle
 
         setCurrentColor(newButtonColor); // Set new color for button
         setArrowColor(newArrowColor); // Set new color for arrow
+        setTitleColor(newTitleColor); // Set new color for title
+        setSubtitleColor(newSubtitleColor); // Set new color for subtitle
       }, 1000); // Change color every 1 second
 
       return () => clearInterval(colorInterval); // Cleanup interval on component unmount
     }
-  }, [isHovering, currentColor, arrowColor]); // Dependencies for color change
+  }, [isHovering, currentColor, arrowColor, titleColor, subtitleColor]); // Dependencies for color change
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 font-serif" style={{ color: titleColor }}>
           <span ref={titleRef} />
         </h1>
-        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
+        <p className="text-2xl md:text-2xl mb-8 font-sans" style={{ color: subtitleColor }}>
           <span ref={subtitleRef} />
         </p>
 
