@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
 
     const subtitleTyped = new Typed(subtitleRef.current, {
       strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
-      startDelay: 0, // Delay for the subtitle to start after heading
+      startDelay: 1000, // Delay for the subtitle to start after heading
       typeSpeed: 100,   // Slower typing speed for subtitle
       backSpeed: 30,
       backDelay: 3000, // Pause for 3 seconds after completing typing
