@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
-      strings: [`ℹ️'m Aniruddha Adak`],
+      strings: ["ℹ️'m Aniruddha Adak"],
       typeSpeed: 90,
       backSpeed: 60,
       backDelay: 6000,
