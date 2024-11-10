@@ -1,99 +1,58 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Typed from 'typed.js';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false); // Track theme state
-  const titleRef = useRef<HTMLSpanElement>(null);
-  const subtitleRef = useRef<HTMLSpanElement>(null);
+  const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color (dark mode default color)
+  const [isHovering, setIsHovering] = useState(false); // Track hover state
 
+  // Automatically change color every 2 seconds
   useEffect(() => {
-    // Check system theme preference and apply
-    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDarkMode(prefersDarkMode);
+    if (!isHovering) {
+      const colors = ['#8a4af3', '#fcd34d', '#34d399', '#ef4444']; // Array of colors
+      let index = 0;
 
-    // Typed.js for Title and Subtitle
-    const titleTyped = new Typed(titleRef.current, {
-      strings: ['Aniruddha Adak'],
-      typeSpeed: 50,
-      backSpeed: 30,
-      backDelay: 3000,  // Pause for 3 seconds after completing typing
-      loop: true,
-      loopDelay: 10000,
-      showCursor: false,
-    });
+      const colorInterval = setInterval(() => {
+        setCurrentColor(colors[index]);
+        index = (index + 1) % colors.length; // Cycle through colors
+      }, 2000);
 
-    const subtitleTyped = new Typed(subtitleRef.current, {
-      strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
-      startDelay: 2000,
-      typeSpeed: 40,
-      backSpeed: 20,
-      backDelay: 3000,  // Pause for 3 seconds after completing typing
-      loop: true,
-      loopDelay: 10000,
-      showCursor: true,
-      cursorChar: '|',
-    });
-
-    return () => {
-      titleTyped.destroy();
-      subtitleTyped.destroy();
-    };
-  }, [isDarkMode]);
+      return () => clearInterval(colorInterval); // Cleanup interval on component unmount
+    }
+  }, [isHovering]);
 
   return (
-    <section id="home" className={`relative h-screen flex items-center justify-center overflow-hidden ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
+    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
-          <span ref={titleRef} />
+          Aniruddha Adak
         </h1>
         <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
-          <span ref={subtitleRef} />
+          A Full-Stack Developer | AI Enthusiast | Problem Solver
         </p>
 
-        {/* View My Work Button with Continuous Bouncing and Hover Effects */}
+        {/* View My Work Button with Continuous Color Change, Hover Effects, and Glowing Animation */}
         <motion.a
           href="#projects"
-          className={`bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold ${isDarkMode ? 'hover:from-blue-600 hover:to-purple-700' : 'hover:from-yellow-400 hover:to-yellow-600'}`}
-          initial={{ opacity: 0, scale: 0.8 }} // Initial state for the animation (invisible and small)
-          animate={{
-            opacity: 1, 
-            scale: 1, 
-            transition: { 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 30, 
-              duration: 1 
-            },
+          className="px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
+          style={{
+            backgroundColor: currentColor,
+            boxShadow: `0 0 15px ${currentColor}`, // Glowing effect based on the current color
           }}
-          whileInView={{
-            y: [0, -10, 0], // Bouncing effect without hover
-            transition: {
-              duration: 1.5,
-              repeat: Infinity, // Makes the bounce repeat
-              repeatType: "loop",
-              ease: "easeInOut",
-            },
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            transition: { type: 'spring', stiffness: 300, damping: 30, duration: 1 },
           }}
           whileHover={{
             scale: 1.1, // Scale up slightly on hover
-            opacity: 0.8, // Slightly fade on hover
-            transition: {
-              duration: 0.3,
-            },
-            backgroundColor: isDarkMode ? '#8a4af3' : '#fcd34d', // Change hover color for dark/light mode
-            boxShadow: `0 0 25px ${isDarkMode ? 'cyan' : 'yellow'}`,  // Glowing effect on hover
+            opacity: 0.8,
+            transition: { duration: 0.3 },
+            boxShadow: `0 0 25px ${currentColor}`, // Glowing effect on hover
+            backgroundColor: currentColor, // Keep the same color on hover
           }}
-          whileTap={{
-            scale: 0.95, // Slight shrink on click
-            opacity: 0.9,
-            transition: { type: 'spring', stiffness: 100 },
-          }}
-          exit={{ opacity: 0 }}  // Fade out when the element leaves
-          style={{
-            boxShadow: `0 0 15px ${isDarkMode ? 'cyan' : 'yellow'}`,  // Initial glow effect
-            transition: 'box-shadow 0.3s ease-in-out', // Smooth transition for glowing effect
-          }}
+          onMouseEnter={() => setIsHovering(true)} // Stop the automatic color change on hover
+          onMouseLeave={() => setIsHovering(false)} // Resume color change after hover
         >
           View My Work
         </motion.a>
