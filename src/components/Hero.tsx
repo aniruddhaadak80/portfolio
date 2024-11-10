@@ -23,8 +23,8 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
-      typeSpeed: 70, // Reduced speed for typing
-      backSpeed: 50,
+      typeSpeed: 40, // Reduced speed further for typing
+      backSpeed: 30,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 3000,  // Ensure 3 seconds delay before it starts again
@@ -42,11 +42,11 @@ const Hero: React.FC = () => {
     const subtitleTyped = new Typed(subtitleRef.current, {
       strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
       startDelay: 2000,
-      typeSpeed: 70,  // Reduced speed for subtitle typing
+      typeSpeed: 30,  // Reduced speed further for subtitle typing
       backSpeed: 20,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
-      loopDelay: 10000,
+      loopDelay: 3000,  // Ensure 3 seconds delay before it starts again
       showCursor: true,
       cursorChar: '|',
       onStart: () => {
