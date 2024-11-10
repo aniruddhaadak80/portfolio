@@ -31,7 +31,8 @@ const Hero: React.FC = () => {
   ];
 
   const titleCursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
-  const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
+  const subtitleCursorIcons = [ "🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐", "🤖", "🦾", "👾", "🦿"];
+
 
   // Function to get a random cursor emoji
   const getRandomCursor = (emojiSet: string[]) => emojiSet[Math.floor(Math.random() * emojiSet.length)];
@@ -59,7 +60,7 @@ const Hero: React.FC = () => {
       backDelay: 6000,
       loop: true,
       loopDelay: 10000,
-      showCursor: true,
+      showCursor: false,
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
@@ -70,8 +71,7 @@ const Hero: React.FC = () => {
       backDelay: 3000,
       loop: true,
       loopDelay: 10000,
-      showCursor: true,
-      cursorChar: '🔥',
+      showCursor: false,
     });
 
     return () => {
