@@ -35,17 +35,14 @@ const Hero: React.FC = () => {
   // Initialize Typed.js animations for title and subtitle
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
-      // strings: ['Aniruddha Adak'],
-      strings: ['@'],
-
+      strings: ['Aniruddha Adak'],
       typeSpeed: 90,
       backSpeed: 60,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: 'Aniruddha Adak',
-      // showCursor: false,
+      cursorChar: '👨‍💻',
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
