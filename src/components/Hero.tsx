@@ -1,9 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import Typed from 'typed.js';
 
 const Hero: React.FC = () => {
+  const titleRef = useRef<HTMLSpanElement>(null);
+  const subtitleRef = useRef<HTMLSpanElement>(null);
   const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color
   const [isHovering, setIsHovering] = useState(false); // Track hover state
+
+  // Initialize Typed.js animations for title and subtitle
+  useEffect(() => {
+    const titleTyped = new Typed(titleRef.current, {
+      strings: ['Aniruddha Adak'],
+      typeSpeed: 50,
+      backSpeed: 30,
+      backDelay: 3000,  // Pause for 3 seconds after completing typing
+      loop: true,
+      loopDelay: 10000,
+      showCursor: false,
+    });
+
+    const subtitleTyped = new Typed(subtitleRef.current, {
+      strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
+      startDelay: 2000,
+      typeSpeed: 40,
+      backSpeed: 20,
+      backDelay: 3000,  // Pause for 3 seconds after completing typing
+      loop: true,
+      loopDelay: 10000,
+      showCursor: true,
+      cursorChar: '|',
+    });
+
+    return () => {
+      titleTyped.destroy();
+      subtitleTyped.destroy();
+    };
+  }, []);
 
   // Automatically change color every 1 second
   useEffect(() => {
@@ -27,10 +60,10 @@ const Hero: React.FC = () => {
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
-          Aniruddha Adak
+          <span ref={titleRef} />
         </h1>
         <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
-          A Full-Stack Developer | AI Enthusiast | Problem Solver
+          <span ref={subtitleRef} />
         </p>
 
         {/* View My Work Button with Continuous Color Change, Hover Effects, and Glowing Animation */}
