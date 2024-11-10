@@ -31,13 +31,10 @@ const Hero: React.FC = () => {
   ];
 
   const titleCursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
-  const subtitleCursorIcons = [ "🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐", "🤖", "🦾", "👾", "🦿"];
+  const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐", "🤖", "🦾", "👾", "🦿"];
 
-
-  // Function to get a random cursor emoji
   const getRandomCursor = (emojiSet: string[]) => emojiSet[Math.floor(Math.random() * emojiSet.length)];
 
-  // Function to get a random color excluding the provided color
   const getRandomColor = (excludeColor: string) => {
     let color;
     do {
@@ -47,7 +44,6 @@ const Hero: React.FC = () => {
   };
 
   useEffect(() => {
-    // Set initial random color for the title, subtitle, button, and arrow
     setTitleColor(getRandomColor('#8a4af3'));
     setSubtitleColor(getRandomColor('#8a4af3'));
     setCurrentColor(getRandomColor('#8a4af3'));
@@ -80,35 +76,37 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update title, subtitle, button, and arrow colors and cursors every second with a unique emoji
   useEffect(() => {
     const cursorInterval = setInterval(() => {
       const titleCursorElement = document.querySelector('.title-cursor');
       const subtitleCursorElement = document.querySelector('.subtitle-cursor');
 
-      // Get random cursor emoji for both title and subtitle
       const randomTitleCursor = getRandomCursor(titleCursorIcons);
       const randomSubtitleCursor = getRandomCursor(subtitleCursorIcons);
 
-      // Update the cursor emoji for title and subtitle
       if (titleCursorElement) {
-        titleCursorElement.innerHTML = randomTitleCursor;
-        document.body.style.cursor = `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Ctext x="0" y="25" font-size="25"%3E${encodeURIComponent(randomTitleCursor)}%3C/text%3E%3C/svg%3E') 15 15, auto`;
+        titleCursorElement.classList.add('fade-out');
+        setTimeout(() => {
+          titleCursorElement.innerHTML = randomTitleCursor;
+          titleCursorElement.classList.remove('fade-out');
+        }, 500);
       }
 
       if (subtitleCursorElement) {
-        subtitleCursorElement.innerHTML = randomSubtitleCursor;
-        document.body.style.cursor = `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Ctext x="0" y="25" font-size="25"%3E${encodeURIComponent(randomSubtitleCursor)}%3C/text%3E%3C/svg%3E') 15 15, auto`;
+        subtitleCursorElement.classList.add('fade-out');
+        setTimeout(() => {
+          subtitleCursorElement.innerHTML = randomSubtitleCursor;
+          subtitleCursorElement.classList.remove('fade-out');
+        }, 500);
       }
 
-      // Update title, subtitle, button, and arrow colors every second
       setTitleColor(getRandomColor(titleColor));
       setSubtitleColor(getRandomColor(subtitleColor));
       setCurrentColor(getRandomColor(currentColor));
       setArrowColor(getRandomColor(arrowColor));
     }, 1000);
 
-    return () => clearInterval(cursorInterval); // Cleanup the interval
+    return () => clearInterval(cursorInterval);
   }, [titleColor, subtitleColor, currentColor, arrowColor]);
 
   return (
@@ -155,8 +153,14 @@ const Hero: React.FC = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
         style={{ color: arrowColor }}
       >
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 4v16m8-8l-8 8-8-8" stroke="currentColor" strokeWidth="2" />
+        <svg width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 8v20m0 0l8-8m-8 8l-8-8"
+            stroke={arrowColor}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </a>
     </section>
@@ -164,3 +168,11 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
+
+// CSS (Add the following styles to your global CSS file or use inline styles)
+<style>
+  .fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+</style>
