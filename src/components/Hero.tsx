@@ -1,18 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import mojs from '@mojs/core';
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
       typeSpeed: 50,
       backSpeed: 30,
-      backDelay: 2000,
+      backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 10000,
       showCursor: false,
@@ -23,63 +21,34 @@ const Hero: React.FC = () => {
       startDelay: 2000,
       typeSpeed: 40,
       backSpeed: 20,
-      backDelay: 2000,
+      backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 10000,
       showCursor: true,
       cursorChar: '|',
     });
 
-    // Define Mo.js burst animation
-    const burst = new mojs.Burst({
-      parent: buttonRef.current,
-      radius: { 0: 100 },
-      count: 10,
-      children: {
-        shape: 'circle',
-        radius: { 10: 0 },
-        fill: { '#FD7924': '#7C4DFF' },
-        duration: 800,
-        easing: 'cubic.out',
-      },
-    });
-
-    // Trigger burst animation on button click
-    const handleClick = () => {
-      burst.replay();
-    };
-
-    // Attach click event listener
-    const button = buttonRef.current;
-    if (button) {
-      button.addEventListener('click', handleClick);
-    }
-
-    // Clean up Typed.js instances and event listener
     return () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
-      if (button) {
-        button.removeEventListener('click', handleClick);
-      }
     };
   }, []);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif"> {/* Font for title */}
           <span ref={titleRef} />
         </h1>
-        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
+        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans"> {/* Font for subtitle */}
           <span ref={subtitleRef} />
         </p>
-        <button
-          ref={buttonRef}
-          className="relative bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 animate-pulse transform hover:scale-110"
+        <a
+          href="#projects"
+          className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 animate-pulse"
         >
           View My Work
-        </button>
+        </a>
       </div>
       <a
         href="#about"
