@@ -31,9 +31,9 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
-    // Vivus for animating the SVG path on button
+    // Vivus "oneByOne" animation for animating the SVG path on button
     new Vivus(buttonRef.current, {
-      type: 'delayed', // Delayed animation type
+      type: 'oneByOne', // Animation type "oneByOne" draws each path segment one after the other
       duration: 150, // Animation duration (in frames)
       animTimingFunction: Vivus.EASE_IN_OUT, // Timing function for the animation
       start: 'inViewport', // Start animation when SVG comes into viewport
@@ -91,13 +91,11 @@ const Hero: React.FC = () => {
 
       {/* CSS Styles */}
       <style jsx>{`
-        /* Pulse effect on button */
         .group {
           position: relative;
           display: inline-block;
           text-decoration: none;
           overflow: hidden;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .group svg {
@@ -106,41 +104,6 @@ const Hero: React.FC = () => {
 
         .group span {
           transition: all 0.3s ease;
-        }
-
-        /* Button default state */
-        .group:hover {
-          animation: pulseAnimation 2s infinite; /* Pulse effect */
-        }
-
-        .group span {
-          color: #ffffff;
-        }
-
-        /* SVG color change when hovered */
-        .group:hover svg {
-          stroke: #fbbf24; /* Change SVG stroke color */
-          transform: scale(1.1); /* Slightly enlarge the path */
-        }
-
-        /* Pulse animation keyframes */
-        @keyframes pulseAnimation {
-          0% {
-            transform: scale(1);
-            box-shadow: 0 0 0 rgba(250, 191, 36, 0.4);
-          }
-          50% {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(250, 191, 36, 0.7);
-          }
-          100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 rgba(250, 191, 36, 0.4);
-          }
-        }
-
-        .group:hover span {
-          color: #fbbf24; /* Change text color on hover */
         }
       `}</style>
     </section>
