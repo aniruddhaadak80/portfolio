@@ -10,23 +10,24 @@ const Hero: React.FC = () => {
       strings: ['Aniruddha Adak'],
       typeSpeed: 50,
       backSpeed: 30,
+      backDelay: 2000,  // Pause for 2 seconds after completing typing
       loop: true,
-      loopDelay: 10000,  // Delay of 10 seconds between loops
+      loopDelay: 10000,
       showCursor: false,
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
       strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
-      startDelay: 2000,  // Delay to start typing subtitle after title
+      startDelay: 2000,
       typeSpeed: 40,
       backSpeed: 20,
+      backDelay: 2000,  // Pause for 2 seconds after completing typing
       loop: true,
-      loopDelay: 10000,  // Delay of 10 seconds between loops
+      loopDelay: 10000,
       showCursor: true,
       cursorChar: '|',
     });
 
-    // Clean up Typed.js instances on unmount
     return () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
@@ -36,10 +37,10 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700">
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif"> {/* Font for title */}
           <span ref={titleRef} />
         </h1>
-        <p className="text-2xl md:text-2xl mb-8 text-emerald-300">
+        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans"> {/* Font for subtitle */}
           <span ref={subtitleRef} />
         </p>
         <a
