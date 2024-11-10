@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -8,6 +8,51 @@ const Contact: React.FC = () => {
     email: '',
     message: '',
   });
+
+  const [currentColor, setCurrentColor] = useState<string>('#8a4af3');
+  const [buttonColor, setButtonColor] = useState<string>('#8a4af3');
+  const [iconColor, setIconColor] = useState<string>('#8a4af3');
+  const [labelColor, setLabelColor] = useState<string>('#8a4af3');
+  const [cursorEmoji, setCursorEmoji] = useState<string>('🔥');
+
+  const colors = [
+    '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
+    '#6366f1', '#e11d48', '#9333ea', '#14b8a6', '#ff4500', '#00bfff',
+    '#ff6347', '#adff2f', '#7cfc00', '#1e90ff', '#ff1493', '#ff8c00',
+    '#b22222', '#9acd32', '#ff76a2', '#20b2aa', '#ffd700', '#ba55d3',
+    '#00ced1', '#ff00ff', '#ff8c00', '#e9967a', '#800080', '#00ff7f',
+    '#ff1493', '#ff6347', '#ffff00', '#ff9e00', '#00ff00', '#b0e0e6',
+    '#a52a2a', '#f0e68c', '#ff00ff', '#d2691e', '#ff6347', '#00fa9a',
+    '#800000', '#ffb6c1', '#20b2aa', '#f0f8ff', '#adff2f', '#ff1493',
+    '#ffd700', '#ff4500', '#ff6347', '#ff77ff', '#ff5c8d', '#f28500',
+    '#ff33cc', '#9c00d4', '#6a5acd', '#ffcc00', '#ff3366', '#00bcd4',
+    '#64ffda', '#f5b800', '#4caf50', '#ff2f92', '#ff9800', '#cc00ff',
+    '#7c4dff', '#90a4ae'
+  ];
+
+  const cursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐", "🤖", "🦾", "👾", "🦿"];
+
+  const getRandomColor = (excludeColor: string) => {
+    let color;
+    do {
+      color = colors[Math.floor(Math.random() * colors.length)];
+    } while (color === excludeColor);
+    return color;
+  };
+
+  const getRandomCursor = () => cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLabelColor(getRandomColor(labelColor));
+      setCurrentColor(getRandomColor(currentColor));
+      setButtonColor(getRandomColor(buttonColor));
+      setIconColor(getRandomColor(iconColor));
+      setCursorEmoji(getRandomCursor());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [currentColor, labelColor, buttonColor, iconColor]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -32,6 +77,7 @@ const Contact: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
+          style={{ color: labelColor }}
         >
           Contact Me
         </motion.h2>
@@ -49,7 +95,7 @@ const Contact: React.FC = () => {
                   htmlFor="name"
                   className="block text-gray-700 font-semibold mb-2 text-lg"
                 >
-                  Name
+                  Name <span>{cursorEmoji}</span>
                 </label>
                 <motion.input
                   type="text"
@@ -63,6 +109,7 @@ const Contact: React.FC = () => {
                   animate={{ opacity: 1 }}
                   initial={{ opacity: 0 }}
                   transition={{ delay: 0.3 }}
+                  style={{ borderColor: currentColor }}
                 />
               </div>
               <div className="mb-6">
@@ -70,7 +117,7 @@ const Contact: React.FC = () => {
                   htmlFor="email"
                   className="block text-gray-700 font-semibold mb-2 text-lg"
                 >
-                  Email
+                  Email <span>{cursorEmoji}</span>
                 </label>
                 <motion.input
                   type="email"
@@ -84,6 +131,7 @@ const Contact: React.FC = () => {
                   animate={{ opacity: 1 }}
                   initial={{ opacity: 0 }}
                   transition={{ delay: 0.4 }}
+                  style={{ borderColor: currentColor }}
                 />
               </div>
               <div className="mb-6">
@@ -91,7 +139,7 @@ const Contact: React.FC = () => {
                   htmlFor="message"
                   className="block text-gray-700 font-semibold mb-2 text-lg"
                 >
-                  Message
+                  Message <span>{cursorEmoji}</span>
                 </label>
                 <motion.textarea
                   id="message"
@@ -105,6 +153,7 @@ const Contact: React.FC = () => {
                   animate={{ opacity: 1 }}
                   initial={{ opacity: 0 }}
                   transition={{ delay: 0.5 }}
+                  style={{ borderColor: currentColor }}
                 />
               </div>
               <motion.button
@@ -112,6 +161,7 @@ const Contact: React.FC = () => {
                 className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
                 whileHover={{ scale: 1.1, rotate: 10 }}
                 transition={{ duration: 0.3 }}
+                style={{ backgroundColor: buttonColor }}
               >
                 <Send size={20} className="mr-2" />
                 Send Message
