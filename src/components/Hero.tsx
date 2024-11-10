@@ -1,13 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Typed from 'typed.js';
 import anime from 'animejs/lib/anime.es.js'; // Import anime.js
 
 const Hero: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false); // Track theme state
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null); // Reference to button
 
   useEffect(() => {
+    // Check system theme preference and apply
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(prefersDarkMode);
+
     // Typed.js for Title and Subtitle
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -49,8 +54,8 @@ const Hero: React.FC = () => {
       anime({
         targets: buttonRef.current,
         boxShadow: [
-          { value: '0 0 15px rgba(255, 255, 255, 0.5)', duration: 1000 },
-          { value: '0 0 30px rgba(255, 105, 180, 0.8)', duration: 1000 },
+          { value: isDarkMode ? '0 0 15px rgba(255, 255, 255, 0.5)' : '0 0 15px rgba(0, 0, 0, 0.5)', duration: 1000 },
+          { value: isDarkMode ? '0 0 30px rgba(0, 255, 255, 0.8)' : '0 0 30px rgba(255, 105, 180, 0.8)', duration: 1000 },
         ],
         easing: 'easeInOutQuad',
         loop: true,
@@ -60,7 +65,7 @@ const Hero: React.FC = () => {
       // Sparkling effect with circles around the button
       anime({
         targets: buttonRef.current,
-        borderColor: ['#ff6347', '#ff1493', '#ff4500'], // Change border colors
+        borderColor: isDarkMode ? ['#ff1493', '#ff6347', '#ff4500'] : ['#ff6347', '#ff1493', '#ff4500'], // Adjust border colors
         duration: 1500,
         loop: true,
         easing: 'linear',
@@ -74,10 +79,10 @@ const Hero: React.FC = () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
-  }, []);
+  }, [isDarkMode]);
 
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className={`relative h-screen flex items-center justify-center overflow-hidden ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <div className="relative z-10 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
           <span ref={titleRef} />
@@ -90,7 +95,7 @@ const Hero: React.FC = () => {
         <a
           ref={buttonRef} // Attach the ref
           href="#projects"
-          className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold"
+          className={`bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold ${isDarkMode ? 'hover:from-blue-600 hover:to-purple-700' : 'hover:from-yellow-400 hover:to-yellow-600'}`}
         >
           View My Work
         </a>
