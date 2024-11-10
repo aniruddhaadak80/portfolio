@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
       strings: ['Aniruddha Adak'],
       typeSpeed: 50,
       backSpeed: 30,
-      backDelay: 2000,  // Pause for 2 seconds after completing typing
+      backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 10000,
       showCursor: false,
