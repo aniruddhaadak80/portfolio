@@ -31,32 +31,39 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
-    // Anime.js Animation for "View My Work" Button on Hover
-    const hoverAnimation = anime({
+    // Motion Path animation for "View My Work" Button
+    const motionPathAnimation = anime({
       targets: buttonRef.current,
-      scale: [1, 1.1], // Increase scale by 10% on hover
-      duration: 500,
-      easing: 'easeInOutSine',
+      translateX: [0, 300], // Move horizontally along the X-axis
+      translateY: [0, 150], // Move vertically along the Y-axis
+      duration: 2000,
+      easing: 'easeInOutQuad',
       autoplay: false,
       loop: true,
+      direction: 'alternate', // Move back and forth
     });
 
+    // Hover animation to trigger motion path
     if (buttonRef.current) {
-      buttonRef.current.addEventListener('mouseenter', () => hoverAnimation.play());
-      buttonRef.current.addEventListener('mouseleave', () => hoverAnimation.reverse());
+      buttonRef.current.addEventListener('mouseenter', () => {
+        motionPathAnimation.play(); // Start moving along the path
+      });
+      buttonRef.current.addEventListener('mouseleave', () => {
+        motionPathAnimation.reverse(); // Reverse back to the start
+      });
     }
 
-    // Anime.js for Button on Click (Specific Unit animation)
+    // Button Click Animation (reset back to origin after path animation)
     const clickAnimation = anime({
       targets: buttonRef.current,
-      translateX: [0, 30], // Move right by 30px
-      translateY: [0, 10], // Move down by 10px
-      scale: [1, 0.9], // Shrink the button on click
-      duration: 300,
+      translateX: [0, 300], // Path motion on click
+      translateY: [0, 150], // Path motion on click
+      scale: [1, 0.9], // Shrink the button
+      duration: 500,
       easing: 'easeOutQuad',
       autoplay: false,
       complete: function () {
-        // Reset position and scale after animation ends
+        // Reset to the original position after animation
         anime({
           targets: buttonRef.current,
           translateX: 0,
@@ -69,14 +76,16 @@ const Hero: React.FC = () => {
     });
 
     if (buttonRef.current) {
-      buttonRef.current.addEventListener('click', () => clickAnimation.play());
+      buttonRef.current.addEventListener('click', () => {
+        clickAnimation.play(); // Play the click animation
+      });
     }
 
     return () => {
       // Cleanup event listeners
       if (buttonRef.current) {
-        buttonRef.current.removeEventListener('mouseenter', () => hoverAnimation.play());
-        buttonRef.current.removeEventListener('mouseleave', () => hoverAnimation.reverse());
+        buttonRef.current.removeEventListener('mouseenter', () => motionPathAnimation.play());
+        buttonRef.current.removeEventListener('mouseleave', () => motionPathAnimation.reverse());
         buttonRef.current.removeEventListener('click', () => clickAnimation.play());
       }
 
