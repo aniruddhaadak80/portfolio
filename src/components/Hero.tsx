@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import Typed from 'typed.js';
 
 const Hero: React.FC = () => {
@@ -23,29 +24,21 @@ const Hero: React.FC = () => {
       typeSpeed: 50,
       backSpeed: 30,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
-      loop: false,  // Don't loop for the heading, it will repeat after the subtitle
+      loop: true,
+      loopDelay: 10000,
       showCursor: false,
-      onComplete: () => {
-        // Start typing the subtitle after the title completes
-        subtitleTyped.start();
-      }
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
       strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
-      startDelay: 500,  // Delay for the subtitle to start after heading
-      typeSpeed: 40,   // Speed for typing subtitle
+      startDelay: 2000,
+      typeSpeed: 40,
       backSpeed: 20,
-      backDelay: 3000, // Pause for 3 seconds after completing typing
-      loop: false,     // Don't loop for the subtitle
+      backDelay: 3000,  // Pause for 3 seconds after completing typing
+      loop: true,
+      loopDelay: 10000,
       showCursor: true,
       cursorChar: '|',
-      onComplete: () => {
-        // After subtitle completes, restart the heading
-        setTimeout(() => {
-          titleTyped.start();
-        }, 3000);  // Pause for 3 seconds before restarting the heading
-      }
     });
 
     return () => {
@@ -63,6 +56,21 @@ const Hero: React.FC = () => {
     return color;
   };
 
+  // Randomly change button and arrow color every 1 second
+  useEffect(() => {
+    if (!isHovering) {
+      const colorInterval = setInterval(() => {
+        const newButtonColor = getRandomColor(currentColor); // New color for button
+        const newArrowColor = getRandomColor(arrowColor); // New color for arrow
+
+        setCurrentColor(newButtonColor); // Set new color for button
+        setArrowColor(newArrowColor); // Set new color for arrow
+      }, 1000); // Change color every 1 second
+
+      return () => clearInterval(colorInterval); // Cleanup interval on component unmount
+    }
+  }, [isHovering, currentColor, arrowColor]); // Dependencies for color change
+
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
@@ -72,34 +80,34 @@ const Hero: React.FC = () => {
         <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
           <span ref={subtitleRef} />
         </p>
-      </div>
 
-      {/* View My Work Button with Continuous Color Change, Hover Effects, and Glowing Animation */}
-      <motion.a
-        href="#projects"
-        className="px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
-        style={{
-          backgroundColor: currentColor,
-          boxShadow: `0 0 15px ${currentColor}`, // Glowing effect based on the current color
-        }}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-          transition: { type: 'spring', stiffness: 300, damping: 30, duration: 1 },
-        }}
-        whileHover={{
-          scale: 1.1, // Scale up slightly on hover
-          opacity: 0.8,
-          transition: { duration: 0.3 },
-          boxShadow: `0 0 25px ${currentColor}`, // Glowing effect on hover
-          backgroundColor: currentColor, // Keep the same color on hover
-        }}
-        onMouseEnter={() => setIsHovering(true)} // Stop the automatic color change on hover
-        onMouseLeave={() => setIsHovering(false)} // Resume color change after hover
-      >
-        View My Work
-      </motion.a>
+        {/* View My Work Button with Continuous Color Change, Hover Effects, and Glowing Animation */}
+        <motion.a
+          href="#projects"
+          className="px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
+          style={{
+            backgroundColor: currentColor,
+            boxShadow: `0 0 15px ${currentColor}`, // Glowing effect based on the current color
+          }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            transition: { type: 'spring', stiffness: 300, damping: 30, duration: 1 },
+          }}
+          whileHover={{
+            scale: 1.1, // Scale up slightly on hover
+            opacity: 0.8,
+            transition: { duration: 0.3 },
+            boxShadow: `0 0 25px ${currentColor}`, // Glowing effect on hover
+            backgroundColor: currentColor, // Keep the same color on hover
+          }}
+          onMouseEnter={() => setIsHovering(true)} // Stop the automatic color change on hover
+          onMouseLeave={() => setIsHovering(false)} // Resume color change after hover
+        >
+          View My Work
+        </motion.a>
+      </div>
 
       {/* Bouncing Arrow with Random Color Change */}
       <a
