@@ -30,7 +30,10 @@ const Contact: React.FC = () => {
     '#7c4dff', '#90a4ae'
   ];
 
-  const cursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐", "🤖", "🦾", "👾", "🦿"];
+  const contactEmojis = [
+    "📱", "📲", "☎️", "📞", "🤳", "📶", "📳", "🤙", "💌", "✉️", "📧", 
+    "📨", "📩", "📤", "📮", "📭", "📬", "📫", "📪", "📥", "🌐", "🌐"
+  ];
 
   const getRandomColor = (excludeColor: string) => {
     let color;
@@ -40,7 +43,7 @@ const Contact: React.FC = () => {
     return color;
   };
 
-  const getRandomCursor = () => cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
+  const getRandomCursor = () => contactEmojis[Math.floor(Math.random() * contactEmojis.length)];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -175,44 +178,18 @@ const Contact: React.FC = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <h3 className="text-3xl font-bold mb-6 text-gray-800">Get in Touch</h3>
-              <motion.div
-                className="flex items-center mb-6 group"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
-                <Mail className="text-blue-500 mr-4 group-hover:animate-pulse transition duration-300" />
-                <a
-                  href="mailto:aniruddhaadak80@gmail.com"
-                  className="text-gray-700 text-lg hover:text-blue-500 transition-colors duration-300"
-                >
-                  aniruddhaadak80@gmail.com
-                </a>
-              </motion.div>
-              <motion.div
-                className="flex items-center mb-6 group"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-              >
-                <Phone className="text-blue-500 mr-4 group-hover:animate-pulse transition duration-300" />
-                <a
-                  href="tel:+917029155691"
-                  className="text-gray-700 text-lg hover:text-blue-500 transition-colors duration-300"
-                >
-                  +91 7029155691
-                </a>
-              </motion.div>
-              <motion.div
-                className="flex items-center group"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-              >
-                <MapPin className="text-blue-500 mr-4 group-hover:animate-pulse transition duration-300" />
-                <span className="text-gray-700 text-lg">West Bengal, India</span>
-              </motion.div>
+              <div className="flex items-center mb-6">
+                <Mail size={30} color={iconColor} className="mr-4" />
+                <p className="text-gray-700">youremail@example.com</p>
+              </div>
+              <div className="flex items-center mb-6">
+                <Phone size={30} color={iconColor} className="mr-4" />
+                <p className="text-gray-700">+1 (123) 456-7890</p>
+              </div>
+              <div className="flex items-center">
+                <MapPin size={30} color={iconColor} className="mr-4" />
+                <p className="text-gray-700">123 Your Street, Your City, Your Country</p>
+              </div>
             </motion.div>
           </div>
         </div>
