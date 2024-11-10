@@ -10,6 +10,8 @@ const Hero: React.FC = () => {
       strings: ['Aniruddha Adak'],
       typeSpeed: 50,
       backSpeed: 30,
+      loop: true,
+      loopDelay: 6000,  // Set a delay of 6 seconds between loops
       showCursor: false,
     });
 
@@ -18,6 +20,8 @@ const Hero: React.FC = () => {
       startDelay: 2000,  // Delay to start typing subtitle after title
       typeSpeed: 40,
       backSpeed: 20,
+      loop: true,
+      loopDelay: 6000,  // Set a delay of 6 seconds between loops
       showCursor: true,
       cursorChar: '|',
     });
