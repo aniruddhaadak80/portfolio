@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
-      strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
+      strings: ['🅰️ Full-Stack Developer |🤖 AI Enthusiast | 🅿️roblem Solver'],
       startDelay: 2000,
       typeSpeed: 40,
       backSpeed: 20,
@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: '</>',
+      cursorChar: '🔥',
     });
 
     return () => {
