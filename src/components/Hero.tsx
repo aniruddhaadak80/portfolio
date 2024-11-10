@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
-  const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color (dark mode default color)
+  const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color
   const [isHovering, setIsHovering] = useState(false); // Track hover state
 
-  // Automatically change color every 2 seconds
+  // Automatically change color every 1 second
   useEffect(() => {
     if (!isHovering) {
-      const colors = ['#8a4af3', '#fcd34d', '#34d399', '#ef4444']; // Array of colors
+      const colors = [
+        '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
+        '#6366f1', '#e11d48', '#9333ea', '#14b8a6'
+      ]; // Array of 10 colors
       let index = 0;
 
       const colorInterval = setInterval(() => {
         setCurrentColor(colors[index]);
         index = (index + 1) % colors.length; // Cycle through colors
-      }, 2000);
+      }, 1000); // Change color every second
 
       return () => clearInterval(colorInterval); // Cleanup interval on component unmount
     }
