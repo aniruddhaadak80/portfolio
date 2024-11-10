@@ -157,7 +157,7 @@ const Hero: React.FC = () => {
 
         <a
           href="#projects"
-          className="bg-pink-500 text-lime-400 px-8 py-3 rounded-full text-lg font-verdana transition-all duration-300"
+          className="bg-pink-500 text-lime-400 px-8 py-3 rounded-full text-xl font-bold font-verdana transition-all duration-300"
           style={{
             backgroundColor: currentColor,
             boxShadow: `0 0 15px ${currentColor}`,
