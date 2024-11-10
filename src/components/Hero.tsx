@@ -46,9 +46,11 @@ const Hero: React.FC = () => {
   };
 
   useEffect(() => {
-    // Set initial random color for the title and subtitle
+    // Set initial random color for the title, subtitle, button, and arrow
     setTitleColor(getRandomColor('#8a4af3'));
     setSubtitleColor(getRandomColor('#8a4af3'));
+    setCurrentColor(getRandomColor('#8a4af3'));
+    setArrowColor(getRandomColor('#8a4af3'));
 
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -78,7 +80,7 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update title and subtitle cursors every second with a unique emoji
+  // Update title, subtitle, button, and arrow colors and cursors every second with a unique emoji
   useEffect(() => {
     const cursorInterval = setInterval(() => {
       const titleCursorElement = document.querySelector('.title-cursor');
@@ -97,13 +99,15 @@ const Hero: React.FC = () => {
         subtitleCursorElement.innerHTML = randomSubtitleCursor;
       }
 
-      // Update title and subtitle colors every second
+      // Update title, subtitle, button, and arrow colors every second
       setTitleColor(getRandomColor(titleColor));
       setSubtitleColor(getRandomColor(subtitleColor));
+      setCurrentColor(getRandomColor(currentColor));
+      setArrowColor(getRandomColor(arrowColor));
     }, 1000);
 
     return () => clearInterval(cursorInterval); // Cleanup the interval
-  }, [titleColor, subtitleColor]);
+  }, [titleColor, subtitleColor, currentColor, arrowColor]);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
