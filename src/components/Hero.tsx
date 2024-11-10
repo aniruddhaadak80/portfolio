@@ -41,7 +41,9 @@ const Hero: React.FC = () => {
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
       loopDelay: 10000,
-      showCursor: false,
+      showCursor: true,
+      cursorChar: '$',
+      // showCursor: false,
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
