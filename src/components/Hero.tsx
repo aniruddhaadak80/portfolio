@@ -1,11 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import Vivus from 'vivus';
+import { ArrowDown } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const arrowRef = useRef<SVGSVGElement>(null);
-  const titleRef = useRef<SVGSVGElement>(null);
-  const subtitleRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -63,64 +60,16 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (arrowRef.current) {
-      new Vivus(arrowRef.current, {
-        type: 'oneByOne',
-        duration: 100,
-        animTimingFunction: Vivus.EASE,
-      });
-    }
-    if (titleRef.current) {
-      new Vivus(titleRef.current, {
-        type: 'oneByOne',
-        duration: 200,
-        animTimingFunction: Vivus.EASE,
-      });
-    }
-    if (subtitleRef.current) {
-      new Vivus(subtitleRef.current, {
-        type: 'oneByOne',
-        duration: 150,
-        animTimingFunction: Vivus.EASE,
-      });
-    }
-  }, []);
-
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="relative z-10 text-center">
-        <svg
-          ref={titleRef}
-          width="400"
-          height="100"
-          viewBox="0 0 400 100"
-          xmlns="http://www.w3.org/2000/svg"
-          className="mx-auto mb-4"
-        >
-          <path
-            d="M10,40 L390,40" // Replace with your actual SVG path for "Aniruddha Adak"
-            stroke="#9F7AEA"
-            strokeWidth="2"
-            fill="none"
-          />
-        </svg>
-        <svg
-          ref={subtitleRef}
-          width="400"
-          height="50"
-          viewBox="0 0 400 50"
-          xmlns="http://www.w3.org/2000/svg"
-          className="mx-auto mb-8"
-        >
-          <path
-            d="M10,20 L390,20" // Replace with actual SVG path for "Full-Stack Developer | AI Enthusiast | Problem Solver"
-            stroke="#48BB78"
-            strokeWidth="2"
-            fill="none"
-          />
-        </svg>
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 animate-fade-in-down">
+          Aniruddha Adak
+        </h1>
+        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 animate-fade-in-up">
+          Full-Stack Developer | AI Enthusiast | Problem Solver
+        </p>
         <a
           href="#projects"
           className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 animate-pulse"
@@ -130,19 +79,9 @@ const Hero: React.FC = () => {
       </div>
       <a
         href="#about"
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
       >
-        <svg
-          ref={arrowRef}
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="text-white"
-        >
-          <path d="M12 4v16m8-8l-8 8-8-8" stroke="currentColor" strokeWidth="2" />
-        </svg>
+        <ArrowDown size={32} className="text-white" />
       </a>
     </section>
   );
