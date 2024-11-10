@@ -51,14 +51,33 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
 
-        {/* View My Work Button with Framer Motion Animation */}
+        {/* View My Work Button with Dynamic Framer Motion Animation */}
         <motion.a
           href="#projects"
           className={`bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold ${isDarkMode ? 'hover:from-blue-600 hover:to-purple-700' : 'hover:from-yellow-400 hover:to-yellow-600'}`}
-          initial={{ scale: 1, opacity: 1 }}
-          whileHover={{ scale: 1.1, opacity: 0.8 }} // Scale and opacity change on hover
-          whileTap={{ scale: 0.9 }} // Button shrinks on click
-          transition={{ type: "spring", stiffness: 300 }}
+          initial={{ opacity: 0, scale: 0.8 }} // Initial state for the animation (invisible and small)
+          animate={{
+            opacity: 1, 
+            scale: 1, 
+            rotate: 360,  // Dynamic rotation effect
+            transition: { 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 30, 
+              duration: 1 
+            },
+          }}
+          whileHover={{
+            scale: 1.1, // Scale up slightly on hover
+            opacity: 0.8, // Slightly fade on hover
+            transition: { type: 'spring', stiffness: 500 },
+          }}
+          whileTap={{
+            scale: 0.95, // Slight shrink on click
+            opacity: 0.9,
+            transition: { type: 'spring', stiffness: 100 },
+          }}
+          exit={{ opacity: 0 }}  // Fade out when the element leaves
           style={{
             boxShadow: `0 0 15px ${isDarkMode ? 'cyan' : 'yellow'}`,  // Glowing effect
           }}
