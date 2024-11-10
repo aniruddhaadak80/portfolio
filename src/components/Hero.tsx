@@ -30,10 +30,8 @@ const Hero: React.FC = () => {
     '#ff2f92', '#ff9800', '#cc00ff', '#7c4dff', '#90a4ae'
   ];
 
-  const titleCursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
-  const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
-
-  const getRandomCursor = (cursorList: string[]) => cursorList[Math.floor(Math.random() * cursorList.length)];
+  const cursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
+  const getRandomCursor = () => cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
 
   const getRandomColor = (excludeColor: string) => {
     let color;
@@ -43,7 +41,6 @@ const Hero: React.FC = () => {
     return color;
   };
 
-  // Initialize Typed.js without setting a static cursor
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -73,40 +70,31 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update cursor emoji every second for both title and subtitle
+  // Update cursor emoji for the title every second
   useEffect(() => {
-    const titleCursorInterval = setInterval(() => {
+    const cursorInterval = setInterval(() => {
       const cursorElement = document.querySelector('.typed-cursor');
       if (cursorElement) {
-        cursorElement.innerHTML = getRandomCursor(titleCursorIcons);
+        cursorElement.innerHTML = getRandomCursor();
       }
     }, 1000);
 
-    const subtitleCursorInterval = setInterval(() => {
-      const subtitleCursorElement = document.querySelector('.typed-cursor') as HTMLElement;
-      if (subtitleCursorElement) {
-        subtitleCursorElement.innerHTML = getRandomCursor(subtitleCursorIcons);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(titleCursorInterval);
-      clearInterval(subtitleCursorInterval);
-    };
+    return () => clearInterval(cursorInterval);
   }, []);
 
+  // Update cursor emoji for subtitle every second
   useEffect(() => {
-    if (!isHovering) {
-      const colorInterval = setInterval(() => {
-        setCurrentColor(getRandomColor(currentColor));
-        setArrowColor(getRandomColor(arrowColor));
-        setTitleColor(getRandomColor(titleColor));
-        setSubtitleColor(getRandomColor(subtitleColor));
-      }, 1000);
+    const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
 
-      return () => clearInterval(colorInterval);
-    }
-  }, [isHovering, currentColor, arrowColor, titleColor, subtitleColor]);
+    const subtitleCursorInterval = setInterval(() => {
+      const cursorElement = document.querySelector('.typed-cursor');
+      if (cursorElement) {
+        cursorElement.innerHTML = subtitleCursorIcons[Math.floor(Math.random() * subtitleCursorIcons.length)];
+      }
+    }, 1000);
+
+    return () => clearInterval(subtitleCursorInterval); // Clear the interval when the component is unmounted
+  }, []);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
