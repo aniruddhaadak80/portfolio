@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
       backSpeed: 30,
       backDelay: 3000,  // Pause for 3 seconds after completing typing
       loop: true,
-      loopDelay: 10000,
+      loopDelay: 3000,  // Ensure 3 seconds delay before it starts again
       showCursor: false,
       onStart: () => {
         // Set random color for heading when typing starts
