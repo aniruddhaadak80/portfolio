@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
 
-        {/* View My Work Button with Dynamic Framer Motion Animation */}
+        {/* View My Work Button with Continuous Bouncing and Hover Effects */}
         <motion.a
           href="#projects"
           className={`bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold ${isDarkMode ? 'hover:from-blue-600 hover:to-purple-700' : 'hover:from-yellow-400 hover:to-yellow-600'}`}
@@ -59,7 +59,6 @@ const Hero: React.FC = () => {
           animate={{
             opacity: 1, 
             scale: 1, 
-            rotate: 360,  // Dynamic rotation effect
             transition: { 
               type: "spring", 
               stiffness: 300, 
@@ -67,17 +66,23 @@ const Hero: React.FC = () => {
               duration: 1 
             },
           }}
+          whileInView={{
+            y: [0, -10, 0], // Bouncing effect without hover
+            transition: {
+              duration: 1.5,
+              repeat: Infinity, // Makes the bounce repeat
+              repeatType: "loop",
+              ease: "easeInOut",
+            },
+          }}
           whileHover={{
             scale: 1.1, // Scale up slightly on hover
             opacity: 0.8, // Slightly fade on hover
-            y: [-10, 0], // Bouncing effect (move up then back to position)
             transition: {
-              type: 'spring',
-              stiffness: 500, 
-              damping: 20, // Bounciness effect
-              repeat: Infinity, // Make the bounce loop when hovered
-              repeatType: 'mirror', // Makes it bounce back and forth
+              duration: 0.3,
             },
+            backgroundColor: isDarkMode ? '#8a4af3' : '#fcd34d', // Change hover color for dark/light mode
+            boxShadow: `0 0 25px ${isDarkMode ? 'cyan' : 'yellow'}`,  // Glowing effect on hover
           }}
           whileTap={{
             scale: 0.95, // Slight shrink on click
@@ -86,7 +91,8 @@ const Hero: React.FC = () => {
           }}
           exit={{ opacity: 0 }}  // Fade out when the element leaves
           style={{
-            boxShadow: `0 0 15px ${isDarkMode ? 'cyan' : 'yellow'}`,  // Glowing effect
+            boxShadow: `0 0 15px ${isDarkMode ? 'cyan' : 'yellow'}`,  // Initial glow effect
+            transition: 'box-shadow 0.3s ease-in-out', // Smooth transition for glowing effect
           }}
         >
           View My Work
