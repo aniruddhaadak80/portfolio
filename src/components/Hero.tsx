@@ -31,44 +31,56 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
-    // Anime.js Animation for "View My Work" Button
+    // Anime.js Animation for "View My Work" Button on Hover
+    const hoverAnimation = anime({
+      targets: buttonRef.current,
+      scale: [1, 1.1], // Increase scale by 10% on hover
+      duration: 500,
+      easing: 'easeInOutSine',
+      autoplay: false,
+      loop: true,
+    });
+
     if (buttonRef.current) {
-      anime({
-        targets: buttonRef.current,
-        scale: [1, 1.1],           // Scale animation on hover
-        opacity: [1, 0.7],         // Fade effect
-        duration: 1000,            // Duration of animation
-        easing: 'easeInOutQuad',   // Easing for smoothness
-        loop: true,                // Loop the animation
-        direction: 'alternate',    // Alternate between scale and opacity
-        autoplay: true,            // Start animation immediately
-      });
-
-      // Hover effect with Anime.js
-      buttonRef.current.addEventListener('mouseenter', () => {
-        anime({
-          targets: buttonRef.current,
-          scale: 1.15,          // Scale up on hover
-          opacity: 1,           // Make it fully opaque
-          duration: 500,
-          easing: 'easeOutQuad',
-        });
-      });
-
-      // Revert on hover out
-      buttonRef.current.addEventListener('mouseleave', () => {
-        anime({
-          targets: buttonRef.current,
-          scale: 1,             // Revert to original scale
-          opacity: 0.7,         // Revert opacity
-          duration: 500,
-          easing: 'easeInQuad',
-        });
-      });
+      buttonRef.current.addEventListener('mouseenter', () => hoverAnimation.play());
+      buttonRef.current.addEventListener('mouseleave', () => hoverAnimation.reverse());
     }
 
-    // Cleanup the Typed.js instances
+    // Anime.js for Button on Click (Specific Unit animation)
+    const clickAnimation = anime({
+      targets: buttonRef.current,
+      translateX: [0, 30], // Move right by 30px
+      translateY: [0, 10], // Move down by 10px
+      scale: [1, 0.9], // Shrink the button on click
+      duration: 300,
+      easing: 'easeOutQuad',
+      autoplay: false,
+      complete: function () {
+        // Reset position and scale after animation ends
+        anime({
+          targets: buttonRef.current,
+          translateX: 0,
+          translateY: 0,
+          scale: 1,
+          duration: 200,
+          easing: 'easeInOutQuad',
+        });
+      },
+    });
+
+    if (buttonRef.current) {
+      buttonRef.current.addEventListener('click', () => clickAnimation.play());
+    }
+
     return () => {
+      // Cleanup event listeners
+      if (buttonRef.current) {
+        buttonRef.current.removeEventListener('mouseenter', () => hoverAnimation.play());
+        buttonRef.current.removeEventListener('mouseleave', () => hoverAnimation.reverse());
+        buttonRef.current.removeEventListener('click', () => clickAnimation.play());
+      }
+
+      // Destroy Typed instances
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
@@ -77,16 +89,16 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif"> {/* Font for title */}
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
           <span ref={titleRef} />
         </h1>
-        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans"> {/* Font for subtitle */}
+        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
           <span ref={subtitleRef} />
         </p>
         <a
           ref={buttonRef}
           href="#projects"
-          className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 animate-pulse"
+          className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
         >
           View My Work
         </a>
