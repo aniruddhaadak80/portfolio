@@ -93,6 +93,7 @@ const Hero: React.FC = () => {
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="relative z-10 text-center">
+        {/* SVG for "Aniruddha Adak" */}
         <svg
           ref={titleRef}
           width="400"
@@ -102,12 +103,13 @@ const Hero: React.FC = () => {
           className="mx-auto mb-4"
         >
           <path
-            d="M10,40 L390,40" // Replace with your actual SVG path for "Aniruddha Adak"
+            d="M10,40 L390,40" // Replace with actual SVG path data for "Aniruddha Adak"
             stroke="#9F7AEA"
             strokeWidth="2"
             fill="none"
           />
         </svg>
+        {/* SVG for "Full-Stack Developer | AI Enthusiast | Problem Solver" */}
         <svg
           ref={subtitleRef}
           width="400"
@@ -117,7 +119,7 @@ const Hero: React.FC = () => {
           className="mx-auto mb-8"
         >
           <path
-            d="M10,20 L390,20" // Replace with actual SVG path for "Full-Stack Developer | AI Enthusiast | Problem Solver"
+            d="M10,20 L390,20" // Replace with actual SVG path data for "Full-Stack Developer | AI Enthusiast | Problem Solver"
             stroke="#48BB78"
             strokeWidth="2"
             fill="none"
