@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
+import anime from 'animejs/lib/anime.es.js'; // Import anime.js
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null); // Reference to button
 
   useEffect(() => {
     // Typed.js for Title and Subtitle
@@ -29,8 +31,46 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
+    // Glowing and Sparkling animation for the button
+    const animateButton = () => {
+      anime({
+        targets: buttonRef.current,
+        scale: [1, 1.1, 1],  // Scaling effect (pulsing)
+        duration: 2000,
+        easing: 'easeInOutSine',
+        loop: true,
+        direction: 'alternate',
+        opacity: [1, 0.7, 1], // Fade effect
+        loopDelay: 2000,
+        delay: 500,
+      });
+
+      // Glowing effect with a soft pulsating glow using box-shadow
+      anime({
+        targets: buttonRef.current,
+        boxShadow: [
+          { value: '0 0 15px rgba(255, 255, 255, 0.5)', duration: 1000 },
+          { value: '0 0 30px rgba(255, 105, 180, 0.8)', duration: 1000 },
+        ],
+        easing: 'easeInOutQuad',
+        loop: true,
+        direction: 'alternate',
+      });
+
+      // Sparkling effect with circles around the button
+      anime({
+        targets: buttonRef.current,
+        borderColor: ['#ff6347', '#ff1493', '#ff4500'], // Change border colors
+        duration: 1500,
+        loop: true,
+        easing: 'linear',
+        delay: 1000,
+      });
+    };
+
+    animateButton(); // Trigger animation when component mounts
+
     return () => {
-      // Cleanup Typed.js instances
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
@@ -46,8 +86,12 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
 
-        {/* View My Work Button without Vivus animation */}
-        <a href="#projects" className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
+        {/* View My Work Button with glowing and sparkling effect */}
+        <a
+          ref={buttonRef} // Attach the ref
+          href="#projects"
+          className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold"
+        >
           View My Work
         </a>
       </div>
