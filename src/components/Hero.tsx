@@ -7,6 +7,13 @@ const Hero: React.FC = () => {
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color
   const [isHovering, setIsHovering] = useState(false); // Track hover state
+  const [arrowColor, setArrowColor] = useState<string>('#8a4af3'); // Initial color for arrow
+
+  // Colors array for the button and arrow
+  const colors = [
+    '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
+    '#6366f1', '#e11d48', '#9333ea', '#14b8a6'
+  ];
 
   // Initialize Typed.js animations for title and subtitle
   useEffect(() => {
@@ -38,19 +45,19 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Automatically change color every 1 second
+  // Randomly change the button and arrow color every 1 second
   useEffect(() => {
     if (!isHovering) {
-      const colors = [
-        '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
-        '#6366f1', '#e11d48', '#9333ea', '#14b8a6'
-      ]; // Array of 10 colors
       let index = 0;
 
-      const colorInterval = setInterval(() => {
-        setCurrentColor(colors[index]);
-        index = (index + 1) % colors.length; // Cycle through colors
-      }, 1000); // Change color every second
+      const changeColor = () => {
+        // Select a random color from the colors array
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        setCurrentColor(randomColor);
+        setArrowColor(randomColor); // Set random color to the arrow as well
+      };
+
+      const colorInterval = setInterval(changeColor, 1000); // Change color every 1 second
 
       return () => clearInterval(colorInterval); // Cleanup interval on component unmount
     }
@@ -94,9 +101,11 @@ const Hero: React.FC = () => {
         </motion.a>
       </div>
 
+      {/* Bouncing Arrow with Random Color Change */}
       <a
         href="#about"
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+        style={{ color: arrowColor }} // Apply the random color to the arrow
       >
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 4v16m8-8l-8 8-8-8" stroke="currentColor" strokeWidth="2" />
