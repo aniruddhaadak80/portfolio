@@ -1,15 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Typed from 'typed.js';
-import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import { motion } from 'framer-motion';
 
-// Hero Component with Remotion Animation
 const Hero: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false); // Track theme state
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
-
-  const frame = useCurrentFrame(); // Get the current frame from Remotion
-  const { fps } = useVideoConfig(); // Get video fps configuration
 
   useEffect(() => {
     // Check system theme preference and apply
@@ -45,15 +41,6 @@ const Hero: React.FC = () => {
     };
   }, [isDarkMode]);
 
-  // Remotion Animation for Button
-  const buttonScale = interpolate(frame, [0, 100, 200], [1, 1.2, 1], {
-    extrapolateRight: 'clamp',
-  });
-  
-  const buttonGlow = interpolate(frame, [0, 100, 200], [0.3, 1, 0.3], {
-    extrapolateRight: 'clamp',
-  });
-
   return (
     <section id="home" className={`relative h-screen flex items-center justify-center overflow-hidden ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <div className="relative z-10 text-center">
@@ -64,17 +51,20 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
 
-        {/* View My Work Button with Remotion Animation */}
-        <a
+        {/* View My Work Button with Framer Motion Animation */}
+        <motion.a
           href="#projects"
           className={`bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold ${isDarkMode ? 'hover:from-blue-600 hover:to-purple-700' : 'hover:from-yellow-400 hover:to-yellow-600'}`}
+          initial={{ scale: 1, opacity: 1 }}
+          whileHover={{ scale: 1.1, opacity: 0.8 }} // Scale and opacity change on hover
+          whileTap={{ scale: 0.9 }} // Button shrinks on click
+          transition={{ type: "spring", stiffness: 300 }}
           style={{
-            transform: `scale(${buttonScale})`,  // Scale animation from Remotion
-            opacity: buttonGlow, // Glowing effect animation
+            boxShadow: `0 0 15px ${isDarkMode ? 'cyan' : 'yellow'}`,  // Glowing effect
           }}
         >
           View My Work
-        </a>
+        </motion.a>
       </div>
 
       <a
