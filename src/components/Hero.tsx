@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import Typed from 'typed.js';
 
 const Hero: React.FC = () => {
@@ -103,31 +102,18 @@ const Hero: React.FC = () => {
         </p>
 
         {/* View My Work Button with Continuous Color Change, Hover Effects, and Glowing Animation */}
-        <motion.a
+        <a
           href="#projects"
           className="px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
           style={{
             backgroundColor: currentColor,
             boxShadow: `0 0 15px ${currentColor}`, // Glowing effect based on the current color
           }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            transition: { type: 'spring', stiffness: 300, damping: 30, duration: 1 },
-          }}
-          whileHover={{
-            scale: 1.1, // Scale up slightly on hover
-            opacity: 0.8,
-            transition: { duration: 0.3 },
-            boxShadow: `0 0 25px ${currentColor}`, // Glowing effect on hover
-            backgroundColor: currentColor, // Keep the same color on hover
-          }}
           onMouseEnter={() => setIsHovering(true)} // Stop the automatic color change on hover
           onMouseLeave={() => setIsHovering(false)} // Resume color change after hover
         >
           View My Work
-        </motion.a>
+        </a>
       </div>
 
       {/* Bouncing Arrow with Random Color Change */}
