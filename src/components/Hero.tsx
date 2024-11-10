@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
       strings: ['Aniruddha Adak'],
       typeSpeed: 60,   // Slower typing speed for heading
       backSpeed: 30,
-      backDelay: 1000,  // Pause for 1 second after completing typing
+      backDelay: 10000,  // Pause for 10 second after completing typing
       startDelay: 0,
       loop: true,
       loopDelay: 10000,
@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
       startDelay: 1000, // Delay for the subtitle to start after heading
       typeSpeed: 50,   // Slower typing speed for subtitle
       backSpeed: 20,
-      backDelay: 2000, // Pause for 2 seconds after completing typing
+      backDelay: 3000, // Pause for 2 seconds after completing typing
       loop: true,
       loopDelay: 10000,
       showCursor: true,
