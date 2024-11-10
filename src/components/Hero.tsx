@@ -33,8 +33,10 @@ const Hero: React.FC = () => {
   const titleCursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
   const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
 
-  const getRandomCursor = (icons: string[]) => icons[Math.floor(Math.random() * icons.length)];
+  // Function to get a random cursor emoji
+  const getRandomCursor = (emojiSet: string[]) => emojiSet[Math.floor(Math.random() * emojiSet.length)];
 
+  // Function to get a random color excluding the provided color
   const getRandomColor = (excludeColor: string) => {
     let color;
     do {
@@ -44,6 +46,10 @@ const Hero: React.FC = () => {
   };
 
   useEffect(() => {
+    // Set initial random color for the title and subtitle
+    setTitleColor(getRandomColor('#8a4af3'));
+    setSubtitleColor(getRandomColor('#8a4af3'));
+
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
       typeSpeed: 90,
@@ -51,7 +57,7 @@ const Hero: React.FC = () => {
       backDelay: 6000,
       loop: true,
       loopDelay: 10000,
-      showCursor: false,
+      showCursor: true,
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
@@ -62,8 +68,8 @@ const Hero: React.FC = () => {
       backDelay: 3000,
       loop: true,
       loopDelay: 10000,
-      showCursor: false,
-      // cursorChar: '🔥',
+      showCursor: true,
+      cursorChar: '🔥',
     });
 
     return () => {
@@ -72,29 +78,32 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update cursor for title every second
+  // Update title and subtitle cursors every second with a unique emoji
   useEffect(() => {
     const cursorInterval = setInterval(() => {
-      const cursorElement = document.querySelector('.title-cursor');
-      if (cursorElement) {
-        cursorElement.innerHTML = getRandomCursor(titleCursorIcons);
+      const titleCursorElement = document.querySelector('.title-cursor');
+      const subtitleCursorElement = document.querySelector('.subtitle-cursor');
+
+      // Get random cursor emoji for both title and subtitle
+      const randomTitleCursor = getRandomCursor(titleCursorIcons);
+      const randomSubtitleCursor = getRandomCursor(subtitleCursorIcons);
+
+      // Update the cursor emoji for title and subtitle
+      if (titleCursorElement) {
+        titleCursorElement.innerHTML = randomTitleCursor;
       }
+
+      if (subtitleCursorElement) {
+        subtitleCursorElement.innerHTML = randomSubtitleCursor;
+      }
+
+      // Update title and subtitle colors every second
+      setTitleColor(getRandomColor(titleColor));
+      setSubtitleColor(getRandomColor(subtitleColor));
     }, 1000);
 
-    return () => clearInterval(cursorInterval);
-  }, []);
-
-  // Update cursor for subtitle every second
-  useEffect(() => {
-    const subtitleCursorInterval = setInterval(() => {
-      const cursorElement = document.querySelector('.subtitle-cursor');
-      if (cursorElement) {
-        cursorElement.innerHTML = getRandomCursor(subtitleCursorIcons);
-      }
-    }, 1000);
-
-    return () => clearInterval(subtitleCursorInterval); // Clear the interval when the component is unmounted
-  }, []);
+    return () => clearInterval(cursorInterval); // Cleanup the interval
+  }, [titleColor, subtitleColor]);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
