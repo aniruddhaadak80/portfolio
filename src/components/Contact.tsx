@@ -183,15 +183,15 @@ const Contact: React.FC = () => {
             >
               <div className="flex items-center mb-6">
                 <Mail size={30} color={iconColor} className="mr-4" />
-                <p className="text-gray-700">youremail@example.com</p>
+                <p className="text-gray-700">aniruddhaadak80@gmail.com</p>
               </div>
               <div className="flex items-center mb-6">
                 <Phone size={30} color={iconColor} className="mr-4" />
-                <p className="text-gray-700">+1 (123) 456-7890</p>
+                <p className="text-gray-700">+917029155691</p>
               </div>
               <div className="flex items-center">
                 <MapPin size={30} color={iconColor} className="mr-4" />
-                <p className="text-gray-700">123 Your Street, Your City, Your Country</p>
+                <p className="text-gray-700">Kolkata, West Bengal, India</p>
               </div>
             </motion.div>
           </div>
