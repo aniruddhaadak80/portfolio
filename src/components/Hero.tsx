@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Typed from 'typed.js';
 
 const Hero: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const [currentColor, setCurrentColor] = useState<string>('#8a4af3');
   const [arrowColor, setArrowColor] = useState<string>('#8a4af3');
   const [titleColor, setTitleColor] = useState<string>('#8a4af3');
   const [subtitleColor, setSubtitleColor] = useState<string>('#8a4af3');
-  const [isHovering, setIsHovering] = useState(false);
 
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
@@ -77,49 +78,59 @@ const Hero: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      const titleCursorElement = document.querySelector('.title-cursor');
-      const subtitleCursorElement = document.querySelector('.subtitle-cursor');
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles: { x: number; y: number; size: number; speedX: number; speedY: number }[] = [];
+    const particleCount = 100;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 5 + 1,
+        speedX: Math.random() * 3 - 1.5,
+        speedY: Math.random() * 3 - 1.5
+      });
+    }
 
-      const randomTitleCursor = getRandomCursor(titleCursorIcons);
-      const randomSubtitleCursor = getRandomCursor(subtitleCursorIcons);
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((particle) => {
+        ctx.fillStyle = 'rgba(66, 153, 225, 0.5)';
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+        if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
 
-      if (titleCursorElement) {
-        titleCursorElement.classList.add('fade-out');
-        setTimeout(() => {
-          titleCursorElement.innerHTML = randomTitleCursor;
-          titleCursorElement.classList.remove('fade-out');
-        }, 500);
-      }
-
-      if (subtitleCursorElement) {
-        subtitleCursorElement.classList.add('fade-out');
-        setTimeout(() => {
-          subtitleCursorElement.innerHTML = randomSubtitleCursor;
-          subtitleCursorElement.classList.remove('fade-out');
-        }, 500);
-      }
-
-      setTitleColor(getRandomColor(titleColor));
-      setSubtitleColor(getRandomColor(subtitleColor));
-      setCurrentColor(getRandomColor(currentColor));
-      setArrowColor(getRandomColor(arrowColor));
-    }, 1000);
-
-    return () => clearInterval(cursorInterval);
-  }, [titleColor, subtitleColor, currentColor, arrowColor]);
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradientBG">
-      <div className="absolute inset-0 z-0 bg-cover bg-center" style={{ backgroundImage: 'url("/path/to/your/image.jpg")' }}></div>
+    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+      <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="relative z-10 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-4 font-serif" style={{ color: titleColor }}>
           <span ref={titleRef} />
-          <span className="title-cursor" />
         </h1>
-        <p className="text-2xl md:text-2xl mb-8 font-sans" style={{ color: subtitleColor }}>
+        <p className="text-xl md:text-2xl mb-8 font-sans" style={{ color: subtitleColor }}>
           <span ref={subtitleRef} />
-          <span className="subtitle-cursor" />
         </p>
 
         <motion.a
@@ -142,8 +153,6 @@ const Hero: React.FC = () => {
             boxShadow: `0 0 25px ${currentColor}`,
             backgroundColor: currentColor,
           }}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
         >
           View My Work
         </motion.a>
@@ -154,15 +163,7 @@ const Hero: React.FC = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
         style={{ color: arrowColor }}
       >
-        <svg width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M12 8v20m0 0l8-8m-8 8l-8-8"
-            stroke={arrowColor}
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <ArrowDown size={32} className="text-white" />
       </a>
     </section>
   );
@@ -172,10 +173,6 @@ export default Hero;
 
 // CSS (Add the following styles to your global CSS file or use inline styles)
 <style>
-  .fade-out {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-  }
   .animate-gradientBG {
     animation: gradientBG 15s ease infinite;
   }
