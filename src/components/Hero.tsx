@@ -5,13 +5,12 @@ import Typed from 'typed.js';
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
-  const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color for button
-  const [arrowColor, setArrowColor] = useState<string>('#8a4af3'); // Initial color for arrow
-  const [titleColor, setTitleColor] = useState<string>('#8a4af3'); // Initial color for title
-  const [subtitleColor, setSubtitleColor] = useState<string>('#8a4af3'); // Initial color for subtitle
-  const [isHovering, setIsHovering] = useState(false); // Track hover state
+  const [currentColor, setCurrentColor] = useState<string>('#8a4af3');
+  const [arrowColor, setArrowColor] = useState<string>('#8a4af3');
+  const [titleColor, setTitleColor] = useState<string>('#8a4af3');
+  const [subtitleColor, setSubtitleColor] = useState<string>('#8a4af3');
+  const [isHovering, setIsHovering] = useState(false);
 
-  // 120 colors array for button, arrow, title, and subtitle
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
     '#6366f1', '#e11d48', '#9333ea', '#14b8a6', '#ff4500', '#00bfff',
@@ -30,19 +29,30 @@ const Hero: React.FC = () => {
     '#ffcc00', '#ff3366', '#00bcd4', '#64ffda', '#f5b800', '#4caf50',
     '#ff2f92', '#ff9800', '#cc00ff', '#7c4dff', '#90a4ae'
   ];
-  
 
-  // Initialize Typed.js animations for title and subtitle
+  // Array of emojis for cursor icon
+  const cursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
+
+  const getRandomCursor = () => cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
+  const getRandomColor = (excludeColor: string) => {
+    let color;
+    do {
+      color = colors[Math.floor(Math.random() * colors.length)];
+    } while (color === excludeColor);
+    return color;
+  };
+
+  // Initialize Typed.js with a random cursor emoji
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
       typeSpeed: 90,
       backSpeed: 60,
-      backDelay: 6000,  // Pause for 6 seconds after completing typing
+      backDelay: 6000,
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: '👨‍💻',
+      cursorChar: getRandomCursor(), // Use a random emoji as the cursor
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
@@ -50,7 +60,7 @@ const Hero: React.FC = () => {
       startDelay: 2000,
       typeSpeed: 40,
       backSpeed: 20,
-      backDelay: 3000,  // Pause for 3 seconds after completing typing
+      backDelay: 3000,
       loop: true,
       loopDelay: 10000,
       showCursor: true,
@@ -63,33 +73,18 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Function to get random color that is not the same as the last one
-  const getRandomColor = (excludeColor: string) => {
-    let color;
-    do {
-      color = colors[Math.floor(Math.random() * colors.length)];
-    } while (color === excludeColor); // Ensure no same color in consecutive calls
-    return color;
-  };
-
-  // Randomly change button, arrow, title, and subtitle color every 1 second
   useEffect(() => {
     if (!isHovering) {
       const colorInterval = setInterval(() => {
-        const newButtonColor = getRandomColor(currentColor); // New color for button
-        const newArrowColor = getRandomColor(arrowColor); // New color for arrow
-        const newTitleColor = getRandomColor(titleColor); // New color for title
-        const newSubtitleColor = getRandomColor(subtitleColor); // New color for subtitle
+        setCurrentColor(getRandomColor(currentColor));
+        setArrowColor(getRandomColor(arrowColor));
+        setTitleColor(getRandomColor(titleColor));
+        setSubtitleColor(getRandomColor(subtitleColor));
+      }, 1000);
 
-        setCurrentColor(newButtonColor); // Set new color for button
-        setArrowColor(newArrowColor); // Set new color for arrow
-        setTitleColor(newTitleColor); // Set new color for title
-        setSubtitleColor(newSubtitleColor); // Set new color for subtitle
-      }, 1000); // Change color every 1 second
-
-      return () => clearInterval(colorInterval); // Cleanup interval on component unmount
+      return () => clearInterval(colorInterval);
     }
-  }, [isHovering, currentColor, arrowColor, titleColor, subtitleColor]); // Dependencies for color change
+  }, [isHovering, currentColor, arrowColor, titleColor, subtitleColor]);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -101,13 +96,12 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
 
-        {/* View My Work Button with Continuous Color Change, Hover Effects, and Glowing Animation */}
         <motion.a
           href="#projects"
           className="px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300"
           style={{
             backgroundColor: currentColor,
-            boxShadow: `0 0 15px ${currentColor}`, // Glowing effect based on the current color
+            boxShadow: `0 0 15px ${currentColor}`,
           }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{
@@ -116,24 +110,23 @@ const Hero: React.FC = () => {
             transition: { type: 'spring', stiffness: 300, damping: 30, duration: 1 },
           }}
           whileHover={{
-            scale: 1.1, // Scale up slightly on hover
+            scale: 1.1,
             opacity: 0.8,
             transition: { duration: 0.3 },
-            boxShadow: `0 0 25px ${currentColor}`, // Glowing effect on hover
-            backgroundColor: currentColor, // Keep the same color on hover
+            boxShadow: `0 0 25px ${currentColor}`,
+            backgroundColor: currentColor,
           }}
-          onMouseEnter={() => setIsHovering(true)} // Stop the automatic color change on hover
-          onMouseLeave={() => setIsHovering(false)} // Resume color change after hover
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
         >
           View My Work
         </motion.a>
       </div>
 
-      {/* Bouncing Arrow with Random Color Change */}
       <a
         href="#about"
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
-        style={{ color: arrowColor }} // Apply the random color to the arrow
+        style={{ color: arrowColor }}
       >
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 4v16m8-8l-8 8-8-8" stroke="currentColor" strokeWidth="2" />
