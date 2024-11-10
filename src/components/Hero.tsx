@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Typed from 'typed.js';
-import anime from 'animejs/lib/anime.es.js'; // Import anime.js
+import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
+// Hero Component with Remotion Animation
 const Hero: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false); // Track theme state
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
-  const buttonRef = useRef<HTMLAnchorElement>(null); // Reference to button
+
+  const frame = useCurrentFrame(); // Get the current frame from Remotion
+  const { fps } = useVideoConfig(); // Get video fps configuration
 
   useEffect(() => {
     // Check system theme preference and apply
@@ -36,50 +39,20 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
-    // Glowing and Sparkling animation for the button
-    const animateButton = () => {
-      anime({
-        targets: buttonRef.current,
-        scale: [1, 1.1, 1],  // Scaling effect (pulsing)
-        duration: 2000,
-        easing: 'easeInOutSine',
-        loop: true,
-        direction: 'alternate',
-        opacity: [1, 0.7, 1], // Fade effect
-        loopDelay: 2000,
-        delay: 500,
-      });
-
-      // Glowing effect with a soft pulsating glow using box-shadow
-      anime({
-        targets: buttonRef.current,
-        boxShadow: [
-          { value: isDarkMode ? '0 0 15px rgba(255, 255, 255, 0.5)' : '0 0 15px rgba(0, 0, 0, 0.5)', duration: 1000 },
-          { value: isDarkMode ? '0 0 30px rgba(0, 255, 255, 0.8)' : '0 0 30px rgba(255, 105, 180, 0.8)', duration: 1000 },
-        ],
-        easing: 'easeInOutQuad',
-        loop: true,
-        direction: 'alternate',
-      });
-
-      // Sparkling effect with circles around the button
-      anime({
-        targets: buttonRef.current,
-        borderColor: isDarkMode ? ['#ff1493', '#ff6347', '#ff4500'] : ['#ff6347', '#ff1493', '#ff4500'], // Adjust border colors
-        duration: 1500,
-        loop: true,
-        easing: 'linear',
-        delay: 1000,
-      });
-    };
-
-    animateButton(); // Trigger animation when component mounts
-
     return () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
   }, [isDarkMode]);
+
+  // Remotion Animation for Button
+  const buttonScale = interpolate(frame, [0, 100, 200], [1, 1.2, 1], {
+    extrapolateRight: 'clamp',
+  });
+  
+  const buttonGlow = interpolate(frame, [0, 100, 200], [0.3, 1, 0.3], {
+    extrapolateRight: 'clamp',
+  });
 
   return (
     <section id="home" className={`relative h-screen flex items-center justify-center overflow-hidden ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
@@ -91,11 +64,14 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
 
-        {/* View My Work Button with glowing and sparkling effect */}
+        {/* View My Work Button with Remotion Animation */}
         <a
-          ref={buttonRef} // Attach the ref
           href="#projects"
           className={`bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold ${isDarkMode ? 'hover:from-blue-600 hover:to-purple-700' : 'hover:from-yellow-400 hover:to-yellow-600'}`}
+          style={{
+            transform: `scale(${buttonScale})`,  // Scale animation from Remotion
+            opacity: buttonGlow, // Glowing effect animation
+          }}
         >
           View My Work
         </a>
