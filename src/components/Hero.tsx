@@ -70,7 +70,14 @@ const Hero: React.FC = () => {
           whileHover={{
             scale: 1.1, // Scale up slightly on hover
             opacity: 0.8, // Slightly fade on hover
-            transition: { type: 'spring', stiffness: 500 },
+            y: [-10, 0], // Bouncing effect (move up then back to position)
+            transition: {
+              type: 'spring',
+              stiffness: 500, 
+              damping: 20, // Bounciness effect
+              repeat: Infinity, // Make the bounce loop when hovered
+              repeatType: 'mirror', // Makes it bounce back and forth
+            },
           }}
           whileTap={{
             scale: 0.95, // Slight shrink on click
