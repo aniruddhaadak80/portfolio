@@ -67,11 +67,12 @@ const Hero: React.FC = () => {
             stroke="currentColor"
             strokeWidth="2"
           >
+            {/* Straight line path */}
             <path
-              d="M10,25 Q50,5 100,25 T190,25"
+              d="M10,25 L190,25" // A straight line from (10,25) to (190,25)
               stroke="#ffffff"
               fill="transparent"
-              strokeDasharray="500" // Set this to match the length of the path for a smooth animation
+              strokeDasharray="180" // Set this to match the length of the path
             />
           </svg>
           <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-lime-400">
