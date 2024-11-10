@@ -93,10 +93,12 @@ const Hero: React.FC = () => {
       // Update the cursor emoji for title and subtitle
       if (titleCursorElement) {
         titleCursorElement.innerHTML = randomTitleCursor;
+        document.body.style.cursor = `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Ctext x="0" y="25" font-size="25"%3E${encodeURIComponent(randomTitleCursor)}%3C/text%3E%3C/svg%3E') 15 15, auto`;
       }
 
       if (subtitleCursorElement) {
         subtitleCursorElement.innerHTML = randomSubtitleCursor;
+        document.body.style.cursor = `url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Ctext x="0" y="25" font-size="25"%3E${encodeURIComponent(randomSubtitleCursor)}%3C/text%3E%3C/svg%3E') 15 15, auto`;
       }
 
       // Update title, subtitle, button, and arrow colors every second
