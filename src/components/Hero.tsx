@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
     // Vivus for animating the SVG path on button
     new Vivus(buttonRef.current, {
       type: 'delayed', // Delayed animation type
-      duration: 200, // Animation duration (in frames)
+      duration: 150, // Animation duration (in frames)
       animTimingFunction: Vivus.EASE_IN_OUT, // Timing function for the animation
       start: 'inViewport', // Start animation when SVG comes into viewport
     });
@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
         </p>
 
         {/* View My Work Button with Vivus SVG animation */}
-        <a href="#projects" className="relative inline-block">
+        <a href="#projects" className="relative inline-block group">
           <svg
             ref={buttonRef}
             xmlns="http://www.w3.org/2000/svg"
@@ -88,6 +88,36 @@ const Hero: React.FC = () => {
           <path d="M12 4v16m8-8l-8 8-8-8" stroke="currentColor" strokeWidth="2" />
         </svg>
       </a>
+
+      {/* CSS Styles */}
+      <style jsx>{`
+        /* This will scale and rotate the button when hovered */
+        .group {
+          position: relative;
+          display: inline-block;
+          text-decoration: none;
+          overflow: hidden;
+        }
+
+        .group svg {
+          transition: all 0.3s ease;
+        }
+
+        /* Button text */
+        .group span {
+          transition: all 0.3s ease;
+        }
+
+        /* When hovered: scale up and rotate slightly */
+        .group:hover svg {
+          transform: scale(1.1) rotate(10deg);
+          stroke: #fbbf24; /* Change stroke color */
+        }
+
+        .group:hover span {
+          color: #fbbf24; /* Text color change on hover */
+        }
+      `}</style>
     </section>
   );
 };
