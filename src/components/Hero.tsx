@@ -11,17 +11,17 @@ const Hero: React.FC = () => {
       typeSpeed: 50,
       backSpeed: 30,
       loop: true,
-      loopDelay: 6000,  // Set a delay of 6 seconds between loops
+      loopDelay: 10000,  // Delay of 10 seconds between loops
       showCursor: false,
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
-      strings: ['Full-Stack Developer | AI Enthusiast | Problem Solver'],
+      strings: ['A Full-Stack Developer | AI Enthusiast | Problem Solver'],
       startDelay: 2000,  // Delay to start typing subtitle after title
       typeSpeed: 40,
       backSpeed: 20,
       loop: true,
-      loopDelay: 6000,  // Set a delay of 6 seconds between loops
+      loopDelay: 10000,  // Delay of 10 seconds between loops
       showCursor: true,
       cursorChar: '|',
     });
