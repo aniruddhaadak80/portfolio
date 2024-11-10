@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import Vivus from 'vivus';
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
-  const buttonRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     // Typed.js for Title and Subtitle
@@ -31,14 +29,6 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
-    // Vivus "oneByOne" animation for animating the SVG path on button
-    new Vivus(buttonRef.current, {
-      type: 'oneByOne', // Animation type "oneByOne" draws each path segment one after the other
-      duration: 150, // Animation duration (in frames)
-      animTimingFunction: Vivus.EASE_IN_OUT, // Timing function for the animation
-      start: 'inViewport', // Start animation when SVG comes into viewport
-    });
-
     return () => {
       // Cleanup Typed.js instances
       titleTyped.destroy();
@@ -56,28 +46,9 @@ const Hero: React.FC = () => {
           <span ref={subtitleRef} />
         </p>
 
-        {/* View My Work Button with Vivus SVG animation */}
-        <a href="#projects" className="relative inline-block group">
-          <svg
-            ref={buttonRef}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 200 50"
-            className="w-64 h-16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            {/* Straight line path */}
-            <path
-              d="M10,25 L190,25" // A straight line from (10,25) to (190,25)
-              stroke="#ffffff"
-              fill="transparent"
-              strokeDasharray="180" // Set this to match the length of the path
-            />
-          </svg>
-          <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-lime-400">
-            View My Work
-          </span>
+        {/* View My Work Button without Vivus animation */}
+        <a href="#projects" className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
+          View My Work
         </a>
       </div>
 
@@ -89,24 +60,6 @@ const Hero: React.FC = () => {
           <path d="M12 4v16m8-8l-8 8-8-8" stroke="currentColor" strokeWidth="2" />
         </svg>
       </a>
-
-      {/* CSS Styles */}
-      <style jsx>{`
-        .group {
-          position: relative;
-          display: inline-block;
-          text-decoration: none;
-          overflow: hidden;
-        }
-
-        .group svg {
-          transition: all 0.3s ease;
-        }
-
-        .group span {
-          transition: all 0.3s ease;
-        }
-      `}</style>
     </section>
   );
 };
