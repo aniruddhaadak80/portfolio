@@ -176,18 +176,22 @@ const Contact: React.FC = () => {
           </div>
           <div className="w-full lg:w-1/2 px-4">
             <motion.div
-              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500"
+              className="p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
               <div className="flex items-center mb-6">
                 <Mail size={30} color={iconColor} className="mr-4" />
-                <p className="text-gray-700">aniruddhaadak80@gmail.com</p>
+                <a href="mailto:aniruddhaadak80@gmail.com" className="text-gray-700">
+                  aniruddhaadak80@gmail.com
+                </a>
               </div>
               <div className="flex items-center mb-6">
                 <Phone size={30} color={iconColor} className="mr-4" />
-                <p className="text-gray-700">+917029155691</p>
+                <a href="tel:+917029155691" className="text-gray-700">
+                  +917029155691
+                </a>
               </div>
               <div className="flex items-center">
                 <MapPin size={30} color={iconColor} className="mr-4" />
