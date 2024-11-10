@@ -10,6 +10,8 @@ const Hero: React.FC = () => {
   const [arrowColor, setArrowColor] = useState<string>('#8a4af3');
   const [titleColor, setTitleColor] = useState<string>('#8a4af3');
   const [subtitleColor, setSubtitleColor] = useState<string>('#8a4af3');
+  const [titleEmoji, setTitleEmoji] = useState<string>('👨🏼‍💻');
+  const [subtitleEmoji, setSubtitleEmoji] = useState<string>('🚀');
 
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
@@ -20,14 +22,10 @@ const Hero: React.FC = () => {
     '#ff1493', '#ff6347', '#ffff00', '#ff9e00', '#00ff00', '#b0e0e6',
     '#a52a2a', '#f0e68c', '#ff00ff', '#d2691e', '#ff6347', '#00fa9a',
     '#800000', '#ffb6c1', '#20b2aa', '#f0f8ff', '#adff2f', '#ff1493',
-    '#ffd700', '#ff4500', '#ff8c00', '#90ee90', '#ffb6c1', '#ff7f50',
-    '#9932cc', '#ff1493', '#da70d6', '#00ff7f', '#ff69b4', '#9370db',
-    '#ff6347', '#7fff00', '#98fb98', '#ba55d3', '#32cd32', '#ff7f50',
-    '#dda0dd', '#b22222', '#ffa07a', '#ff6347', '#c71585', '#ff6347',
-    '#1e90ff', '#add8e6', '#3cb371', '#e0ffff', '#ff4500', '#ff6347',
-    '#ff77ff', '#ff5c8d', '#f28500', '#ff33cc', '#9c00d4', '#6a5acd',
-    '#ffcc00', '#ff3366', '#00bcd4', '#64ffda', '#f5b800', '#4caf50',
-    '#ff2f92', '#ff9800', '#cc00ff', '#7c4dff', '#90a4ae'
+    '#ffd700', '#ff4500', '#ff6347', '#ff77ff', '#ff5c8d', '#f28500',
+    '#ff33cc', '#9c00d4', '#6a5acd', '#ffcc00', '#ff3366', '#00bcd4',
+    '#64ffda', '#f5b800', '#4caf50', '#ff2f92', '#ff9800', '#cc00ff',
+    '#7c4dff', '#90a4ae'
   ];
 
   const titleCursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
@@ -72,16 +70,14 @@ const Hero: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setTitleColor(getRandomColor('#8a4af3'));
-    setSubtitleColor(getRandomColor('#8a4af3'));
-    setCurrentColor(getRandomColor('#8a4af3'));
-    setArrowColor(getRandomColor('#8a4af3'));
-
     const interval = setInterval(() => {
       setTitleColor(getRandomColor(titleColor));
       setSubtitleColor(getRandomColor(subtitleColor));
-      setArrowColor(getRandomColor(arrowColor));
       setCurrentColor(getRandomColor(currentColor));
+      setArrowColor(getRandomColor(arrowColor));
+
+      setTitleEmoji(getRandomCursor(titleCursorIcons));
+      setSubtitleEmoji(getRandomCursor(subtitleCursorIcons));
     }, 1000);
 
     return () => clearInterval(interval);
@@ -149,14 +145,14 @@ const Hero: React.FC = () => {
           style={{ color: titleColor }}
         >
           <span ref={titleRef} />
-          <span>{getRandomCursor(titleCursorIcons)}</span>
+          <span>{titleEmoji}</span>
         </h1>
         <p
           className="text-xl md:text-2xl mb-8 font-sans"
           style={{ color: subtitleColor }}
         >
           <span ref={subtitleRef} />
-          <span>{getRandomCursor(subtitleCursorIcons)}</span>
+          <span>{subtitleEmoji}</span>
         </p>
 
         <a
@@ -173,4 +169,13 @@ const Hero: React.FC = () => {
 
       <a
         href="#about"
-        className="absolute bottom-8 left-1/2 transform -
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+        style={{ color: arrowColor }}
+      >
+        <ArrowDown size={32} />
+      </a>
+    </section>
+  );
+};
+
+export default Hero;
