@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import { motion } from 'framer-motion';
+import Vivus from 'vivus';
 
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
-  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const buttonRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     // Typed.js for Title and Subtitle
@@ -31,6 +31,14 @@ const Hero: React.FC = () => {
       cursorChar: '|',
     });
 
+    // Vivus for animating the SVG path on button
+    new Vivus(buttonRef.current, {
+      type: 'delayed', // Delayed animation type
+      duration: 200, // Animation duration (in frames)
+      animTimingFunction: Vivus.EASE_IN_OUT, // Timing function for the animation
+      start: 'inViewport', // Start animation when SVG comes into viewport
+    });
+
     return () => {
       // Cleanup Typed.js instances
       titleTyped.destroy();
@@ -47,29 +55,29 @@ const Hero: React.FC = () => {
         <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
           <span ref={subtitleRef} />
         </p>
-        
-        {/* Framer Motion for the button */}
-        <motion.a
-          ref={buttonRef}
-          href="#projects"
-          className="bg-pink-500 from-blue-500 to-purple-600 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
-          initial={{ scale: 1 }}
-          whileHover={{
-            scale: 1.1,
-            transition: { duration: 0.3 },
-          }}
-          whileTap={{
-            scale: 0.9,
-            transition: { duration: 0.2 },
-          }}
-          animate={{
-            x: [0, 20, 0], // Move back and forth on the X-axis
-            y: [0, 10, 0], // Move up and down on the Y-axis
-            transition: { duration: 2, repeat: Infinity, repeatType: 'reverse' },
-          }}
-        >
-          View My Work
-        </motion.a>
+
+        {/* View My Work Button with Vivus SVG animation */}
+        <a href="#projects" className="relative inline-block">
+          <svg
+            ref={buttonRef}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 50"
+            className="w-64 h-16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              d="M10,25 Q50,5 100,25 T190,25"
+              stroke="#ffffff"
+              fill="transparent"
+              strokeDasharray="500" // Set this to match the length of the path for a smooth animation
+            />
+          </svg>
+          <span className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-lime-400">
+            View My Work
+          </span>
+        </a>
       </div>
 
       <a
