@@ -91,31 +91,56 @@ const Hero: React.FC = () => {
 
       {/* CSS Styles */}
       <style jsx>{`
-        /* This will scale and rotate the button when hovered */
+        /* Pulse effect on button */
         .group {
           position: relative;
           display: inline-block;
           text-decoration: none;
           overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .group svg {
           transition: all 0.3s ease;
         }
 
-        /* Button text */
         .group span {
           transition: all 0.3s ease;
         }
 
-        /* When hovered: scale up and rotate slightly */
+        /* Button default state */
+        .group:hover {
+          animation: pulseAnimation 2s infinite; /* Pulse effect */
+        }
+
+        .group span {
+          color: #ffffff;
+        }
+
+        /* SVG color change when hovered */
         .group:hover svg {
-          transform: scale(1.1) rotate(10deg);
-          stroke: #fbbf24; /* Change stroke color */
+          stroke: #fbbf24; /* Change SVG stroke color */
+          transform: scale(1.1); /* Slightly enlarge the path */
+        }
+
+        /* Pulse animation keyframes */
+        @keyframes pulseAnimation {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 rgba(250, 191, 36, 0.4);
+          }
+          50% {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(250, 191, 36, 0.7);
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 rgba(250, 191, 36, 0.4);
+          }
         }
 
         .group:hover span {
-          color: #fbbf24; /* Text color change on hover */
+          color: #fbbf24; /* Change text color on hover */
         }
       `}</style>
     </section>
