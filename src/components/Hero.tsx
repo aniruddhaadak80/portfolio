@@ -30,8 +30,10 @@ const Hero: React.FC = () => {
     '#ff2f92', '#ff9800', '#cc00ff', '#7c4dff', '#90a4ae'
   ];
 
-  const cursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
-  const getRandomCursor = () => cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
+  const titleCursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
+  const subtitleCursorIcons = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
+
+  const getRandomCursor = (icons: string[]) => icons[Math.floor(Math.random() * icons.length)];
 
   const getRandomColor = (excludeColor: string) => {
     let color;
@@ -41,7 +43,6 @@ const Hero: React.FC = () => {
     return color;
   };
 
-  // Initialize Typed.js without setting a static cursor
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -71,39 +72,40 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update cursor emoji every second
+  // Update cursor for title every second
   useEffect(() => {
     const cursorInterval = setInterval(() => {
-      const cursorElement = document.querySelector('.typed-cursor');
+      const cursorElement = document.querySelector('.title-cursor');
       if (cursorElement) {
-        cursorElement.innerHTML = getRandomCursor();
+        cursorElement.innerHTML = getRandomCursor(titleCursorIcons);
       }
     }, 1000);
 
     return () => clearInterval(cursorInterval);
   }, []);
 
+  // Update cursor for subtitle every second
   useEffect(() => {
-    if (!isHovering) {
-      const colorInterval = setInterval(() => {
-        setCurrentColor(getRandomColor(currentColor));
-        setArrowColor(getRandomColor(arrowColor));
-        setTitleColor(getRandomColor(titleColor));
-        setSubtitleColor(getRandomColor(subtitleColor));
-      }, 1000);
+    const subtitleCursorInterval = setInterval(() => {
+      const cursorElement = document.querySelector('.subtitle-cursor');
+      if (cursorElement) {
+        cursorElement.innerHTML = getRandomCursor(subtitleCursorIcons);
+      }
+    }, 1000);
 
-      return () => clearInterval(colorInterval);
-    }
-  }, [isHovering, currentColor, arrowColor, titleColor, subtitleColor]);
+    return () => clearInterval(subtitleCursorInterval); // Clear the interval when the component is unmounted
+  }, []);
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-4 font-serif" style={{ color: titleColor }}>
           <span ref={titleRef} />
+          <span className="title-cursor" />
         </h1>
         <p className="text-2xl md:text-2xl mb-8 font-sans" style={{ color: subtitleColor }}>
           <span ref={subtitleRef} />
+          <span className="subtitle-cursor" />
         </p>
 
         <motion.a
