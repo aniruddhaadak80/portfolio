@@ -30,8 +30,11 @@ const Hero: React.FC = () => {
     '#ff2f92', '#ff9800', '#cc00ff', '#7c4dff', '#90a4ae'
   ];
 
-  const cursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
-  const getRandomCursor = () => cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
+  const cursorIconsForTitle = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
+  const cursorIconsForSubtitle = ["🔥", "🚀", "💻", "🖥️", "⚛️", "📂", "📝", "🌐"];
+
+  const getRandomCursorForTitle = () => cursorIconsForTitle[Math.floor(Math.random() * cursorIconsForTitle.length)];
+  const getRandomCursorForSubtitle = () => cursorIconsForSubtitle[Math.floor(Math.random() * cursorIconsForSubtitle.length)];
 
   const getRandomColor = (excludeColor: string) => {
     let color;
@@ -41,7 +44,7 @@ const Hero: React.FC = () => {
     return color;
   };
 
-  // Initialize Typed.js without setting a static cursor
+  // Initialize Typed.js for the title
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -51,8 +54,10 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: true,
+      cursorChar: getRandomCursorForTitle(),  // Cursor for title
     });
 
+    // Initialize Typed.js for the subtitle
     const subtitleTyped = new Typed(subtitleRef.current, {
       strings: ['🅰️ Full-Stack Developer |🤖 AI Enthusiast | 🅿️roblem Solver'],
       startDelay: 2000,
@@ -62,7 +67,7 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: '🔥',
+      cursorChar: '🔥',  // Default cursor emoji
     });
 
     return () => {
@@ -71,12 +76,12 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Update cursor emoji every second
+  // Update cursor emoji for subtitle every second
   useEffect(() => {
     const cursorInterval = setInterval(() => {
       const cursorElement = document.querySelector('.typed-cursor');
       if (cursorElement) {
-        cursorElement.innerHTML = getRandomCursor();
+        cursorElement.innerHTML = getRandomCursorForSubtitle();  // Randomize the cursor for subtitle
       }
     }, 1000);
 
