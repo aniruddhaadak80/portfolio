@@ -7,9 +7,11 @@ const Hero: React.FC = () => {
   const subtitleRef = useRef<HTMLSpanElement>(null);
   const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color for button
   const [arrowColor, setArrowColor] = useState<string>('#8a4af3'); // Initial color for arrow
+  const [headingColor, setHeadingColor] = useState<string>('#8a4af3'); // Initial color for heading
+  const [subheadingColor, setSubheadingColor] = useState<string>('#8a4af3'); // Initial color for subheading
   const [isHovering, setIsHovering] = useState(false); // Track hover state
 
-  // 20 colors array for button and arrow
+  // 20 colors array for button, arrow, heading, and subheading
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
     '#6366f1', '#e11d48', '#9333ea', '#14b8a6', '#ff4500', '#00bfff',
@@ -27,6 +29,10 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: false,
+      onComplete: () => {
+        // Change the heading color after each cycle
+        setHeadingColor(getRandomColor(headingColor));
+      },
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
@@ -39,13 +45,17 @@ const Hero: React.FC = () => {
       loopDelay: 10000,
       showCursor: true,
       cursorChar: '|',
+      onComplete: () => {
+        // Change the subheading color after each cycle
+        setSubheadingColor(getRandomColor(subheadingColor));
+      },
     });
 
     return () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
-  }, []);
+  }, [headingColor, subheadingColor]); // Ensuring color changes when updated
 
   // Function to get random color that is not the same as the last one
   const getRandomColor = (excludeColor: string) => {
@@ -74,10 +84,13 @@ const Hero: React.FC = () => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-4 text-purple-700 font-serif">
+        {/* Title with random color changes */}
+        <h1 className="text-5xl md:text-7xl font-bold mb-4" style={{ color: headingColor }}>
           <span ref={titleRef} />
         </h1>
-        <p className="text-2xl md:text-2xl mb-8 text-emerald-300 font-sans">
+
+        {/* Subtitle with random color changes */}
+        <p className="text-2xl md:text-2xl mb-8" style={{ color: subheadingColor }}>
           <span ref={subtitleRef} />
         </p>
 
