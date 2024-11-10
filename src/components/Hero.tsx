@@ -110,7 +110,8 @@ const Hero: React.FC = () => {
   }, [titleColor, subtitleColor, currentColor, arrowColor]);
 
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradientBG">
+      <div className="absolute inset-0 z-0 bg-cover bg-center" style={{ backgroundImage: 'url("/path/to/your/image.jpg")' }}></div>
       <div className="relative z-10 text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-4 font-serif" style={{ color: titleColor }}>
           <span ref={titleRef} />
@@ -174,5 +175,13 @@ export default Hero;
   .fade-out {
     opacity: 0;
     transition: opacity 0.5s ease-out;
+  }
+  .animate-gradientBG {
+    animation: gradientBG 15s ease infinite;
+  }
+  @keyframes gradientBG {
+    0% { background: linear-gradient(to right, #8a4af3, #fcd34d, #34d399); }
+    50% { background: linear-gradient(to right, #ef4444, #10b981, #3b82f6); }
+    100% { background: linear-gradient(to right, #6366f1, #e11d48, #9333ea); }
   }
 </style>
