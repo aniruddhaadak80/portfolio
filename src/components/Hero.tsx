@@ -5,14 +5,16 @@ import Typed from 'typed.js';
 const Hero: React.FC = () => {
   const titleRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLSpanElement>(null);
-  const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color
-  const [isHovering, setIsHovering] = useState(false); // Track hover state
+  const [currentColor, setCurrentColor] = useState<string>('#8a4af3'); // Initial color for button
   const [arrowColor, setArrowColor] = useState<string>('#8a4af3'); // Initial color for arrow
+  const [isHovering, setIsHovering] = useState(false); // Track hover state
 
-  // Colors array for the button and arrow
+  // 20 colors array for button and arrow
   const colors = [
     '#8a4af3', '#fcd34d', '#34d399', '#ef4444', '#10b981', '#3b82f6',
-    '#6366f1', '#e11d48', '#9333ea', '#14b8a6'
+    '#6366f1', '#e11d48', '#9333ea', '#14b8a6', '#ff4500', '#00bfff',
+    '#ff6347', '#adff2f', '#7cfc00', '#1e90ff', '#ff1493', '#ff8c00',
+    '#b22222', '#9acd32'
   ];
 
   // Initialize Typed.js animations for title and subtitle
@@ -45,23 +47,29 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  // Randomly change the button and arrow color every 1 second
+  // Function to get random color that is not the same as the last one
+  const getRandomColor = (excludeColor: string) => {
+    let color;
+    do {
+      color = colors[Math.floor(Math.random() * colors.length)];
+    } while (color === excludeColor); // Ensure no same color in consecutive calls
+    return color;
+  };
+
+  // Randomly change button and arrow color every 1 second
   useEffect(() => {
     if (!isHovering) {
-      let index = 0;
+      const colorInterval = setInterval(() => {
+        const newButtonColor = getRandomColor(currentColor); // New color for button
+        const newArrowColor = getRandomColor(arrowColor); // New color for arrow
 
-      const changeColor = () => {
-        // Select a random color from the colors array
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        setCurrentColor(randomColor);
-        setArrowColor(randomColor); // Set random color to the arrow as well
-      };
-
-      const colorInterval = setInterval(changeColor, 1000); // Change color every 1 second
+        setCurrentColor(newButtonColor); // Set new color for button
+        setArrowColor(newArrowColor); // Set new color for arrow
+      }, 1000); // Change color every 1 second
 
       return () => clearInterval(colorInterval); // Cleanup interval on component unmount
     }
-  }, [isHovering]);
+  }, [isHovering, currentColor, arrowColor]); // Dependencies for color change
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
