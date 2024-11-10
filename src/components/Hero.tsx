@@ -30,10 +30,9 @@ const Hero: React.FC = () => {
     '#ff2f92', '#ff9800', '#cc00ff', '#7c4dff', '#90a4ae'
   ];
 
-  // Array of emojis for cursor icon
   const cursorIcons = ["👨🏼‍💻", "🧑🏻‍💻", "🧑‍💻", "🧑🏼‍💻", "👨🏻‍💻", "👨‍💻"];
-
   const getRandomCursor = () => cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
+
   const getRandomColor = (excludeColor: string) => {
     let color;
     do {
@@ -42,7 +41,7 @@ const Hero: React.FC = () => {
     return color;
   };
 
-  // Initialize Typed.js with a random cursor emoji
+  // Initialize Typed.js without setting a static cursor
   useEffect(() => {
     const titleTyped = new Typed(titleRef.current, {
       strings: ['Aniruddha Adak'],
@@ -52,7 +51,6 @@ const Hero: React.FC = () => {
       loop: true,
       loopDelay: 10000,
       showCursor: true,
-      cursorChar: getRandomCursor(), // Use a random emoji as the cursor
     });
 
     const subtitleTyped = new Typed(subtitleRef.current, {
@@ -71,6 +69,18 @@ const Hero: React.FC = () => {
       titleTyped.destroy();
       subtitleTyped.destroy();
     };
+  }, []);
+
+  // Update cursor emoji every second
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      const cursorElement = document.querySelector('.typed-cursor');
+      if (cursorElement) {
+        cursorElement.innerHTML = getRandomCursor();
+      }
+    }, 1000);
+
+    return () => clearInterval(cursorInterval);
   }, []);
 
   useEffect(() => {
