@@ -1,5 +1,3 @@
-'use client'
-
 import { motion, useAnimation } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
@@ -191,6 +189,7 @@ export default function Resume() {
                 <p className="mb-4">{project.description}</p>
                 <motion.a
                   href={project.link}
+                  target="_blank"
                   className="inline-block bg-teal-500 text-white px-4 py-2 rounded"
                   whileHover={{ scale: 1.1, boxShadow: '0 0 8px rgba(0,255,255,0.5)' }}
                   animate={{
@@ -278,6 +277,7 @@ export default function Resume() {
               <motion.a
                 key={index}
                 href={item.href}
+                target="_blank"
                 className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
                 whileHover={hoveringAnimation}
                 animate={floatingAnimation}
