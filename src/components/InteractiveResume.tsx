@@ -82,6 +82,7 @@ export default function EnhancedAnimatedResume() {
   ]
 
   return (
+    <section id="resume" className="py-20 bg-gradient-to-r from-gray-50 to-gray-100">
     <motion.div 
       className="min-h-screen p-8 text-white overflow-hidden"
       animate={controls}
@@ -297,5 +298,6 @@ export default function EnhancedAnimatedResume() {
         </motion.footer>
       </motion.div>
     </motion.div>
+  </section>
   )
 }
