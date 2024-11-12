@@ -10,6 +10,8 @@ import Testimonials from './components/Testimonials';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import InteractiveResume from './components/InteractiveResume';
+
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -249,6 +251,7 @@ const App: React.FC = () => {
         <Testimonials />
         <Services />
         <Contact />
+        <InteractiveResume/>
       </main>
       <Footer />
     </div>
