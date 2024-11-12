@@ -138,7 +138,7 @@ export default function EnhancedAnimatedResume() {
                 className={`px-4 py-2 rounded-full text-white font-semibold`}
                 style={{ background: `linear-gradient(45deg, ${skill.color}, ${skills[(index + 1) % skills.length].color})` }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                animate={hoveredSkill === skill.name ? hoveringAnimation : {}}
+                animate={hoveredSkill === skill.name ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
                 onHoverStart={() => setHoveredSkill(skill.name)}
                 onHoverEnd={() => setHoveredSkill(null)}
               >
