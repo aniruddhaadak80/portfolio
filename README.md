@@ -90,7 +90,7 @@ MyPortfolio/
 
 ## 🌐 Live Demo
 
-Check out the live version of the portfolio at: [https://yourportfolio.vercel.app](https://yourportfolio.vercel.app)
+Check out the live version of the portfolio at: [https://aniruddha-adak.vercel.app/](https://aniruddha-adak.vercel.app/)
 
 ## 🤝 Contributing
 
@@ -106,9 +106,9 @@ Contributions are welcome! If you have any ideas or improvements, feel free to o
 
 Feel free to reach out if you have any questions or feedback. Connect with me at:
 
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- **Twitter**: [Your Twitter Handle](https://twitter.com/yourhandle)
+- **Email**: [aniruddhaadak80@gmail.com](mailto:aniruddhaadak80@gmail.com)
+- **LinkedIn**: [LinkedIn Profile](https://linkedin.com/in/aniruddha-adak)
+- **Twitter**: [Twitter Handle](https://twitter.com/aniruddha-adak)
 
 ---
 
