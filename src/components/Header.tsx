@@ -28,13 +28,15 @@ const Header: React.FC = () => {
   }, [isDarkMode]);
 
   const menuItems = [
-    { name: 'Home', icon: <Home size={18} />, color: 'text-red-500', hoverColor: 'hover:text-red-700' },
-    { name: 'About', icon: <User size={18} />, color: 'text-yellow-500', hoverColor: 'hover:text-yellow-700' },
-    { name: 'Skills', icon: <Settings size={18} />, color: 'text-green-500', hoverColor: 'hover:text-green-700' },
-    { name: 'Projects', icon: <Folder size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
-    { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
-    { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
-  ];
+  { name: 'Home', icon: <Home size={18} />, color: 'text-red-500', hoverColor: 'hover:text-red-700' },
+  { name: 'About', icon: <User size={18} />, color: 'text-yellow-500', hoverColor: 'hover:text-yellow-700' },
+  { name: 'Skills', icon: <Settings size={18} />, color: 'text-green-500', hoverColor: 'hover:text-green-700' },
+  { name: 'Projects', icon: <Folder size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
+  { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
+  { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
+  { name: 'Resume', icon: <FileText size={18} />, color: 'text-gray-500', hoverColor: 'hover:text-gray-700' } // New item
+];
+
 
   const getRandomRotation = () => {
     return Math.floor(Math.random() * (20 - (-20) + 1)) + (-20); // Random rotation between -20deg and 20deg
