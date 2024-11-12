@@ -49,7 +49,7 @@ const lightenColor = (color: string) => {
   return lighterShades[color] || color;
 };
 
-export default function EnhancedAnimatedResume() {
+export default function Resume() {
   const [hoveredSkill, setHoveredSkill] = useState(null)
   const controls = useAnimation()
 
@@ -91,6 +91,7 @@ export default function EnhancedAnimatedResume() {
   ]
 
   return (
+        <section id="resume" className="py-20 bg-white">
     <motion.div 
       className="min-h-screen p-8 text-white overflow-hidden"
       animate={controls}
@@ -303,5 +304,6 @@ export default function EnhancedAnimatedResume() {
         </motion.footer>
       </motion.div>
     </motion.div>
+ </section>
   )
 }
