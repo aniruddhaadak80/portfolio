@@ -49,31 +49,6 @@ const lightenColor = (color: string) => {
   return lighterShades[color] || color;
 };
 
-const textReveal = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: 'easeOut' }
-}
-
-const colorPulse = {
-  animate: {
-    color: ['#ffffff', '#ffd700', '#ff69b4', '#ffffff'],
-    transition: { duration: 5, repeat: Infinity, ease: 'easeInOut' }
-  }
-}
-
-const rotateIn = {
-  initial: { rotate: -180, opacity: 0 },
-  animate: { rotate: 0, opacity: 1 },
-  transition: { duration: 0.8, ease: 'easeOut' }
-}
-
-const scaleIn = {
-  initial: { scale: 0 },
-  animate: { scale: 1 },
-  transition: { duration: 0.5, ease: 'easeOut' }
-}
-
 export default function EnhancedAnimatedResume() {
   const [hoveredSkill, setHoveredSkill] = useState(null)
   const controls = useAnimation()
@@ -115,9 +90,8 @@ export default function EnhancedAnimatedResume() {
     { name: 'French', proficiency: 60, color: 'bg-red-500' }
   ]
 
-return (
-    
-      <motion.div 
+  return (
+    <motion.div 
       className="min-h-screen p-8 text-white overflow-hidden"
       animate={controls}
     >
@@ -138,46 +112,33 @@ return (
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
-            variants={textReveal}
+            animate={{
+              color: ['#ffffff', '#ffd700', '#ff69b4', '#ffffff'],
+              transition: { duration: 5, repeat: Infinity }
+            }}
           >
-            <motion.span
-              className="inline-block"
-              animate={colorPulse}
-            >
-              John Doe
-            </motion.span>
+            John Doe
           </motion.h1>
           <motion.h2
             className="text-2xl mb-4"
-            variants={textReveal}
+            animate={{
+              color: ['#4ade80', '#22d3ee', '#818cf8', '#4ade80'],
+              transition: { duration: 5, repeat: Infinity }
+            }}
           >
-            <motion.span
-              className="inline-block"
-              animate={{
-                color: ['#4ade80', '#22d3ee', '#818cf8', '#4ade80'],
-                transition: { duration: 5, repeat: Infinity }
-              }}
-            >
-              Full Stack Developer
-            </motion.span>
+            Full Stack Developer
           </motion.h2>
           <motion.p
             className="text-lg max-w-2xl mx-auto"
-            variants={textReveal}
+            animate={{ opacity: [0.7, 1, 0.7], transition: { duration: 3, repeat: Infinity } }}
           >
-            <motion.span
-              className="inline-block"
-              animate={{ opacity: [0.7, 1, 0.7], transition: { duration: 3, repeat: Infinity } }}
-            >
-              Passionate about creating seamless user experiences and robust backend systems. Specializing in modern web technologies and always eager to learn more.
-            </motion.span>
+            Passionate about creating seamless user experiences and robust backend systems. Specializing in modern web technologies and always eager to learn more.
           </motion.p>
         </motion.header>
 
-        
         {/* Skills */}
         <motion.section variants={fadeInUp}>
-          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Skills</motion.h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Skills</h2>
           <motion.div className="flex flex-wrap justify-center gap-4" variants={stagger}>
             {skills.map((skill, index) => (
               <motion.div
@@ -185,8 +146,6 @@ return (
                 className={`px-4 py-2 rounded-full text-white font-semibold ${skill.color}`}
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 animate={floatingAnimation}
-                variants={scaleIn}
-                style={{ pointerEvents: 'auto' }} // Ensure the skill elements are clickable
               >
                 {skill.name}
               </motion.div>
@@ -196,7 +155,7 @@ return (
 
         {/* Education */}
         <motion.section variants={fadeInUp}>
-          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Education</motion.h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Education</h2>
           <div className="space-y-4">
             {education.map((edu, index) => (
               <motion.div
@@ -207,7 +166,6 @@ return (
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 whileHover={hoveringAnimation}
                 animate={floatingAnimation}
-                style={{ pointerEvents: 'auto' }} // Ensure the education elements are clickable
               >
                 <h3 className="text-xl font-semibold">{edu.degree}</h3>
                 <p>{edu.institution}</p>
@@ -219,16 +177,14 @@ return (
 
         {/* Projects */}
         <motion.section variants={fadeInUp}>
-          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Projects</motion.h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Projects</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
                 className="bg-white bg-opacity-10 p-4 rounded-lg"
-                whileHover={{ ...hoveringAnimation, pointerEvents: "none" }}
+                whileHover={hoveringAnimation}
                 animate={floatingAnimation}
-                variants={scaleIn}
-                style={{ pointerEvents: 'auto' }} // Ensure the project elements are clickable
               >
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                 <p className="mb-4">{project.description}</p>
@@ -240,7 +196,6 @@ return (
                     backgroundColor: ['#14b8a6', '#06b6d4', '#3b82f6', '#14b8a6'],
                     transition: { duration: 5, repeat: Infinity }
                   }}
-                  style={{ pointerEvents: 'auto' }} // Ensure the project link is clickable
                 >
                   View Project
                 </motion.a>
@@ -251,7 +206,7 @@ return (
 
         {/* Achievements */}
         <motion.section variants={fadeInUp}>
-          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Achievements</motion.h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Achievements</h2>
           <motion.div className="grid md:grid-cols-2 gap-4" variants={stagger}>
             {achievements.map((achievement, index) => (
               <motion.div
@@ -262,7 +217,6 @@ return (
                 transition={{ duration: 0.5 }}
                 whileHover={hoveringAnimation}
                 animate={floatingAnimation}
-                style={{ pointerEvents: 'auto' }} // Ensure the achievement elements are clickable
               >
                 <span className="text-4xl mb-2">{achievement.icon}</span>
                 <h3 className="text-xl font-semibold">{achievement.title}</h3>
@@ -274,12 +228,11 @@ return (
 
         {/* Language Proficiency */}
         <motion.section variants={fadeInUp}>
-          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Language Proficiency</motion.h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Language Proficiency</h2>
           <div className="space-y-4">
             {languages.map((language, index) => (
-              <motion.div key={index} className="relative pt-1" whileHover={hoveringAnimation} variants={scaleIn} style={{ pointerEvents: 'auto' }}>
-                {/* Language proficiency content */}
-                 <div className="flex mb-2 items-center justify-between">
+              <motion.div key={index} className="relative pt-1" whileHover={hoveringAnimation}>
+                <div className="flex mb-2 items-center justify-between">
                   <div>
                     <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white bg-teal-500">
                       {language.name}
@@ -313,7 +266,7 @@ return (
 
         {/* Contact Information */}
         <motion.section variants={fadeInUp}>
-          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Contact Information</motion.h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Contact Information</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {[
               { icon: '📧', text: 'Email', href: 'mailto:john.doe@example.com' },
@@ -327,10 +280,8 @@ return (
                 className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
                 whileHover={hoveringAnimation}
                 animate={floatingAnimation}
-                variants={scaleIn}
-                style={{ pointerEvents: 'auto' }} // Ensure the contact links are clickable
               >
-                <span className="text-xl">{item.icon}</span> 
+                <span className="text-xl">{item.icon}</span>
                 <span>{item.text}</span>
               </motion.a>
             ))}
@@ -345,14 +296,11 @@ return (
             className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-full text-lg font-semibold"
             whileHover={hoveringAnimation}
             animate={floatingAnimation}
-            variants={scaleIn}
-            style={{ pointerEvents: 'auto' }} // Ensure the download button is clickable
           >
-            <span className="mr-2">📄</span> 
+            <span className="mr-2">📄</span>
             <span>Download Resume</span>
           </motion.a>
         </motion.footer>
-
       </motion.div>
     </motion.div>
   )
