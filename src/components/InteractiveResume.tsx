@@ -1,7 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, useAnimation } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -17,8 +18,39 @@ const stagger = {
   }
 }
 
-export default function InteractiveResume() {
+const floatingAnimation = {
+  y: ['-10%', '10%'],
+  transition: {
+    y: {
+      duration: 2,
+      repeat: Infinity,
+      repeatType: 'reverse',
+      ease: 'easeInOut'
+    }
+  }
+}
+
+const hoveringAnimation = {
+  scale: [1, 1.05, 1],
+  rotate: [0, 5, -5, 0],
+  transition: {
+    duration: 5,
+    repeat: Infinity,
+    repeatType: 'loop',
+    ease: 'easeInOut'
+  }
+}
+
+export default function EnhancedAnimatedResume() {
   const [hoveredSkill, setHoveredSkill] = useState(null)
+  const controls = useAnimation()
+
+  useEffect(() => {
+    controls.start({
+      backgroundColor: ["#4a148c", "#1a237e", "#004d40", "#b71c1c"],
+      transition: { duration: 20, repeat: Infinity, ease: "linear" }
+    })
+  }, [controls])
 
   const skills = [
     { name: 'Next.js', color: 'bg-blue-500' },
@@ -51,8 +83,10 @@ export default function InteractiveResume() {
   ]
 
   return (
-    <section id="resume" className="py-20 bg-white">
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900 text-white p-8">
+    <motion.div 
+      className="min-h-screen p-8 text-white overflow-hidden"
+      animate={controls}
+    >
       <motion.div
         initial="initial"
         animate="animate"
@@ -62,27 +96,33 @@ export default function InteractiveResume() {
         {/* Header/Profile Overview */}
         <motion.header variants={fadeInUp} className="text-center">
           <motion.div
-            whileHover={{ scale: 1.1 }}
             className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg"
             style={{ boxShadow: '0 0 25px rgba(255,255,255,0.5)' }}
+            animate={floatingAnimation}
           >
-            <img src="../myimage.jpg" alt="MyProfileImage" width={160} height={160} className="object-cover" />
+            <Image src="/placeholder.svg" alt="Profile" width={160} height={160} className="object-cover" />
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
-            whileHover={{ scale: 1.05, color: '#ffd700' }}
+            animate={{
+              color: ['#ffffff', '#ffd700', '#ff69b4', '#ffffff'],
+              transition: { duration: 5, repeat: Infinity }
+            }}
           >
-            Aniruddha Adak
+            John Doe
           </motion.h1>
           <motion.h2
-            className="text-2xl text-teal-300 mb-4"
-            whileHover={{ scale: 1.05, color: '#ff69b4' }}
+            className="text-2xl mb-4"
+            animate={{
+              color: ['#4ade80', '#22d3ee', '#818cf8', '#4ade80'],
+              transition: { duration: 5, repeat: Infinity }
+            }}
           >
             Full Stack Developer
           </motion.h2>
           <motion.p
             className="text-lg max-w-2xl mx-auto"
-            whileHover={{ scale: 1.02 }}
+            animate={{ opacity: [0.7, 1, 0.7], transition: { duration: 3, repeat: Infinity } }}
           >
             Passionate about creating seamless user experiences and robust backend systems. Specializing in modern web technologies and always eager to learn more.
           </motion.p>
@@ -90,14 +130,15 @@ export default function InteractiveResume() {
 
         {/* Skills */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4">Skills</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Skills</h2>
           <motion.div className="flex flex-wrap justify-center gap-4" variants={stagger}>
             {skills.map((skill, index) => (
               <motion.div
                 key={index}
-                className={`px-4 py-2 rounded-full ${skill.color} text-white font-semibold`}
+                className={`px-4 py-2 rounded-full text-white font-semibold`}
+                style={{ background: `linear-gradient(45deg, ${skill.color}, ${skills[(index + 1) % skills.length].color})` }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                animate={hoveredSkill === skill.name ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+                animate={hoveredSkill === skill.name ? hoveringAnimation : {}}
                 onHoverStart={() => setHoveredSkill(skill.name)}
                 onHoverEnd={() => setHoveredSkill(null)}
               >
@@ -109,7 +150,7 @@ export default function InteractiveResume() {
 
         {/* Education */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4">Education</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Education</h2>
           <div className="space-y-4">
             {education.map((edu, index) => (
               <motion.div
@@ -118,7 +159,8 @@ export default function InteractiveResume() {
                 initial={{ x: -50, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={hoveringAnimation}
+                animate={floatingAnimation}
               >
                 <h3 className="text-xl font-semibold">{edu.degree}</h3>
                 <p>{edu.institution}</p>
@@ -130,13 +172,14 @@ export default function InteractiveResume() {
 
         {/* Projects */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4">Projects</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Projects</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
                 className="bg-white bg-opacity-10 p-4 rounded-lg"
-                whileHover={{ scale: 1.05, rotateY: 10 }}
+                whileHover={hoveringAnimation}
+                animate={floatingAnimation}
               >
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                 <p className="mb-4">{project.description}</p>
@@ -144,6 +187,10 @@ export default function InteractiveResume() {
                   href={project.link}
                   className="inline-block bg-teal-500 text-white px-4 py-2 rounded"
                   whileHover={{ scale: 1.1, boxShadow: '0 0 8px rgba(0,255,255,0.5)' }}
+                  animate={{
+                    backgroundColor: ['#14b8a6', '#06b6d4', '#3b82f6', '#14b8a6'],
+                    transition: { duration: 5, repeat: Infinity }
+                  }}
                 >
                   View Project
                 </motion.a>
@@ -154,7 +201,7 @@ export default function InteractiveResume() {
 
         {/* Achievements */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4">Achievements</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Achievements</h2>
           <motion.div className="grid md:grid-cols-2 gap-4" variants={stagger}>
             {achievements.map((achievement, index) => (
               <motion.div
@@ -163,7 +210,8 @@ export default function InteractiveResume() {
                 initial={{ scale: 0.8, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                whileHover={{ scale: 1.05, rotate: 2 }}
+                whileHover={hoveringAnimation}
+                animate={floatingAnimation}
               >
                 <span className="text-4xl mb-2">{achievement.icon}</span>
                 <h3 className="text-xl font-semibold">{achievement.title}</h3>
@@ -175,10 +223,10 @@ export default function InteractiveResume() {
 
         {/* Language Proficiency */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4">Language Proficiency</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Language Proficiency</h2>
           <div className="space-y-4">
             {languages.map((language, index) => (
-              <motion.div key={index} className="relative pt-1">
+              <motion.div key={index} className="relative pt-1" whileHover={hoveringAnimation}>
                 <div className="flex mb-2 items-center justify-between">
                   <div>
                     <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white bg-teal-500">
@@ -199,8 +247,11 @@ export default function InteractiveResume() {
                 >
                   <motion.div
                     style={{ width: `${language.proficiency}%` }}
-                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
-                    whileHover={{ backgroundColor: '#ff69b4' }}
+                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
+                    animate={{
+                      backgroundColor: ['#14b8a6', '#06b6d4', '#3b82f6', '#14b8a6'],
+                      transition: { duration: 5, repeat: Infinity }
+                    }}
                   ></motion.div>
                 </motion.div>
               </motion.div>
@@ -210,40 +261,25 @@ export default function InteractiveResume() {
 
         {/* Contact Information */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4">Contact Information</h2>
+          <h2 className="text-3xl font-semibold mb-4 text-center">Contact Information</h2>
           <div className="flex flex-wrap justify-center gap-4">
-            <motion.a
-              href="mailto:john.doe@example.com"
-              className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
-              whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.3)' }}
-            >
-              <span className="text-xl">📧</span>
-              <span>Email</span>
-            </motion.a>
-            <motion.a
-              href="tel:+1234567890"
-              className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
-              whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.3)' }}
-            >
-              <span className="text-xl">📞</span>
-              <span>Phone</span>
-            </motion.a>
-            <motion.a
-              href="https://linkedin.com/in/johndoe"
-              className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
-              whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.3)' }}
-            >
-              <span className="text-xl">💼</span>
-              <span>LinkedIn</span>
-            </motion.a>
-            <motion.a
-              href="https://github.com/johndoe"
-              className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
-              whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.3)' }}
-            >
-              <span className="text-xl">🐙</span>
-              <span>GitHub</span>
-            </motion.a>
+            {[
+              { icon: '📧', text: 'Email', href: 'mailto:john.doe@example.com' },
+              { icon: '📞', text: 'Phone', href: 'tel:+1234567890' },
+              { icon: '💼', text: 'LinkedIn', href: 'https://linkedin.com/in/johndoe' },
+              { icon: '🐙', text: 'GitHub', href: 'https://github.com/johndoe' }
+            ].map((item, index) => (
+              <motion.a
+                key={index}
+                href={item.href}
+                className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
+                whileHover={hoveringAnimation}
+                animate={floatingAnimation}
+              >
+                <span className="text-xl">{item.icon}</span>
+                <span>{item.text}</span>
+              </motion.a>
+            ))}
           </div>
         </motion.section>
 
@@ -253,15 +289,14 @@ export default function InteractiveResume() {
             href="/john-doe-resume.pdf"
             download
             className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-full text-lg font-semibold"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={hoveringAnimation}
+            animate={floatingAnimation}
           >
             <span className="mr-2">📄</span>
             <span>Download Resume</span>
           </motion.a>
         </motion.footer>
       </motion.div>
-    </div>
-  </section>
+    </motion.div>
   )
 }
