@@ -40,6 +40,40 @@ const hoveringAnimation = {
   }
 }
 
+const lightenColor = (color: string) => {
+  const lighterShades = {
+    'bg-blue-500': 'bg-blue-400',
+    'bg-yellow-500': 'bg-yellow-400',
+    'bg-red-500': 'bg-red-400'
+  };
+  return lighterShades[color] || color;
+};
+
+const textReveal = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: 'easeOut' }
+}
+
+const colorPulse = {
+  animate: {
+    color: ['#ffffff', '#ffd700', '#ff69b4', '#ffffff'],
+    transition: { duration: 5, repeat: Infinity, ease: 'easeInOut' }
+  }
+}
+
+const rotateIn = {
+  initial: { rotate: -180, opacity: 0 },
+  animate: { rotate: 0, opacity: 1 },
+  transition: { duration: 0.8, ease: 'easeOut' }
+}
+
+const scaleIn = {
+  initial: { scale: 0 },
+  animate: { scale: 1 },
+  transition: { duration: 0.5, ease: 'easeOut' }
+}
+
 export default function EnhancedAnimatedResume() {
   const [hoveredSkill, setHoveredSkill] = useState(null)
   const controls = useAnimation()
@@ -76,13 +110,12 @@ export default function EnhancedAnimatedResume() {
   ]
 
   const languages = [
-    { name: 'English', proficiency: 95 },
-    { name: 'Spanish', proficiency: 80 },
-    { name: 'French', proficiency: 60 }
+    { name: 'English', proficiency: 85, color: 'bg-blue-500' },
+    { name: 'Hindi', proficiency: 95, color: 'bg-yellow-500' },
+    { name: 'Bengali', proficiency: 100, color: 'bg-red-500' }
   ]
 
   return (
-    <section id="resume" className="py-20 bg-gradient-to-r from-gray-50 to-gray-100">
     <motion.div 
       className="min-h-screen p-8 text-white overflow-hidden"
       animate={controls}
@@ -100,47 +133,57 @@ export default function EnhancedAnimatedResume() {
             style={{ boxShadow: '0 0 25px rgba(255,255,255,0.5)' }}
             animate={floatingAnimation}
           >
-            <img src="https://tinyurl.com/2xj2ahws" alt="MyProfileImage" width={160} height={160} className="object-cover" />
+            <img src="../myimage.jpg" alt="MyProfileImage" width={160} height={160} className="object-cover" />
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
-            animate={{
-              color: ['#ffffff', '#ffd700', '#ff69b4', '#ffffff'],
-              transition: { duration: 5, repeat: Infinity }
-            }}
+            variants={textReveal}
           >
-            Aniruddha Adak
+            <motion.span
+              className="inline-block"
+              animate={colorPulse}
+            >
+              Aniruddha Adak
+            </motion.span>
           </motion.h1>
           <motion.h2
             className="text-2xl mb-4"
-            animate={{
-              color: ['#4ade80', '#22d3ee', '#818cf8', '#4ade80'],
-              transition: { duration: 5, repeat: Infinity }
-            }}
+            variants={textReveal}
           >
-            Full Stack Developer
+            <motion.span
+              className="inline-block"
+              animate={{
+                color: ['#4ade80', '#22d3ee', '#818cf8', '#4ade80'],
+                transition: { duration: 5, repeat: Infinity }
+              }}
+            >
+              Full Stack Developer
+            </motion.span>
           </motion.h2>
           <motion.p
             className="text-lg max-w-2xl mx-auto"
-            animate={{ opacity: [0.7, 1, 0.7], transition: { duration: 3, repeat: Infinity } }}
+            variants={textReveal}
           >
-            Passionate about creating seamless user experiences and robust backend systems. Specializing in modern web technologies and always eager to learn more.
+            <motion.span
+              className="inline-block"
+              animate={{ opacity: [0.7, 1, 0.7], transition: { duration: 3, repeat: Infinity } }}
+            >
+              Passionate about creating seamless user experiences and robust backend systems. Specializing in modern web technologies and always eager to learn more.
+            </motion.span>
           </motion.p>
         </motion.header>
 
         {/* Skills */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4 text-center">Skills</h2>
+          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Skills</motion.h2>
           <motion.div className="flex flex-wrap justify-center gap-4" variants={stagger}>
             {skills.map((skill, index) => (
               <motion.div
                 key={index}
-                className={`px-4 py-2 rounded-full text-white font-semibold`}
-                style={{ background: `linear-gradient(45deg, ${skill.color}, ${skills[(index + 1) % skills.length].color})` }}
+                className={`px-4 py-2 rounded-full text-white font-semibold ${skill.color}`}
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                animate={hoveredSkill === skill.name ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
-                onHoverStart={() => setHoveredSkill(skill.name)}
-                onHoverEnd={() => setHoveredSkill(null)}
+                animate={floatingAnimation}
+                variants={scaleIn}
               >
                 {skill.name}
               </motion.div>
@@ -150,7 +193,7 @@ export default function EnhancedAnimatedResume() {
 
         {/* Education */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4 text-center">Education</h2>
+          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Education</motion.h2>
           <div className="space-y-4">
             {education.map((edu, index) => (
               <motion.div
@@ -172,7 +215,7 @@ export default function EnhancedAnimatedResume() {
 
         {/* Projects */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4 text-center">Projects</h2>
+          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Projects</motion.h2>
           <div className="grid md:grid-cols-2 gap-4">
             {projects.map((project, index) => (
               <motion.div
@@ -180,6 +223,7 @@ export default function EnhancedAnimatedResume() {
                 className="bg-white bg-opacity-10 p-4 rounded-lg"
                 whileHover={hoveringAnimation}
                 animate={floatingAnimation}
+                variants={scaleIn}
               >
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                 <p className="mb-4">{project.description}</p>
@@ -201,7 +245,7 @@ export default function EnhancedAnimatedResume() {
 
         {/* Achievements */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4 text-center">Achievements</h2>
+          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Achievements</motion.h2>
           <motion.div className="grid md:grid-cols-2 gap-4" variants={stagger}>
             {achievements.map((achievement, index) => (
               <motion.div
@@ -223,10 +267,10 @@ export default function EnhancedAnimatedResume() {
 
         {/* Language Proficiency */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4 text-center">Language Proficiency</h2>
+          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Language Proficiency</motion.h2>
           <div className="space-y-4">
             {languages.map((language, index) => (
-              <motion.div key={index} className="relative pt-1" whileHover={hoveringAnimation}>
+              <motion.div key={index} className="relative pt-1" whileHover={hoveringAnimation} variants={scaleIn}>
                 <div className="flex mb-2 items-center justify-between">
                   <div>
                     <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-white bg-teal-500">
@@ -247,9 +291,9 @@ export default function EnhancedAnimatedResume() {
                 >
                   <motion.div
                     style={{ width: `${language.proficiency}%` }}
-                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
+                    className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center ${language.color}`}
                     animate={{
-                      backgroundColor: ['#14b8a6', '#06b6d4', '#3b82f6', '#14b8a6'],
+                      backgroundColor: [language.color, lightenColor(language.color), language.color],
                       transition: { duration: 5, repeat: Infinity }
                     }}
                   ></motion.div>
@@ -261,7 +305,7 @@ export default function EnhancedAnimatedResume() {
 
         {/* Contact Information */}
         <motion.section variants={fadeInUp}>
-          <h2 className="text-3xl font-semibold mb-4 text-center">Contact Information</h2>
+          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Contact Information</motion.h2>
           <div className="flex flex-wrap justify-center gap-4">
             {[
               { icon: '📧', text: 'Email', href: 'mailto:john.doe@example.com' },
@@ -275,6 +319,7 @@ export default function EnhancedAnimatedResume() {
                 className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
                 whileHover={hoveringAnimation}
                 animate={floatingAnimation}
+                variants={scaleIn}
               >
                 <span className="text-xl">{item.icon}</span>
                 <span>{item.text}</span>
@@ -291,6 +336,7 @@ export default function EnhancedAnimatedResume() {
             className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-full text-lg font-semibold"
             whileHover={hoveringAnimation}
             animate={floatingAnimation}
+            variants={scaleIn}
           >
             <span className="mr-2">📄</span>
             <span>Download Resume</span>
@@ -298,6 +344,5 @@ export default function EnhancedAnimatedResume() {
         </motion.footer>
       </motion.div>
     </motion.div>
-  </section>
   )
 }
