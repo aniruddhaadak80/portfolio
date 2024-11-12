@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import Image from 'next/image'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -66,13 +65,13 @@ export default function InteractiveResume() {
             className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg"
             style={{ boxShadow: '0 0 25px rgba(255,255,255,0.5)' }}
           >
-            <Image src="/myimage.jpg" alt="MyProfileImage" width={160} height={160} className="object-cover" />
+            <img src="/myimage.jpg" alt="MyProfileImage" width={160} height={160} className="object-cover" />
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
             whileHover={{ scale: 1.05, color: '#ffd700' }}
           >
-            John Doe
+            Aniruddha Adak
           </motion.h1>
           <motion.h2
             className="text-2xl text-teal-300 mb-4"
