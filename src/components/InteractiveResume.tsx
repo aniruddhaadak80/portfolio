@@ -110,13 +110,12 @@ export default function EnhancedAnimatedResume() {
   ]
 
   const languages = [
-    { name: 'English', proficiency: 85, color: 'bg-blue-500' },
-    { name: 'Hindi', proficiency: 95, color: 'bg-yellow-500' },
-    { name: 'Bengali', proficiency: 100, color: 'bg-red-500' }
+    { name: 'English', proficiency: 95, color: 'bg-blue-500' },
+    { name: 'Spanish', proficiency: 80, color: 'bg-yellow-500' },
+    { name: 'French', proficiency: 60, color: 'bg-red-500' }
   ]
 
   return (
-  <section id="resume" className="py-20 bg-white">
     <motion.div 
       className="min-h-screen p-8 text-white overflow-hidden"
       animate={controls}
@@ -134,7 +133,7 @@ export default function EnhancedAnimatedResume() {
             style={{ boxShadow: '0 0 25px rgba(255,255,255,0.5)' }}
             animate={floatingAnimation}
           >
-            <img src="../myimage.jpg" alt="MyProfileImage" width={160} height={160} className="object-cover" />
+            <img src="/placeholder.svg" alt="Profile" width={160} height={160} className="object-cover" />
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
@@ -144,7 +143,7 @@ export default function EnhancedAnimatedResume() {
               className="inline-block"
               animate={colorPulse}
             >
-              Aniruddha Adak
+              John Doe
             </motion.span>
           </motion.h1>
           <motion.h2
@@ -345,6 +344,5 @@ export default function EnhancedAnimatedResume() {
         </motion.footer>
       </motion.div>
     </motion.div>
-  </section>
   )
 }
