@@ -70,24 +70,24 @@ export default function Resume() {
   ]
 
   const education = [
-    { degree: 'Master of Computer Science', institution: 'Tech University', year: '2020-2022', color: 'bg-purple-500' },
-    { degree: 'Bachelor of Software Engineering', institution: 'Code College', year: '2016-2020', color: 'bg-indigo-500' }
+    { degree: 'Master of Computer Science', institution: 'Future University', year: '2024-2026', color: 'bg-purple-500' },
+    { degree: 'B.Tech in Computer Science & Engineering ', institution: 'MAKAUT,Kalkata,West Bengal ', year: '2022-2026', color: 'bg-indigo-500' }
   ]
 
   const projects = [
-    { title: 'E-commerce Platform', description: 'Built with Next.js and Stripe', link: 'https://github.com/yourusername/ecommerce' },
-    { title: 'Task Management App', description: 'React and Firebase real-time database', link: 'https://github.com/yourusername/taskmanager' }
+    { title: 'SkillSphere', description: 'A unified platform with 10 apps for enhancing well-being and productivity', link: 'https://github.com/aniruddhaadak80/SkillSphere' },
+    { title: 'Real-Time Stock Data Visualizer', description: 'A real-time stock data visualization application built with React, WebSockets, and the TradingView Charting Library.', link: 'https://github.com/aniruddhaadak80/real-time-stock-visualizer' }
   ]
 
   const achievements = [
     { title: 'Best Developer Award', description: 'Recognized for outstanding contributions', icon: '🏆' },
-    { title: 'Hackathon Winner', description: 'First place in national coding competition', icon: '🥇' }
+    { title: 'HacktoberFest2024 Contributor', description: 'Made 238 Accepted PR/MR', icon: '🥇' }
   ]
 
   const languages = [
-    { name: 'English', proficiency: 95, color: 'bg-blue-500' },
-    { name: 'Spanish', proficiency: 80, color: 'bg-yellow-500' },
-    { name: 'French', proficiency: 60, color: 'bg-red-500' }
+    { name: 'English', proficiency: 85, color: 'bg-blue-500' },
+    { name: 'Hindi', proficiency: 95, color: 'bg-yellow-500' },
+    { name: 'Bengali', proficiency: 100, color: 'bg-red-500' }
   ]
 
   return (
@@ -270,10 +270,10 @@ export default function Resume() {
           <h2 className="text-3xl font-semibold mb-4 text-center">Contact Information</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              { icon: '📧', text: 'Email', href: 'mailto:john.doe@example.com' },
-              { icon: '📞', text: 'Phone', href: 'tel:+1234567890' },
-              { icon: '💼', text: 'LinkedIn', href: 'https://linkedin.com/in/johndoe' },
-              { icon: '🐙', text: 'GitHub', href: 'https://github.com/johndoe' }
+              { icon: '📧', text: 'Email', href: 'mailto:aniruddhaadak80@gmail.com' },
+              { icon: '📞', text: 'Phone', href: 'tel:+917029155691' },
+              { icon: '💼', text: 'LinkedIn', href: 'https://linkedin.com/in/aniruddha-adak' },
+              { icon: '🐙', text: 'GitHub', href: 'https://github.com/aniruddhaadak80' }
             ].map((item, index) => (
               <motion.a
                 key={index}
@@ -292,14 +292,14 @@ export default function Resume() {
         {/* Footer */}
         <motion.footer variants={fadeInUp} className="text-center">
           <motion.a
-            href="/john-doe-resume.pdf"
+            href="/aniruddha-resume.pdf"
             download
             className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-full text-lg font-semibold"
             whileHover={hoveringAnimation}
             animate={floatingAnimation}
           >
-            <span className="mr-2">📄</span>
-            <span>Download Resume</span>
+            <span className="mr-2">📃</span>
+            <span>Download Resume ⬇️</span>
           </motion.a>
         </motion.footer>
       </motion.div>
