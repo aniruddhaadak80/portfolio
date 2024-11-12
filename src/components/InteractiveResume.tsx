@@ -178,17 +178,16 @@ export default function EnhancedAnimatedResume() {
           <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Skills</motion.h2>
           <motion.div className="flex flex-wrap justify-center gap-4" variants={stagger}>
             {skills.map((skill, index) => (
-              <motion.div
-                key={index}
-                className={`px-4 py-2 rounded-full text-white font-semibold ${skill.color}`}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                animate={floatingAnimation}
-                variants={scaleIn}
-              >
-                {skill.name}
-              </motion.div>
-            ))}
-          </motion.div>
+             <motion.div
+  key={index}
+  className={`px-4 py-2 rounded-full text-white font-semibold ${skill.color}`}
+  whileHover={{ scale: 1.1, rotate: 5, pointerEvents: "none" }}
+  animate={floatingAnimation}
+  variants={scaleIn}
+>
+  {skill.name}
+</motion.div>
+
         </motion.section>
 
         {/* Education */}
@@ -218,27 +217,45 @@ export default function EnhancedAnimatedResume() {
           <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Projects</motion.h2>
           <div className="grid md:grid-cols-2 gap-4">
             {projects.map((project, index) => (
+              // <motion.div
+              //   key={index}
+              //   className="bg-white bg-opacity-10 p-4 rounded-lg"
+              //   whileHover={hoveringAnimation}
+              //   animate={floatingAnimation}
+              //   variants={scaleIn}
+              // >
+              //   <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+              //   <p className="mb-4">{project.description}</p>
+              //   <motion.a
+              //     href={project.link}
+              //     className="inline-block bg-teal-500 text-white px-4 py-2 rounded"
+              //     whileHover={{ scale: 1.1, boxShadow: '0 0 8px rgba(0,255,255,0.5)' }}
+              //     animate={{
+              //       backgroundColor: ['#14b8a6', '#06b6d4', '#3b82f6', '#14b8a6'],
+              //       transition: { duration: 5, repeat: Infinity }
+              //     }}
+              //   >
+              //     View Project
+              //   </motion.a>
+              // </motion.div>
               <motion.div
-                key={index}
-                className="bg-white bg-opacity-10 p-4 rounded-lg"
-                whileHover={hoveringAnimation}
-                animate={floatingAnimation}
-                variants={scaleIn}
-              >
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="mb-4">{project.description}</p>
-                <motion.a
-                  href={project.link}
-                  className="inline-block bg-teal-500 text-white px-4 py-2 rounded"
-                  whileHover={{ scale: 1.1, boxShadow: '0 0 8px rgba(0,255,255,0.5)' }}
-                  animate={{
-                    backgroundColor: ['#14b8a6', '#06b6d4', '#3b82f6', '#14b8a6'],
-                    transition: { duration: 5, repeat: Infinity }
-                  }}
-                >
-                  View Project
-                </motion.a>
-              </motion.div>
+  key={index}
+  className="bg-white bg-opacity-10 p-4 rounded-lg"
+  whileHover={{ ...hoveringAnimation, pointerEvents: "none" }}
+  animate={floatingAnimation}
+  variants={scaleIn}
+>
+  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+  <p className="mb-4">{project.description}</p>
+  <motion.a
+    href={project.link}
+    className="inline-block bg-teal-500 text-white px-4 py-2 rounded"
+    whileHover={{ scale: 1.1, boxShadow: '0 0 8px rgba(0,255,255,0.5)', pointerEvents: "none" }}
+  >
+    View Project
+  </motion.a>
+</motion.div>
+
             ))}
           </div>
         </motion.section>
@@ -303,45 +320,50 @@ export default function EnhancedAnimatedResume() {
           </div>
         </motion.section>
 
-        {/* Contact Information */}
-        <motion.section variants={fadeInUp}>
-          <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Contact Information</motion.h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            {[
-              { icon: '📧', text: 'Email', href: 'mailto:john.doe@example.com' },
-              { icon: '📞', text: 'Phone', href: 'tel:+1234567890' },
-              { icon: '💼', text: 'LinkedIn', href: 'https://linkedin.com/in/johndoe' },
-              { icon: '🐙', text: 'GitHub', href: 'https://github.com/johndoe' }
-            ].map((item, index) => (
-              <motion.a
-                key={index}
-                href={item.href}
-                className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
-                whileHover={hoveringAnimation}
-                animate={floatingAnimation}
-                variants={scaleIn}
-              >
-                <span className="text-xl">{item.icon}</span>
-                <span>{item.text}</span>
-              </motion.a>
-            ))}
-          </div>
-        </motion.section>
+      
+       {/* Contact Information */}
+<motion.section variants={fadeInUp}>
+  <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Contact Information</motion.h2>
+  <div className="flex flex-wrap justify-center gap-4">
+    {[
+      { icon: '📧', text: 'Email', href: 'mailto:john.doe@example.com' },
+      { icon: '📞', text: 'Phone', href: 'tel:+1234567890' },
+      { icon: '💼', text: 'LinkedIn', href: 'https://linkedin.com/in/johndoe' },
+      { icon: '🐙', text: 'GitHub', href: 'https://github.com/johndoe' }
+    ].map((item, index) => (
+      <motion.a
+        key={index}
+        href={item.href}
+        className="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
+        whileHover={hoveringAnimation}
+        animate={floatingAnimation}
+        variants={scaleIn}
+        style={{ pointerEvents: 'auto' }} // Ensures link remains clickable
+      >
+        <span className="text-xl" style={{ pointerEvents: 'none' }}>{item.icon}</span> 
+        <span>{item.text}</span>
+      </motion.a>
+    ))}
+  </div>
+</motion.section>
 
-        {/* Footer */}
-        <motion.footer variants={fadeInUp} className="text-center">
-          <motion.a
-            href="/john-doe-resume.pdf"
-            download
-            className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-full text-lg font-semibold"
-            whileHover={hoveringAnimation}
-            animate={floatingAnimation}
-            variants={scaleIn}
-          >
-            <span className="mr-2">📄</span>
-            <span>Download Resume</span>
-          </motion.a>
-        </motion.footer>
+
+       {/* Footer */}
+<motion.footer variants={fadeInUp} className="text-center">
+  <motion.a
+    href="/john-doe-resume.pdf"
+    download
+    className="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-full text-lg font-semibold"
+    whileHover={hoveringAnimation}
+    animate={floatingAnimation}
+    variants={scaleIn}
+    style={{ pointerEvents: 'auto' }} // Ensures button remains clickable
+  >
+    <span className="mr-2" style={{ pointerEvents: 'none' }}>📄</span> 
+    <span>Download Resume</span>
+  </motion.a>
+</motion.footer>
+
       </motion.div>
     </motion.div>
   )
