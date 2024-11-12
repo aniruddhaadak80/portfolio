@@ -44,8 +44,8 @@ const About: React.FC = () => {
           {/* Profile Image */}
           <div className="md:w-1/2 mb-8 md:mb-0">
             <img
-              src="https://tinyurl.com/2xj2ahws"
-              alt="Profile"
+              src="../../myimage.jpg"
+              alt="MyProfileImage"
               className="rounded-full w-64 h-64 object-cover mx-auto border-4 border-blue-500 shadow-lg transform hover:scale-105 transition-transform duration-300 animate-pulse"
             />
           </div>
