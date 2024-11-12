@@ -250,8 +250,8 @@ const App: React.FC = () => {
         <Blog />
         <Testimonials />
         <Services />
-        <Contact />
         <InteractiveResume/>
+        <Contact />
       </main>
       <Footer />
     </div>
