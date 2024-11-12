@@ -51,6 +51,7 @@ export default function InteractiveResume() {
   ]
 
   return (
+    <section id="interactiveresume" className="py-20 bg-white">
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-teal-900 text-white p-8">
       <motion.div
         initial="initial"
@@ -261,5 +262,6 @@ export default function InteractiveResume() {
         </motion.footer>
       </motion.div>
     </div>
+  </section>
   )
 }
