@@ -2,7 +2,6 @@
 
 import { motion, useAnimation } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -109,7 +108,7 @@ export default function EnhancedAnimatedResume() {
               transition: { duration: 5, repeat: Infinity }
             }}
           >
-            John Doe
+            Aniruddha Adak
           </motion.h1>
           <motion.h2
             className="text-2xl mb-4"
