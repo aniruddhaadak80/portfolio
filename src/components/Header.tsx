@@ -34,7 +34,7 @@ const Header: React.FC = () => {
   { name: 'Projects', icon: <Folder size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
   { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
   { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
-  { name: 'Resume', icon: <FileText size={18} />, color: 'bg-red-500', hoverColor: 'hover:text-red-700' } // New item
+  { name: 'Resume', icon: <FileText size={18} />, color: 'text-rose-500', hoverColor: 'hover:text-rose-700' } // New item
 ];
 
 
