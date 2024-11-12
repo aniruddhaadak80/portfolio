@@ -10,7 +10,7 @@ import Testimonials from './components/Testimonials';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import InteractiveResume from './components/InteractiveResume';
+import Resume from './components/Resume';
 
 
 const App: React.FC = () => {
@@ -250,7 +250,7 @@ const App: React.FC = () => {
         <Blog />
         <Testimonials />
         <Services />
-        <InteractiveResume/>
+        <Resume/>
         <Contact />
       </main>
       <Footer />
