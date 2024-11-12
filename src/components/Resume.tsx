@@ -107,7 +107,7 @@ export default function Resume() {
             style={{ boxShadow: '0 0 25px rgba(255,255,255,0.5)' }}
             animate={floatingAnimation}
           >
-            <img src="/myimage.png" alt="MyProfileImage" width={160} height={160} className="object-cover" />
+            <img src="https://tinyurl.com/2yj8a5na" alt="MyProfileImage" width={160} height={160} className="object-cover" />
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
