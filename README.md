@@ -1,5 +1,5 @@
 
-```markdown
+
 # 🌐 MyPortfolio
 
 Welcome to **MyPortfolio** — a personal website that showcases my skills, projects, blog posts, and more. Built with modern web technologies, this portfolio is designed to be responsive, visually appealing, and easy to navigate.
