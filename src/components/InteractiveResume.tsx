@@ -66,7 +66,7 @@ export default function InteractiveResume() {
             className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-white shadow-lg"
             style={{ boxShadow: '0 0 25px rgba(255,255,255,0.5)' }}
           >
-            <Image src="/myimage.jpeg" alt="Profile" width={160} height={160} className="object-cover" />
+            <Image src="/myimage.jpg" alt="MyProfileImage" width={160} height={160} className="object-cover" />
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
