@@ -108,7 +108,7 @@ export default function EnhancedAnimatedResume() {
             style={{ boxShadow: '0 0 25px rgba(255,255,255,0.5)' }}
             animate={floatingAnimation}
           >
-            <img src="/placeholder.svg" alt="Profile" width={160} height={160} className="object-cover" />
+            <img src="https://tinyurl.com/2xj2ahws" alt="MyProfileImage" width={160} height={160} className="object-cover" />
           </motion.div>
           <motion.h1
             className="text-4xl font-bold mb-2"
@@ -117,7 +117,7 @@ export default function EnhancedAnimatedResume() {
               transition: { duration: 5, repeat: Infinity }
             }}
           >
-            John Doe
+            Aniruddha Adak
           </motion.h1>
           <motion.h2
             className="text-2xl mb-4"
@@ -126,7 +126,7 @@ export default function EnhancedAnimatedResume() {
               transition: { duration: 5, repeat: Infinity }
             }}
           >
-            Full Stack Developer
+           A Passionate Full Stack Developer
           </motion.h2>
           <motion.p
             className="text-lg max-w-2xl mx-auto"
