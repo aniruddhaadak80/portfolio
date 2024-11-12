@@ -173,21 +173,23 @@ export default function EnhancedAnimatedResume() {
           </motion.p>
         </motion.header>
 
-        {/* Skills */}
+       {/* Skills */}
         <motion.section variants={fadeInUp}>
           <motion.h2 className="text-3xl font-semibold mb-4 text-center" variants={rotateIn}>Skills</motion.h2>
           <motion.div className="flex flex-wrap justify-center gap-4" variants={stagger}>
             {skills.map((skill, index) => (
-             <motion.div
-               key={index}
-               className={`px-4 py-2 rounded-full text-white font-semibold ${skill.color}`}
-               whileHover={{ scale: 1.1, rotate: 5, pointerEvents: "none" }}
-               animate={floatingAnimation}
-              variants={scaleIn}
-                >
+              <motion.div
+                key={index}
+                className={`px-4 py-2 rounded-full text-white font-semibold ${skill.color}`}
+                whileHover={{ scale: 1.1, rotate: 5, pointerEvents: "none" }}
+                animate={floatingAnimation}
+                variants={scaleIn}
+              >
                 {skill.name}
-               </motion.div>
-          </motion.section>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.section>
 
         {/* Education */}
         <motion.section variants={fadeInUp}>
