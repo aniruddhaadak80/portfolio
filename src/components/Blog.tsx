@@ -11,7 +11,7 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
-  // Your posts here
+  // Blog posts data goes here..
   {
     id: 1,
     title: 'Understanding Artificial Intelligence in Web Development',
@@ -173,7 +173,7 @@ const blogPosts: BlogPost[] = [
     excerpt: 'Explore how AI is revolutionizing web development and improving user experiences.',
     date: '2023-11-01',
     image: 'https://tinyurl.com/2bqqdjdw',
-    tags: ['AI']
+    tags: ['Web Development']
   },
   {
     id: 20,
@@ -181,14 +181,14 @@ const blogPosts: BlogPost[] = [
     excerpt: 'Learn about AI-powered tools that can make web development more efficient.',
     date: '2023-11-02',
     image: 'https://tinyurl.com/26vsn2f3',
-    tags: ['AI']
+    tags: ['Web Development']
   },  {
     id: 21,
     title: 'Understanding Artificial Intelligence in Web Development',
     excerpt: 'Explore how AI is revolutionizing web development and improving user experiences.',
     date: '2023-11-01',
     image: 'https://tinyurl.com/2bqqdjdw',
-    tags: ['AI']
+    tags: ['Web Development']
   },
   {
     id: 22,
@@ -196,7 +196,7 @@ const blogPosts: BlogPost[] = [
     excerpt: 'Learn about AI-powered tools that can make web development more efficient.',
     date: '2023-11-02',
     image: 'https://tinyurl.com/26vsn2f3',
-    tags: ['AI']
+    tags: ['Web Development']
   },
 
 ];
@@ -205,32 +205,30 @@ const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>([]);
-  const [colorClasses, setColorClasses] = useState<string[]>([]);
+  const [colorIndex, setColorIndex] = useState(0);
 
-  // Random colors to select from
-  const colorPalette = ['text-blue-600', 'text-green-600', 'text-red-600', 'text-purple-600', 'text-yellow-600'];
+  // Predefined color palette
+  const colorPalette = [
+    'text-blue-600',
+    'text-green-600',
+    'text-red-600',
+    'text-purple-600',
+    'text-yellow-600',
+  ];
 
-  // Function to get a random color class
-  const getRandomColorClass = () => colorPalette[Math.floor(Math.random() * colorPalette.length)];
-
-  // Set up colors to change every 5 seconds
+  // Cycle through color palette every second
   useEffect(() => {
     const interval = setInterval(() => {
-      setColorClasses([
-        getRandomColorClass(),
-        getRandomColorClass(),
-        getRandomColorClass(),
-        getRandomColorClass(),
-      ]);
-    }, 5000); // Change color every 5 seconds
+      setColorIndex((prevIndex) => (prevIndex + 1) % colorPalette.length);
+    }, 1000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   // Update visible posts when selected tag changes
   useEffect(() => {
     if (selectedTag) {
-      const filteredPosts = blogPosts.filter(post => post.tags.includes(selectedTag));
+      const filteredPosts = blogPosts.filter((post) => post.tags.includes(selectedTag));
       setPosts(filteredPosts);
       setVisiblePosts(filteredPosts.slice(0, 3));
     } else {
@@ -239,7 +237,7 @@ const Blog: React.FC = () => {
     }
   }, [selectedTag]);
 
-  const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
+  const allTags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
 
   const showMorePosts = () => {
     setVisiblePosts(posts.slice(0, visiblePosts.length + 3));
@@ -254,15 +252,23 @@ const Blog: React.FC = () => {
         <div className="flex flex-wrap justify-center mb-8">
           <motion.button
             onClick={() => setSelectedTag(null)}
-            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
+            className={`m-2 px-4 py-2 rounded-full ${
+              selectedTag === null
+                ? 'bg-blue-500 text-white'
+                : `bg-white ${colorPalette[colorIndex]} border-2 border-blue-500`
+            }`}
           >
             All
           </motion.button>
-          {allTags.map(tag => (
+          {allTags.map((tag, index) => (
             <motion.button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : getRandomColorClass()} border-2`}
+              className={`m-2 px-4 py-2 rounded-full ${
+                selectedTag === tag
+                  ? 'bg-blue-500 text-white'
+                  : `bg-white ${colorPalette[(colorIndex + index) % colorPalette.length]} border-2`
+              }`}
             >
               {tag}
             </motion.button>
@@ -282,15 +288,15 @@ const Blog: React.FC = () => {
             >
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
-                <h3 className={`text-xl font-semibold mb-2 ${colorClasses[index % colorClasses.length]}`}>
+                <h3 className={`text-xl font-semibold mb-2 ${colorPalette[(colorIndex + index) % colorPalette.length]}`}>
                   {post.title}
                 </h3>
-                <p className={`${colorClasses[(index + 1) % colorClasses.length]} mb-4`}>
+                <p className={`${colorPalette[(colorIndex + index + 1) % colorPalette.length]} mb-4`}>
                   {post.excerpt}
                 </p>
                 <div className="flex justify-between items-center">
-                  <div className={`text-sm ${colorClasses[(index + 2) % colorClasses.length]}`}>{post.date}</div>
-                  <div className={`text-sm font-medium ${colorClasses[(index + 3) % colorClasses.length]}`}>{post.tags.join(', ')}</div>
+                  <div className={`text-sm ${colorPalette[(colorIndex + index + 2) % colorPalette.length]}`}>{post.date}</div>
+                  <div className={`text-sm font-medium ${colorPalette[(colorIndex + index + 3) % colorPalette.length]}`}>{post.tags.join(', ')}</div>
                 </div>
               </div>
             </motion.div>
@@ -301,7 +307,7 @@ const Blog: React.FC = () => {
         <div className="flex justify-center mt-8">
           <button
             onClick={showMorePosts}
-            className="px-6 py-3 rounded-full bg-blue-500 text-white font-semibold"
+            className={`px-6 py-3 rounded-full font-semibold ${colorPalette[(colorIndex + 4) % colorPalette.length]}`}
           >
             Show More
           </button>
