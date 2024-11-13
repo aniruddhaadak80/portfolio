@@ -316,12 +316,13 @@ const Blog: React.FC = () => {
   <div className="flex justify-center mt-8">
     <button
       onClick={showMorePosts}
-      className={`px-6 py-3 rounded-full font-bold text-4xl ${colorPalette[(colorIndex + 4) % colorPalette.length]} bg-indigo-600 hover:bg-indigo-700 hover:text-white hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out`}
+      className={`px-6 py-3 rounded-full font-bold text-2xl ${colorPalette[(colorIndex + 4) % colorPalette.length]} bg-sky-500 hover:bg-sky-600 hover:text-white hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out`}
     >
       Show More
     </button>
   </div>
 )}
+
 
       </div>
     </section>
