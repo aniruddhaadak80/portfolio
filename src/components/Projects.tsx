@@ -32,10 +32,23 @@ const projects = [
   },
 ];
 
+
 const colors = [
   '#FF5733', '#33FF57', '#3357FF', '#FF33A6', '#A633FF', 
-  '#FFD633', '#33FFF5', '#FF8F33', '#B833FF', '#33FF8A'
+  '#FFD633', '#33FFF5', '#FF8F33', '#B833FF', '#33FF8A',
+  '#FF6F61', '#4B0082', '#32CD32', '#FF1493', '#00FFFF',
+  '#FFD700', '#DC143C', '#8A2BE2', '#00FA9A', '#D2691E',
+  '#FF4500', '#2E8B57', '#A52A2A', '#98FB98', '#20B2AA',
+  '#FF6347', '#7FFF00', '#F08080', '#B0C4DE', '#7B68EE',
+  '#6A5ACD', '#F0E68C', '#8B0000', '#40E0D0', '#9ACD32',
+  '#FF99CC', '#9B30FF', '#FF8C00', '#4682B4', '#D3D3D3',
+  '#8B4513', '#B22222', '#7F00FF', '#FF00FF', '#FFB6C1',
+  '#E9967A', '#FFDAB9', '#F5DEB3', '#C71585', '#BDB76B',
+  '#3CB371', '#DDA0DD', '#A9A9A9', '#DCB9F1', '#BCE0A1',
+  '#DA70D6', '#20B2AA', '#A9D0F5', '#FFB3E6', '#80E0D0',
+  '#F4A300', '#C7B1D2', '#A1C6E7', '#A97BC9', '#D9A5F4'
 ];
+
 
 const fontFamilies = [
   'Arial, sans-serif', 'Courier New, monospace', 'Georgia, serif', 
