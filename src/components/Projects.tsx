@@ -146,6 +146,11 @@ const Projects = () => {
                       boxShadow: `0 0 20px ${colors[(colorIndex + projectIndex) % colors.length]}`,
                       transition: 'box-shadow 0.3s ease-in-out',
                     }}
+                    whileHover={{
+                      scale: 1.1,
+                      rotate: 360,
+                      boxShadow: `0 0 40px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                    }}
                   >
                     <GithubIcon size={24} />
                   </motion.a>
@@ -157,6 +162,11 @@ const Projects = () => {
                     style={{
                       boxShadow: `0 0 20px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
                       transition: 'box-shadow 0.3s ease-in-out',
+                    }}
+                    whileHover={{
+                      scale: 1.1,
+                      rotate: 360,
+                      boxShadow: `0 0 40px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
                     }}
                   >
                     <ExternalLink size={24} />
