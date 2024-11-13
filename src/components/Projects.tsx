@@ -59,7 +59,7 @@ const Projects = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
-    }, 1000);
+    }, 1000); // Cycle every second
 
     return () => clearInterval(interval);
   }, []);
@@ -142,12 +142,9 @@ const Projects = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700"
-                    whileHover={{
-                      scale: 1.2,
-                      rotate: 10,
-                      color: '#4299E1',
-                      boxShadow: `0 0 10px ${colors[(colorIndex + projectIndex) % colors.length]}`,
-                      transition: { type: 'spring', stiffness: 250 },
+                    style={{
+                      boxShadow: `0 0 20px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                      transition: 'box-shadow 0.3s ease-in-out',
                     }}
                   >
                     <GithubIcon size={24} />
@@ -157,12 +154,9 @@ const Projects = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700"
-                    whileHover={{
-                      scale: 1.2,
-                      rotate: -10,
-                      color: '#4299E1',
-                      boxShadow: `0 0 10px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
-                      transition: { type: 'spring', stiffness: 250 },
+                    style={{
+                      boxShadow: `0 0 20px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
+                      transition: 'box-shadow 0.3s ease-in-out',
                     }}
                   >
                     <ExternalLink size={24} />
