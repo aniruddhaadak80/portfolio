@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaJs, FaReact, FaNodeJs, FaPython, FaJava, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
@@ -31,7 +31,13 @@ const Skills: React.FC = () => {
   const [visibleSkills, setVisibleSkills] = useState(skills.slice(0, 3)); // Show only 3 skills initially
   const categories = ['All', ...new Set(skills.map(skill => skill.category))];
 
-  const filteredSkills = filter === 'All' ? visibleSkills : visibleSkills.filter(skill => skill.category === filter);
+  // Filter the skills based on the selected filter
+  const filteredSkills = filter === 'All' ? skills : skills.filter(skill => skill.category === filter);
+
+  // Reset visible skills to first 3 when the filter changes
+  useEffect(() => {
+    setVisibleSkills(filteredSkills.slice(0, 3)); // Reset to show 3 skills initially
+  }, [filter, filteredSkills]);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -48,7 +54,7 @@ const Skills: React.FC = () => {
   };
 
   const showMoreSkills = () => {
-    setVisibleSkills(skills.slice(0, visibleSkills.length + 3)); // Show 3 more skills each time
+    setVisibleSkills(filteredSkills.slice(0, visibleSkills.length + 3)); // Show 3 more skills each time
   };
 
   return (
@@ -72,7 +78,7 @@ const Skills: React.FC = () => {
           ))}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredSkills.map((skill, index) => (
+          {visibleSkills.map((skill, index) => (
             <div 
               key={skill.name} 
               className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 animate-fade-in-up hover:shadow-2xl" 
@@ -109,16 +115,16 @@ const Skills: React.FC = () => {
           ))}
         </div>
 
-        {skills.length > visibleSkills.length && (
+        {filteredSkills.length > visibleSkills.length && (
           <div className="text-center mt-8">
             <motion.button
               onClick={showMoreSkills}
-              className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
+              className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg hover:bg-blue-600 transition-colors"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              See More ✨
+              See More
             </motion.button>
           </div>
         )}
