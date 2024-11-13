@@ -143,11 +143,12 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700"
                     style={{
+                      borderRadius: '50%', // Make the glow effect circular
                       boxShadow: `0 0 20px ${colors[(colorIndex + projectIndex) % colors.length]}`,
-                      transition: 'box-shadow 0.3s ease-in-out',
+                      transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                     }}
                     whileHover={{
-                      scale: 1.1,
+                      scale: 1.2, // Increase scale for smoother effect
                       rotate: 360,
                       boxShadow: `0 0 40px ${colors[(colorIndex + projectIndex) % colors.length]}`,
                     }}
@@ -160,11 +161,12 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700"
                     style={{
+                      borderRadius: '50%', // Make the glow effect circular
                       boxShadow: `0 0 20px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
-                      transition: 'box-shadow 0.3s ease-in-out',
+                      transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                     }}
                     whileHover={{
-                      scale: 1.1,
+                      scale: 1.2,
                       rotate: 360,
                       boxShadow: `0 0 40px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
                     }}
