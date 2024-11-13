@@ -32,10 +32,14 @@ const projects = [
   },
 ];
 
-// Define an array of colors
 const colors = [
   '#FF5733', '#33FF57', '#3357FF', '#FF33A6', '#A633FF', 
   '#FFD633', '#33FFF5', '#FF8F33', '#B833FF', '#33FF8A'
+];
+
+const fontFamilies = [
+  'Arial, sans-serif', 'Courier New, monospace', 'Georgia, serif', 
+  'Tahoma, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif'
 ];
 
 const Projects = () => {
@@ -65,18 +69,23 @@ const Projects = () => {
             <motion.div
               key={project.id}
               className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:-translate-y-1 transition duration-300 ease-out"
-              onClick={() => setSelectedProject(project.id)}
+              style={{
+                boxShadow: `0 4px 20px ${colors[projectIndex % colors.length]}`,
+                borderRadius: '12px',
+              }}
               whileHover={{
-                y: -5,
                 scale: 1.05,
-                transition: { duration: 0.4, type: 'spring', stiffness: 200 },
+                boxShadow: `0 0 30px ${colors[(colorIndex + projectIndex) % colors.length]}`,
               }}
             >
-              <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+              <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-t-lg" />
               <div className="p-6">
                 <motion.h3
-                  className="text-2xl font-semibold mb-3"
-                  style={{ color: colors[(colorIndex + projectIndex) % colors.length] }}
+                  className="text-2xl font-bold mb-3"
+                  style={{ 
+                    color: colors[(colorIndex + projectIndex) % colors.length],
+                    fontFamily: fontFamilies[projectIndex % fontFamilies.length]
+                  }}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
@@ -85,7 +94,10 @@ const Projects = () => {
                 </motion.h3>
                 <motion.p
                   className="text-gray-700 mb-4 leading-relaxed"
-                  style={{ color: colors[(colorIndex + projectIndex + 1) % colors.length] }}
+                  style={{ 
+                    color: colors[(colorIndex + projectIndex + 1) % colors.length],
+                    fontFamily: fontFamilies[(projectIndex + 1) % fontFamilies.length]
+                  }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.1, duration: 0.7 }}
@@ -102,7 +114,10 @@ const Projects = () => {
                     <motion.span
                       key={tech}
                       className="bg-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded shadow-sm"
-                      style={{ color: colors[(colorIndex + techIndex) % colors.length] }}
+                      style={{
+                        color: colors[(colorIndex + techIndex) % colors.length],
+                        fontFamily: fontFamilies[(techIndex + 2) % fontFamilies.length],
+                      }}
                       whileHover={{ scale: 1.15, color: '#5A67D8' }}
                       transition={{ type: 'spring', stiffness: 300 }}
                     >
