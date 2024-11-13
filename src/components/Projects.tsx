@@ -5,7 +5,7 @@ import { ExternalLink, GithubIcon } from 'lucide-react';
 const projects = [
   {
     id: 1,
-    title: 'SkillSphere',
+    title: 'SkillSphere : A Daily Productivity APP',
     description: 'A unified platform with 10 apps for enhancing well-being and productivity .',
     image: 'https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
     technologies: ['Typescript', 'React.js', 'TailwindCSS'],
@@ -14,12 +14,12 @@ const projects = [
   },
   {
     id: 2,
-    title: 'E-commerce Platform',
+    title: 'MercatoLive : A E-commerce Platform',
     description: 'A full-stack e-commerce solution with real-time inventory management.',
     image: 'https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    technologies: ['Vue.js', 'Django', 'PostgreSQL'],
-    github: 'https://github.com/yourusername/ecommerce-platform',
-    live: 'https://ecommerce-platform.example.com',
+    technologies: ['Next.js', 'Typescript', 'Javascript'],
+    github: 'https://github.com/aniruddhaadak80/MercatoLive',
+    live: 'https://mercato-live.vercel.app/',
   },
   {
     id: 3,
