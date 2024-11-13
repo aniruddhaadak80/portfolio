@@ -48,7 +48,7 @@ const colorCycle = {
     '0px 0px 8px #ffa500'
   ],
   transition: {
-    duration: 1,
+    duration: 2, // Change from 1 to 2 seconds
     repeat: Infinity,
     ease: 'easeInOut'
   }
