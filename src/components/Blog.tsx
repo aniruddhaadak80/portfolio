@@ -311,12 +311,12 @@ const Blog: React.FC = () => {
           ))}
         </div>
 
-       {/* "Show More" Button, only if there are more than 3 posts */}
+{/* "Show More" Button, only if there are more than 3 posts */}
 {posts.length > 3 && visiblePosts.length < posts.length && (
   <div className="flex justify-center mt-8">
     <button
       onClick={showMorePosts}
-      className={`px-6 py-3 rounded-full font-bold text-4xl ${colorPalette[(colorIndex + 4) % colorPalette.length]} hover:scale-105 transition-all duration-300 ease-in-out animate-glow hover:box-shadow-[0_0_15px_3px_rgba(255,255,255,0.8)]`}
+      className={`px-6 py-3 rounded-full font-bold text-4xl ${colorPalette[(colorIndex + 4) % colorPalette.length]} bg-indigo-600 hover:bg-indigo-700 hover:text-white hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out`}
     >
       Show More
     </button>
