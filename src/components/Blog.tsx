@@ -120,11 +120,10 @@ const blogPosts: BlogPost[] = [
   }
 ];
 
-
-
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>(blogPosts.slice(0, 3)); // Initially show first 3 posts
 
   useEffect(() => {
     if (selectedTag) {
@@ -135,6 +134,11 @@ const Blog: React.FC = () => {
   }, [selectedTag]);
 
   const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
+
+  // Show more posts when the button is clicked
+  const showMorePosts = () => {
+    setVisiblePosts(posts.slice(0, visiblePosts.length + 3));
+  };
 
   return (
     <section id="blog" className="py-20 bg-gray-100">
@@ -167,7 +171,7 @@ const Blog: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map(post => (
+          {visiblePosts.map(post => (
             <motion.div
               key={post.id}
               className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
@@ -199,6 +203,18 @@ const Blog: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Show "See More" button only if there are more posts to display */}
+        {visiblePosts.length < posts.length && (
+          <div className="text-center mt-8">
+            <motion.button
+              onClick={showMorePosts}
+              className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition-colors duration-300"
+            >
+              See More
+            </motion.button>
+          </div>
+        )}
       </div>
     </section>
   );
