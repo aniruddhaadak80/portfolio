@@ -27,6 +27,33 @@ const floatingAnimation = {
   }
 }
 
+const floatingEffect = {
+  y: ['-5%', '5%'],
+  transition: {
+    duration: 2,
+    repeat: Infinity,
+    repeatType: 'reverse',
+    ease: 'easeInOut'
+  }
+}
+
+const colorCycle = {
+  color: ['#ff4500', '#ffd700', '#00fa9a', '#ff69b4', '#87cefa', '#ffa500'],
+  textShadow: [
+    '0px 0px 8px #ff4500',
+    '0px 0px 8px #ffd700',
+    '0px 0px 8px #00fa9a',
+    '0px 0px 8px #ff69b4',
+    '0px 0px 8px #87cefa',
+    '0px 0px 8px #ffa500'
+  ],
+  transition: {
+    duration: 1,
+    repeat: Infinity,
+    ease: 'easeInOut'
+  }
+}
+
 const hoveringAnimation = {
   scale: [1, 1.05, 1],
   rotate: [0, 5, -5, 0],
@@ -127,11 +154,48 @@ export default function Resume() {
           >
            A Passionate Full Stack Developer
           </motion.h2>
-          <motion.p
+{/*           <motion.p
             className="text-lg max-w-2xl mx-auto"
             animate={{ opacity: [0.7, 1, 0.7], transition: { duration: 3, repeat: Infinity } }}
           >
             Passionate about creating seamless user experiences and robust backend systems. Specializing in modern web technologies and always eager to learn more.
+          </motion.p> */}
+
+          <motion.p
+            className="text-lg max-w-2xl mx-auto flex flex-wrap justify-center gap-1"
+            animate={floatingEffect}
+          >
+            {[
+              "Passionate",
+              "about",
+              "creating",
+              "seamless",
+              "user",
+              "experiences",
+              "and",
+              "robust",
+              "backend",
+              "systems.",
+              "Specializing",
+              "in",
+              "modern",
+              "web",
+              "technologies",
+              "and",
+              "always",
+              "eager",
+              "to",
+              "learn",
+              "more."
+            ].map((word, index) => (
+              <motion.span
+                key={index}
+                className="font-semibold mx-1"
+                animate={colorCycle}
+              >
+                {word}
+              </motion.span>
+            ))}
           </motion.p>
         </motion.header>
 
