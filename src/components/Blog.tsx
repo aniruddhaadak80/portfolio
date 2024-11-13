@@ -221,15 +221,18 @@ const Blog: React.FC = () => {
     'text-cyan-700'
   ];
 
-  // Function to set a sequence of unique color classes
-  const assignUniqueColors = () => {
-    const uniqueColors = colorPalette.slice(0, 4); // Limit to 4 unique colors for headings, subheadings, etc.
-    setColorClasses(uniqueColors);
+  // Function to cycle and sync colors every 1 second
+  const cycleColors = () => {
+    setColorClasses(prevColors => {
+      const newColors = colorPalette.slice();
+      newColors.push(newColors.shift()!); // Rotate colors
+      return newColors;
+    });
   };
 
-  // Cycle colors every 1 second
+  // Set up color synchronization interval
   useEffect(() => {
-    const interval = setInterval(assignUniqueColors, 1000);
+    const interval = setInterval(cycleColors, 1000); // Cycle colors every second
     return () => clearInterval(interval);
   }, []);
 
