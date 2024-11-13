@@ -318,7 +318,7 @@ const Blog: React.FC = () => {
       onClick={showMorePosts}
       className={`px-6 py-3 rounded-full font-bold text-2xl ${colorPalette[(colorIndex + 4) % colorPalette.length]} bg-sky-300 hover:bg-sky-200  hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out`}
     >
-      Show More
+      Show More ✨
     </button>
   </div>
 )}
