@@ -5,12 +5,12 @@ import { ExternalLink, GithubIcon } from 'lucide-react';
 const projects = [
   {
     id: 1,
-    title: 'AI-Powered Task Manager',
-    description: 'A task management application with AI-driven prioritization and scheduling.',
+    title: 'SkillSphere',
+    description: 'A unified platform with 10 apps for enhancing well-being and productivity .',
     image: 'https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    technologies: ['React', 'Node.js', 'TensorFlow.js'],
-    github: 'https://github.com/yourusername/ai-task-manager',
-    live: 'https://ai-task-manager.example.com',
+    technologies: ['Typescript', 'React.js', 'TailwindCSS'],
+    github: 'https://github.com/aniruddhaadak80/SkillSphere',
+    live: 'https://skilsphere.vercel.app',
   },
   {
     id: 2,
@@ -23,12 +23,12 @@ const projects = [
   },
   {
     id: 3,
-    title: 'Blockchain Voting System',
-    description: 'A secure and transparent voting system built on blockchain technology.',
+    title: 'Real-Time Stock Data Visualizer',
+    description: 'A real-time stock data visualization application built with React, WebSockets, and the TradingView Charting Library.',
     image: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    technologies: ['Solidity', 'Web3.js', 'React'],
-    github: 'https://github.com/yourusername/blockchain-voting',
-    live: 'https://blockchain-voting.example.com',
+    technologies: ['React.js', 'WebSockets', 'TradingView Chart' , 'Typescript'],
+    github: 'https://github.com/aniruddhaadak80/real-time-stock-visualizer',
+    live: 'https://real-time-stock-visualizer.vercel.app',
   },
 ];
 
