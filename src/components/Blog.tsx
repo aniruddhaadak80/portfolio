@@ -117,6 +117,41 @@ const blogPosts: BlogPost[] = [
     image: 'https://tinyurl.com/2b84fbbg',
     tags: ['Databases']
   }
+,
+  // add dummy
+  {
+    id: 13,
+    title: 'Understanding Artificial Intelligence in Web Development',
+    excerpt: 'Explore how AI is revolutionizing web development and improving user experiences.',
+    date: '2023-11-01',
+    image: 'https://tinyurl.com/2bqqdjdw',
+    tags: ['Databases']
+  },
+  {
+    id: 14,
+    title: 'AI Tools Every Web Developer Should Know About',
+    excerpt: 'Learn about AI-powered tools that can make web development more efficient.',
+    date: '2023-11-02',
+    image: 'https://tinyurl.com/26vsn2f3',
+    tags: ['Databases']
+  },
+  {
+    id: 15,
+    title: 'Understanding Artificial Intelligence in Web Development',
+    excerpt: 'Explore how AI is revolutionizing web development and improving user experiences.',
+    date: '2023-11-01',
+    image: 'https://tinyurl.com/2bqqdjdw',
+    tags: ['AI']
+  },
+  {
+    id: 16,
+    title: 'AI Tools Every Web Developer Should Know About',
+    excerpt: 'Learn about AI-powered tools that can make web development more efficient.',
+    date: '2023-11-02',
+    image: 'https://tinyurl.com/26vsn2f3',
+    tags: ['AI']
+  },
+
 
 ];
 
