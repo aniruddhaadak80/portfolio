@@ -29,9 +29,10 @@ const skills = [
 
 const Skills: React.FC = () => {
   const [filter, setFilter] = useState('All');
+  const [visibleSkills, setVisibleSkills] = useState(skills.slice(0, 6)); // Initially show 6 skills
   const categories = ['All', ...new Set(skills.map(skill => skill.category))];
 
-  const filteredSkills = filter === 'All' ? skills : skills.filter(skill => skill.category === filter);
+  const filteredSkills = filter === 'All' ? visibleSkills : visibleSkills.filter(skill => skill.category === filter);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -45,6 +46,11 @@ const Skills: React.FC = () => {
       case 'Design': return 'from-teal-500 to-green-500';
       default: return 'from-gray-500 to-gray-700';
     }
+  };
+
+  // Show more skills when the button is clicked
+  const showMoreSkills = () => {
+    setVisibleSkills(skills.slice(0, visibleSkills.length + 6)); // Show 6 more skills
   };
 
   return (
@@ -104,6 +110,20 @@ const Skills: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {skills.length > visibleSkills.length && (
+          <div className="text-center mt-8">
+            <motion.button
+              onClick={showMoreSkills}
+              className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              See More ✨
+            </motion.button>
+          </div>
+        )}
       </div>
     </section>
   );
