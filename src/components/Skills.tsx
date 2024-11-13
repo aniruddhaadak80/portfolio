@@ -37,7 +37,7 @@ const Skills: React.FC = () => {
   // Reset visible skills to first 3 when the filter changes
   useEffect(() => {
     setVisibleSkills(filteredSkills.slice(0, 3)); // Reset to show 3 skills initially
-  }, [filter, filteredSkills]);
+  }, [filter]);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -104,22 +104,18 @@ const Skills: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
-                  <div
-                    style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
-                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center animate-expand-right"
-                  ></div>
+                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gradient-to-r from-green-500 to-teal-500">
+                  <div style={{ width: `${skill.level}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap justify-center bg-teal-500"></div>
                 </div>
               </div>
             </div>
           ))}
         </div>
-
         {filteredSkills.length > visibleSkills.length && (
-          <div className="text-center mt-8">
+          <div className="text-center mt-6">
             <motion.button
               onClick={showMoreSkills}
-              className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg hover:bg-blue-600 transition-colors"
+              className="px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg hover:bg-blue-600 transition-colors"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
