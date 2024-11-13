@@ -32,7 +32,6 @@ const projects = [
   },
 ];
 
-
 const colors = [
   '#FF5733', '#33FF57', '#3357FF', '#FF33A6', '#A633FF', 
   '#FFD633', '#33FFF5', '#FF8F33', '#B833FF', '#33FF8A',
@@ -48,7 +47,6 @@ const colors = [
   '#DA70D6', '#20B2AA', '#A9D0F5', '#FFB3E6', '#80E0D0',
   '#F4A300', '#C7B1D2', '#A1C6E7', '#A97BC9', '#D9A5F4'
 ];
-
 
 const fontFamilies = [
   'Arial, sans-serif', 'Courier New, monospace', 'Georgia, serif', 
@@ -148,6 +146,7 @@ const Projects = () => {
                       scale: 1.2,
                       rotate: 10,
                       color: '#4299E1',
+                      boxShadow: `0 0 10px ${colors[(colorIndex + projectIndex) % colors.length]}`,
                       transition: { type: 'spring', stiffness: 250 },
                     }}
                   >
@@ -162,6 +161,7 @@ const Projects = () => {
                       scale: 1.2,
                       rotate: -10,
                       color: '#4299E1',
+                      boxShadow: `0 0 10px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
                       transition: { type: 'spring', stiffness: 250 },
                     }}
                   >
