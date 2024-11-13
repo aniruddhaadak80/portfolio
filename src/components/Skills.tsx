@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaJs, FaReact, FaNodeJs, FaPython, FaJava, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
+import { motion } from 'framer-motion'; // Ensure framer-motion is installed
 
 const skills = [
   { name: 'JavaScript', category: 'Frontend', level: 95, icon: FaJs, color: '#F7DF1E', bgColor: '#FFF8D6' },
@@ -16,8 +17,6 @@ const skills = [
   { name: 'Next.js', category: 'Frontend', level: 85, icon: SiNextdotjs, color: '#000000', bgColor: '#F0F7FF' },
   { name: 'Qwik.js', category: 'Frontend', level: 75, icon: SiQwiklabs, color: '#FF1E56', bgColor: '#FFE6EC' },
   { name: 'Astro.js', category: 'Frontend', level: 80, icon: SiAstro, color: '#FF5D01', bgColor: '#FFF0E6' },
-
-  // New Skills
   { name: 'C', category: 'Programming', level: 80, icon: CgCPlusPlus, color: '#A8B9CC', bgColor: '#E6F2FF' },
   { name: 'C++', category: 'Programming', level: 85, icon: CgCPlusPlus, color: '#00599C', bgColor: '#E6F0FF' },
   { name: 'Java', category: 'Programming', level: 80, icon: FaJava , color: '#007396', bgColor: '#E6FAFF' },
@@ -48,7 +47,6 @@ const Skills: React.FC = () => {
     }
   };
 
-  // Show more skills when the button is clicked
   const showMoreSkills = () => {
     setVisibleSkills(skills.slice(0, visibleSkills.length + 6)); // Show 6 more skills
   };
