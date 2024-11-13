@@ -211,19 +211,19 @@ const Blog: React.FC = () => {
           ))}
         </div>
 
-   {/* "See More" button */}
-{visiblePosts.length < posts.length && (
-  <motion.button
-    onClick={loadMorePosts}
-    className="px-6 py-3 text-lg font-bold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-all duration-300 ease-in-out shadow-lg animate-pulse"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    See More ✨
-  </motion.button>
-)}
-
+        {posts.length > visiblePosts.length && (
+          <div className="text-center mt-8">
+            <motion.button
+              onClick={showMorePosts}
+              className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              See More ✨
+            </motion.button>
+          </div>
+        )}
       </div>
     </section>
   );
