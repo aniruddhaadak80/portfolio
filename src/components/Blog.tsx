@@ -11,7 +11,7 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
-  // Blog posts data goes here..
+  // Your blog post objects here...
   {
     id: 1,
     title: 'Understanding Artificial Intelligence in Web Development',
@@ -205,39 +205,42 @@ const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>([]);
-  const [colorIndex, setColorIndex] = useState(0);
+  const [colorClasses, setColorClasses] = useState<string[]>([]);
 
-  // Predefined color palette
+  // Enhanced color palette with deeper and more unique colors
   const colorPalette = [
-    'text-blue-600',
-    'text-green-600',
-    'text-red-600',
-    'text-purple-600',
-    'text-yellow-600',
+    'text-blue-700', 
+    'text-green-700', 
+    'text-red-700', 
+    'text-indigo-700', 
+    'text-amber-700',
+    'text-emerald-700', 
+    'text-teal-700', 
+    'text-rose-700', 
+    'text-fuchsia-700', 
+    'text-cyan-700'
   ];
 
-  // Cycle through color palette every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setColorIndex((prevIndex) => (prevIndex + 1) % colorPalette.length);
-    }, 1000);
+  // Function to set a sequence of unique color classes
+  const assignUniqueColors = () => {
+    const uniqueColors = colorPalette.slice(0, 4); // Limit to 4 unique colors for headings, subheadings, etc.
+    setColorClasses(uniqueColors);
+  };
 
-    return () => clearInterval(interval); // Cleanup on unmount
+  // Cycle colors every 1 second
+  useEffect(() => {
+    const interval = setInterval(assignUniqueColors, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   // Update visible posts when selected tag changes
   useEffect(() => {
-    if (selectedTag) {
-      const filteredPosts = blogPosts.filter((post) => post.tags.includes(selectedTag));
-      setPosts(filteredPosts);
-      setVisiblePosts(filteredPosts.slice(0, 3));
-    } else {
-      setPosts(blogPosts);
-      setVisiblePosts(blogPosts.slice(0, 3));
-    }
+    const filteredPosts = selectedTag ? blogPosts.filter(post => post.tags.includes(selectedTag)) : blogPosts;
+    setPosts(filteredPosts);
+    setVisiblePosts(filteredPosts.slice(0, 3));
   }, [selectedTag]);
 
-  const allTags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
+  const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
 
   const showMorePosts = () => {
     setVisiblePosts(posts.slice(0, visiblePosts.length + 3));
@@ -252,23 +255,15 @@ const Blog: React.FC = () => {
         <div className="flex flex-wrap justify-center mb-8">
           <motion.button
             onClick={() => setSelectedTag(null)}
-            className={`m-2 px-4 py-2 rounded-full ${
-              selectedTag === null
-                ? 'bg-blue-500 text-white'
-                : `bg-white ${colorPalette[colorIndex]} border-2 border-blue-500`
-            }`}
+            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
           >
             All
           </motion.button>
-          {allTags.map((tag, index) => (
+          {allTags.map(tag => (
             <motion.button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`m-2 px-4 py-2 rounded-full ${
-                selectedTag === tag
-                  ? 'bg-blue-500 text-white'
-                  : `bg-white ${colorPalette[(colorIndex + index) % colorPalette.length]} border-2`
-              }`}
+              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : colorPalette[allTags.indexOf(tag) % colorPalette.length]} border-2`}
             >
               {tag}
             </motion.button>
@@ -288,15 +283,15 @@ const Blog: React.FC = () => {
             >
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
-                <h3 className={`text-xl font-semibold mb-2 ${colorPalette[(colorIndex + index) % colorPalette.length]}`}>
+                <h3 className={`text-xl font-semibold mb-2 ${colorClasses[index % colorClasses.length]}`}>
                   {post.title}
                 </h3>
-                <p className={`${colorPalette[(colorIndex + index + 1) % colorPalette.length]} mb-4`}>
+                <p className={`${colorClasses[(index + 1) % colorClasses.length]} mb-4`}>
                   {post.excerpt}
                 </p>
                 <div className="flex justify-between items-center">
-                  <div className={`text-sm ${colorPalette[(colorIndex + index + 2) % colorPalette.length]}`}>{post.date}</div>
-                  <div className={`text-sm font-medium ${colorPalette[(colorIndex + index + 3) % colorPalette.length]}`}>{post.tags.join(', ')}</div>
+                  <div className={`text-sm ${colorClasses[(index + 2) % colorClasses.length]}`}>{post.date}</div>
+                  <div className={`text-sm font-medium ${colorClasses[(index + 3) % colorClasses.length]}`}>{post.tags.join(', ')}</div>
                 </div>
               </div>
             </motion.div>
@@ -304,14 +299,16 @@ const Blog: React.FC = () => {
         </div>
 
         {/* "Show More" Button */}
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={showMorePosts}
-            className={`px-6 py-3 rounded-full font-semibold ${colorPalette[(colorIndex + 4) % colorPalette.length]}`}
-          >
-            Show More
-          </button>
-        </div>
+        {posts.length > 3 && visiblePosts.length < posts.length && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={showMorePosts}
+              className="px-6 py-3 rounded-full bg-blue-500 text-white font-semibold"
+            >
+              Show More
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
