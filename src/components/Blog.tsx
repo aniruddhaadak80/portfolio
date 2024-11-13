@@ -209,12 +209,20 @@ const Blog: React.FC = () => {
 
   // Predefined color palette
   const colorPalette = [
-    'text-blue-600',
-    'text-green-600',
-    'text-red-600',
-    'text-purple-600',
-    'text-yellow-600',
-  ];
+  'text-blue-700',    // Blue
+  'text-green-700',   // Green
+  'text-red-700',     // Red
+  'text-purple-700',  // Purple
+  'text-yellow-700',  // Yellow
+  'text-indigo-700',  // Indigo
+  'text-amber-700',   // Amber
+  'text-emerald-700', // Emerald
+  'text-teal-700',    // Teal
+  'text-rose-700',    // Rose
+  'text-fuchsia-700', // Fuchsia
+  'text-cyan-700',    // Cyan
+];
+
 
   // Cycle through color palette every second
   useEffect(() => {
