@@ -115,11 +115,3 @@ Feel free to reach out if you have any questions or feedback. Connect with me at
 ### 📝 License
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
-```
-
-### How to Use
-
-1. **Replace `https://yourportfolio.vercel.app`** with the URL of your deployed portfolio.
-2. **Add a screenshot** of your portfolio named `screenshot.png` in the root directory for a preview.
-3. **Customize contact links** with your own social media or contact links.
-4. **Add or edit sections** based on specific features or unique customizations in your portfolio.
