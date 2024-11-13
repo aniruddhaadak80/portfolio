@@ -42,18 +42,15 @@ const fontFamilies = [
   'Tahoma, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif'
 ];
 
-const getRandomColor = () => {
-  const colorIndex = Math.floor(Math.random() * colors.length);
-  return colors[colorIndex];
-};
-
 const Projects = () => {
-  const [glowColors, setGlowColors] = useState<string[]>([]);
+  const [colorIndex, setColorIndex] = useState(0);
 
   useEffect(() => {
-    // Generate random glow colors for each card
-    const randomGlowColors = projects.map(() => getRandomColor());
-    setGlowColors(randomGlowColors);
+    const interval = setInterval(() => {
+      setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -71,14 +68,14 @@ const Projects = () => {
           {projects.map((project, projectIndex) => (
             <motion.div
               key={project.id}
-              className="bg-white rounded-lg overflow-hidden shadow-lg transform transition duration-300 ease-out"
+              className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:-translate-y-1 transition duration-300 ease-out"
               style={{
-                boxShadow: `0 4px 20px ${glowColors[projectIndex]}`, // Random default glow
+                boxShadow: `0 4px 20px ${colors[projectIndex % colors.length]}`,
                 borderRadius: '12px',
               }}
               whileHover={{
                 scale: 1.05,
-                boxShadow: `0 0 30px ${glowColors[projectIndex]}`, // Increased glow intensity on hover
+                boxShadow: `0 0 30px ${colors[(colorIndex + projectIndex) % colors.length]}`,
               }}
             >
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-t-lg" />
@@ -86,8 +83,8 @@ const Projects = () => {
                 <motion.h3
                   className="text-2xl font-bold mb-3"
                   style={{ 
-                    color: glowColors[projectIndex],
-                    fontFamily: fontFamilies[projectIndex % fontFamilies.length]
+                    color: colors[(colorIndex + projectIndex) % colors.length],
+                    fontFamily: 'Verdana, sans-serif', // Heading font: Verdana
                   }}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -98,8 +95,8 @@ const Projects = () => {
                 <motion.p
                   className="text-gray-700 mb-4 leading-relaxed"
                   style={{ 
-                    color: glowColors[(projectIndex + 1) % glowColors.length],
-                    fontFamily: fontFamilies[(projectIndex + 1) % fontFamilies.length]
+                    color: colors[(colorIndex + projectIndex + 1) % colors.length],
+                    fontFamily: 'Georgia, serif', // Description font: Georgia
                   }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -118,7 +115,7 @@ const Projects = () => {
                       key={tech}
                       className="bg-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded shadow-sm"
                       style={{
-                        color: glowColors[(projectIndex + techIndex) % glowColors.length],
+                        color: colors[(colorIndex + techIndex) % colors.length],
                         fontFamily: fontFamilies[(techIndex + 2) % fontFamilies.length],
                       }}
                       whileHover={{ scale: 1.15, color: '#5A67D8' }}
