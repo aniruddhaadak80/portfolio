@@ -11,7 +11,6 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
-  // AI-related Posts
   {
     id: 1,
     title: 'Understanding Artificial Intelligence in Web Development',
@@ -118,15 +117,19 @@ const blogPosts: BlogPost[] = [
     image: 'https://tinyurl.com/2b84fbbg',
     tags: ['Databases']
   }
+
 ];
 
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>(blogPosts.slice(0, 3)); // Initially show first 3 posts
-  const [color, setColor] = useState<number>(0);
+  const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>(blogPosts.slice(0, 3));
 
-  // Effect hook to filter posts based on the selected tag
+  const colorPalette = ['text-blue-600', 'text-green-600', 'text-red-600', 'text-purple-600', 'text-yellow-600'];
+  
+  // Randomly assign a color from the palette
+  const getRandomColorClass = () => colorPalette[Math.floor(Math.random() * colorPalette.length)];
+
   useEffect(() => {
     if (selectedTag) {
       const filteredPosts = blogPosts.filter(post => post.tags.includes(selectedTag));
@@ -139,47 +142,30 @@ const Blog: React.FC = () => {
 
   const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
 
-  // Show more posts when the button is clicked
   const showMorePosts = () => {
     setVisiblePosts(posts.slice(0, visiblePosts.length + 3));
   };
-
-  // Handle color change every 2 seconds
-  useEffect(() => {
-    const colorInterval = setInterval(() => {
-      setColor(prev => (prev + 1) % 3); // Change between 3 colors for demonstration
-    }, 2000);
-    
-    return () => clearInterval(colorInterval); // Clean up on unmount
-  }, []);
-
-  const buttonColors = ['bg-blue-500', 'bg-green-500', 'bg-red-500'];
-  const textColor = ['text-blue-600', 'text-green-600', 'text-red-600'];
 
   return (
     <section id="blog" className="py-20 bg-gray-100">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12 text-center">Blog</h2>
+        
         <div className="flex flex-wrap justify-center mb-8">
           {/* "All" button */}
           <motion.button
             onClick={() => setSelectedTag(null)}
-            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? buttonColors[color] : 'bg-white text-blue-500 border-2 border-blue-500'}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
           >
             All
           </motion.button>
+          
           {/* Buttons for each tag */}
           {allTags.map(tag => (
             <motion.button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : buttonColors[color]}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : getRandomColorClass()} border-2`}
             >
               {tag}
             </motion.button>
@@ -203,25 +189,34 @@ const Blog: React.FC = () => {
             >
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
-                <h3 className={`text-xl font-semibold mb-2 text-gray-800 hover:${textColor[color]} transition-colors duration-300 glow`}>
+                {/* Random color applied to each heading */}
+                <h3 className={`text-xl font-semibold mb-2 ${getRandomColorClass()}`}>
                   {post.title}
                 </h3>
-                <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                {/* Random color for description */}
+                <p className={`${getRandomColorClass()} mb-4`}>
+                  {post.excerpt}
+                </p>
                 <div className="flex justify-between items-center">
-                  <div className={`text-sm text-gray-500 ${textColor[color]}`}>{post.date}</div>
-                  <div className={`text-sm font-medium ${textColor[color]}`}>{post.tags.join(', ')}</div>
+                  {/* Random color for date */}
+                  <div className={`text-sm ${getRandomColorClass()}`}>{post.date}</div>
+                  {/* Random color for tags */}
+                  <div className={`text-sm font-medium ${getRandomColorClass()}`}>{post.tags.join(', ')}</div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <button
-          onClick={showMorePosts}
-          className={`mt-8 px-6 py-3 rounded-full ${buttonColors[color]} text-white font-semibold`}
-        >
-          Show More
-        </button>
+        {/* Centered "Show More" button without random color */}
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={showMorePosts}
+            className="px-6 py-3 rounded-full bg-blue-500 text-white font-semibold"
+          >
+            Show More
+          </button>
+        </div>
       </div>
     </section>
   );
