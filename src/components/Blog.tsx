@@ -11,7 +11,7 @@ interface BlogPost {
 }
 
 const blogPosts: BlogPost[] = [
-  // Your blog post objects here...
+  // Blog posts data goes here...
   {
     id: 1,
     title: 'Understanding Artificial Intelligence in Web Development',
@@ -205,45 +205,39 @@ const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>([]);
-  const [colorClasses, setColorClasses] = useState<string[]>([]);
+  const [colorIndex, setColorIndex] = useState(0);
 
-  // Enhanced color palette with deeper and more unique colors
+  // Predefined color palette
   const colorPalette = [
-    'text-blue-700', 
-    'text-green-700', 
-    'text-red-700', 
-    'text-indigo-700', 
-    'text-amber-700',
-    'text-emerald-700', 
-    'text-teal-700', 
-    'text-rose-700', 
-    'text-fuchsia-700', 
-    'text-cyan-700'
+    'text-blue-600',
+    'text-green-600',
+    'text-red-600',
+    'text-purple-600',
+    'text-yellow-600',
   ];
 
-  // Function to cycle and sync colors every 1 second
-  const cycleColors = () => {
-    setColorClasses(prevColors => {
-      const newColors = colorPalette.slice();
-      newColors.push(newColors.shift()!); // Rotate colors
-      return newColors;
-    });
-  };
-
-  // Set up color synchronization interval
+  // Cycle through color palette every second
   useEffect(() => {
-    const interval = setInterval(cycleColors, 1000); // Cycle colors every second
-    return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      setColorIndex((prevIndex) => (prevIndex + 1) % colorPalette.length);
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   // Update visible posts when selected tag changes
   useEffect(() => {
-    const filteredPosts = selectedTag ? blogPosts.filter(post => post.tags.includes(selectedTag)) : blogPosts;
-    setPosts(filteredPosts);
-    setVisiblePosts(filteredPosts.slice(0, 3));
+    if (selectedTag) {
+      const filteredPosts = blogPosts.filter((post) => post.tags.includes(selectedTag));
+      setPosts(filteredPosts);
+      setVisiblePosts(filteredPosts.slice(0, 3));
+    } else {
+      setPosts(blogPosts);
+      setVisiblePosts(blogPosts.slice(0, 3));
+    }
   }, [selectedTag]);
 
-  const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
+  const allTags = Array.from(new Set(blogPosts.flatMap((post) => post.tags)));
 
   const showMorePosts = () => {
     setVisiblePosts(posts.slice(0, visiblePosts.length + 3));
@@ -258,15 +252,23 @@ const Blog: React.FC = () => {
         <div className="flex flex-wrap justify-center mb-8">
           <motion.button
             onClick={() => setSelectedTag(null)}
-            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
+            className={`m-2 px-4 py-2 rounded-full ${
+              selectedTag === null
+                ? 'bg-blue-500 text-white'
+                : `bg-white ${colorPalette[colorIndex]} border-2 border-blue-500`
+            }`}
           >
             All
           </motion.button>
-          {allTags.map(tag => (
+          {allTags.map((tag, index) => (
             <motion.button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : colorPalette[allTags.indexOf(tag) % colorPalette.length]} border-2`}
+              className={`m-2 px-4 py-2 rounded-full ${
+                selectedTag === tag
+                  ? 'bg-blue-500 text-white'
+                  : `bg-white ${colorPalette[(colorIndex + index) % colorPalette.length]} border-2`
+              }`}
             >
               {tag}
             </motion.button>
@@ -286,27 +288,27 @@ const Blog: React.FC = () => {
             >
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
-                <h3 className={`text-xl font-semibold mb-2 ${colorClasses[index % colorClasses.length]}`}>
+                <h3 className={`text-xl font-semibold mb-2 ${colorPalette[(colorIndex + index) % colorPalette.length]}`}>
                   {post.title}
                 </h3>
-                <p className={`${colorClasses[(index + 1) % colorClasses.length]} mb-4`}>
+                <p className={`${colorPalette[(colorIndex + index + 1) % colorPalette.length]} mb-4`}>
                   {post.excerpt}
                 </p>
                 <div className="flex justify-between items-center">
-                  <div className={`text-sm ${colorClasses[(index + 2) % colorClasses.length]}`}>{post.date}</div>
-                  <div className={`text-sm font-medium ${colorClasses[(index + 3) % colorClasses.length]}`}>{post.tags.join(', ')}</div>
+                  <div className={`text-sm ${colorPalette[(colorIndex + index + 2) % colorPalette.length]}`}>{post.date}</div>
+                  <div className={`text-sm font-medium ${colorPalette[(colorIndex + index + 3) % colorPalette.length]}`}>{post.tags.join(', ')}</div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* "Show More" Button */}
+        {/* "Show More" Button, only if there are more than 3 posts */}
         {posts.length > 3 && visiblePosts.length < posts.length && (
           <div className="flex justify-center mt-8">
             <button
               onClick={showMorePosts}
-              className="px-6 py-3 rounded-full bg-blue-500 text-white font-semibold"
+              className={`px-6 py-3 rounded-full font-semibold ${colorPalette[(colorIndex + 4) % colorPalette.length]}`}
             >
               Show More
             </button>
