@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaJs, FaReact, FaNodeJs, FaPython, FaJava, FaDatabase } from 'react-icons/fa';
 import { SiTypescript, SiDjango, SiTensorflow, SiPytorch, SiMongodb, SiNextdotjs, SiQwiklabs, SiAstro, SiDocker, SiPostman, SiCanva } from 'react-icons/si';
 import { CgCPlusPlus } from 'react-icons/cg';
-import { motion } from 'framer-motion'; // Ensure framer-motion is installed
+import { motion } from 'framer-motion';
 
 const skills = [
   { name: 'JavaScript', category: 'Frontend', level: 95, icon: FaJs, color: '#F7DF1E', bgColor: '#FFF8D6' },
@@ -28,7 +28,7 @@ const skills = [
 
 const Skills: React.FC = () => {
   const [filter, setFilter] = useState('All');
-  const [visibleSkills, setVisibleSkills] = useState(skills.slice(0, 6)); // Initially show 6 skills
+  const [visibleSkills, setVisibleSkills] = useState(skills.slice(0, 3)); // Show only 3 skills initially
   const categories = ['All', ...new Set(skills.map(skill => skill.category))];
 
   const filteredSkills = filter === 'All' ? visibleSkills : visibleSkills.filter(skill => skill.category === filter);
@@ -48,7 +48,7 @@ const Skills: React.FC = () => {
   };
 
   const showMoreSkills = () => {
-    setVisibleSkills(skills.slice(0, visibleSkills.length + 6)); // Show 6 more skills
+    setVisibleSkills(skills.slice(0, visibleSkills.length + 3)); // Show 3 more skills each time
   };
 
   return (
