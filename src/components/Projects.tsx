@@ -81,12 +81,12 @@ const Projects = () => {
               key={project.id}
               className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:-translate-y-1 transition duration-300 ease-out"
               style={{
-                boxShadow: `0 4px 40px ${colors[projectIndex % colors.length]}`,  // Increased blur and spread
+                boxShadow: `0 4px 40px ${colors[(colorIndex + projectIndex) % colors.length]}`,  // Increased blur and spread
                 borderRadius: '12px',
               }}
               whileHover={{
                 scale: 1.05,
-                boxShadow: `0 0 60px ${colors[(colorIndex + projectIndex) % colors.length]}`,  // Deeper shadow on hover
+                boxShadow: `0 0 80px ${colors[(colorIndex + projectIndex) % colors.length]}`,  // Deeper shadow on hover
               }}
             >
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-t-lg" />
@@ -143,14 +143,14 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700"
                     style={{
-                      borderRadius: '50%', // Make the glow effect circular
-                      boxShadow: `0 0 30px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                      borderRadius: '50%', // Circular glowing effect
+                      boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex) % colors.length]}`,
                       transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                     }}
                     whileHover={{
                       scale: 1.2, // Increase scale for smoother effect
                       rotate: 360,
-                      boxShadow: `0 0 60px ${colors[(colorIndex + projectIndex) % colors.length]}`, // Deeper shadow
+                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex) % colors.length]}`, // Deeper shadow
                     }}
                   >
                     <GithubIcon size={24} />
@@ -162,13 +162,13 @@ const Projects = () => {
                     className="text-green-500 hover:text-green-700"
                     style={{
                       borderRadius: '50%', // Circular glowing effect
-                      boxShadow: `0 0 30px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
+                      boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
                       transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                     }}
                     whileHover={{
                       scale: 1.2,
                       rotate: 360,
-                      boxShadow: `0 0 60px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`, // Deeper shadow
+                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`, // Deeper shadow
                     }}
                   >
                     <ExternalLink size={24} />
