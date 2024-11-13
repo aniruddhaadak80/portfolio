@@ -124,19 +124,16 @@ const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>(blogPosts.slice(0, 3)); // Initially show first 3 posts
+  const [color, setColor] = useState<number>(0);
 
   // Effect hook to filter posts based on the selected tag
   useEffect(() => {
     if (selectedTag) {
-      // Filter posts based on selected tag
       const filteredPosts = blogPosts.filter(post => post.tags.includes(selectedTag));
       setPosts(filteredPosts);
     } else {
-      // Show all posts if no tag is selected
       setPosts(blogPosts);
     }
-
-    // Reset to first 3 posts when a tag is selected
     setVisiblePosts(posts.slice(0, 3));
   }, [selectedTag, posts]);
 
@@ -147,6 +144,18 @@ const Blog: React.FC = () => {
     setVisiblePosts(posts.slice(0, visiblePosts.length + 3));
   };
 
+  // Handle color change every 2 seconds
+  useEffect(() => {
+    const colorInterval = setInterval(() => {
+      setColor(prev => (prev + 1) % 3); // Change between 3 colors for demonstration
+    }, 2000);
+    
+    return () => clearInterval(colorInterval); // Clean up on unmount
+  }, []);
+
+  const buttonColors = ['bg-blue-500', 'bg-green-500', 'bg-red-500'];
+  const textColor = ['text-blue-600', 'text-green-600', 'text-red-600'];
+
   return (
     <section id="blog" className="py-20 bg-gray-100">
       <div className="container mx-auto px-4">
@@ -155,7 +164,7 @@ const Blog: React.FC = () => {
           {/* "All" button */}
           <motion.button
             onClick={() => setSelectedTag(null)}
-            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
+            className={`m-2 px-4 py-2 rounded-full ${selectedTag === null ? buttonColors[color] : 'bg-white text-blue-500 border-2 border-blue-500'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -167,7 +176,7 @@ const Blog: React.FC = () => {
             <motion.button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : 'bg-white text-blue-500 border-2 border-blue-500'}`}
+              className={`m-2 px-4 py-2 rounded-full ${selectedTag === tag ? 'bg-blue-500 text-white' : buttonColors[color]}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
@@ -194,36 +203,25 @@ const Blog: React.FC = () => {
             >
               <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-gray-800 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
+                <h3 className={`text-xl font-semibold mb-2 text-gray-800 hover:${textColor[color]} transition-colors duration-300 glow`}>
+                  {post.title}
+                </h3>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
                 <div className="flex justify-between items-center">
-                  <div className="text-sm text-gray-500">{post.date}</div>
-                  <div className="flex flex-wrap">
-                    {post.tags.map(tag => (
-                      <span key={tag} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <div className={`text-sm text-gray-500 ${textColor[color]}`}>{post.date}</div>
+                  <div className={`text-sm font-medium ${textColor[color]}`}>{post.tags.join(', ')}</div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {posts.length > visiblePosts.length && (
-          <div className="text-center mt-8">
-            <motion.button
-              onClick={showMorePosts}
-              className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              See More ✨
-            </motion.button>
-          </div>
-        )}
+        <button
+          onClick={showMorePosts}
+          className={`mt-8 px-6 py-3 rounded-full ${buttonColors[color]} text-white font-semibold`}
+        >
+          Show More
+        </button>
       </div>
     </section>
   );
