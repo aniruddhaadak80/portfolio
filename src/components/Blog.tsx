@@ -125,12 +125,17 @@ const Blog: React.FC = () => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [visiblePosts, setVisiblePosts] = useState<BlogPost[]>(blogPosts.slice(0, 3)); // Initially show first 3 posts
 
+  // Effect hook to filter posts based on the selected tag
   useEffect(() => {
     if (selectedTag) {
+      // Filter posts based on selected tag
       setPosts(blogPosts.filter(post => post.tags.includes(selectedTag)));
     } else {
+      // Show all posts if no tag is selected
       setPosts(blogPosts);
     }
+    // Reset to first 3 posts when a tag is selected
+    setVisiblePosts(posts.slice(0, 3));
   }, [selectedTag]);
 
   const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
@@ -207,12 +212,12 @@ const Blog: React.FC = () => {
         {/* Show "See More" button only if there are more posts to display */}
         {visiblePosts.length < posts.length && (
           <div className="text-center mt-8">
-            <motion.button
+            <button
               onClick={showMorePosts}
-              className="px-6 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition-colors duration-300"
+              className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-300"
             >
               See More
-            </motion.button>
+            </button>
           </div>
         )}
       </div>
