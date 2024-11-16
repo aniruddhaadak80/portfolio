@@ -21,8 +21,8 @@ const App: React.FC = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-gray-900">
+    return (<div className={isDarkMode ? 'dark' : ''}>
+    <div className="flex items-center justify-center h-screen bg-gray-900">
         {/* Full-screen Circle Spinner with Glowing Effect */}
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Outer Circle */}
@@ -235,6 +235,7 @@ const App: React.FC = () => {
             }}
           />
         </div>
+      </div>
       </div>
     );
   }
