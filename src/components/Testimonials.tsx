@@ -5,7 +5,86 @@ import { ChevronLeft, ChevronRight, Star, Heart, Copy, Twitter, Facebook, Linked
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 
-// ... (keep the Testimonial interface and testimonials array as they were)
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+  image: string;
+  color: string;
+  animation: "float" | "shake" | "pulse";
+}
+
+const testimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: 'John Doe',
+    role: 'CTO',
+    company: 'Tech Innovators Inc.',
+    content: "Working with this developer was an absolute pleasure. Their expertise in full-stack development and AI integration brought our project to the next level.",
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    color: '#FF6B6B',
+    animation: "float"
+  },
+  {
+    id: 2,
+    name: 'Jane Smith',
+    role: 'Product Manager',
+    company: 'Digital Solutions Ltd.',
+    content: "The attention to detail and problem-solving skills demonstrated by this developer were impressive. They delivered a high-quality product on time and within budget.",
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    color: '#4ECDC4',
+    animation: "shake"
+  },
+  {
+    id: 3,
+    name: 'Mike Johnson',
+    role: 'Startup Founder',
+    company: 'InnovateTech',
+    content: "This developer's expertise in both frontend and backend technologies was crucial in bringing our startup's vision to life. Their work exceeded our expectations.",
+    rating: 4,
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    color: '#FFA07A',
+    animation: "pulse"
+  },
+  {
+    id: 4,
+    name: 'Emily Chen',
+    role: 'UX Designer',
+    company: 'Creative Minds Co.',
+    content: "I was impressed by the developer's ability to translate our design concepts into a fully functional and visually appealing website. Their attention to detail in implementing responsive designs was outstanding.",
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    color: '#9B59B6',
+    animation: "float"
+  },
+  {
+    id: 5,
+    name: 'Alex Rodriguez',
+    role: 'E-commerce Director',
+    company: 'Global Retail Solutions',
+    content: "The developer's expertise in e-commerce platforms and payment integrations was invaluable. They helped us create a seamless online shopping experience that significantly boosted our sales.",
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    color: '#3498DB',
+    animation: "shake"
+  },
+  {
+    id: 6,
+    name: 'Sophia Lee',
+    role: 'Marketing Director',
+    company: 'Innovative Brands Inc.',
+    content: "The developer's ability to create engaging and interactive web experiences helped us achieve record-breaking engagement rates. Their work truly set us apart from our competitors.",
+    rating: 5,
+    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    color: '#E74C3C',
+    animation: "pulse"
+  }
+];
 
 const cardVariants = {
   float: {
@@ -45,7 +124,89 @@ export default function Testimonials() {
   const [comments, setComments] = useState<{ [key: number]: string[] }>({});
   const [newComment, setNewComment] = useState('');
 
-  // ... (keep all the handler functions as they were)
+  const nextTestimonial = useCallback(() => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  }, []);
+
+  const prevTestimonial = useCallback(() => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isAutoPlay) {
+      interval = setInterval(nextTestimonial, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [isAutoPlay, nextTestimonial]);
+
+  const handleLike = useCallback((id: number) => {
+    setLikes((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+    setIsLiked((prev) => ({ ...prev, [id]: true }));
+    
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  }, []);
+
+  const handleDislike = useCallback((id: number) => {
+    setDislikes((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  }, []);
+
+  const handleShare = useCallback(() => {
+    setShowShareOptions((prev) => !prev);
+  }, []);
+
+  const copyToClipboard = useCallback(() => {
+    const text = `${testimonials[currentTestimonial].content} - ${testimonials[currentTestimonial].name}, ${testimonials[currentTestimonial].role} at ${testimonials[currentTestimonial].company}`;
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedMessage('Copied to clipboard!');
+      setTimeout(() => setCopiedMessage(''), 2000);
+    });
+  }, [currentTestimonial]);
+
+  const shareOnSocialMedia = useCallback((platform: string) => {
+    const text = `Check out this amazing testimonial from ${testimonials[currentTestimonial].name}!`;
+    const url = window.location.href;
+    let shareUrl = '';
+
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`;
+        break;
+    }
+
+    if (shareUrl) {
+      window.open(shareUrl, '_blank');
+    }
+  }, [currentTestimonial]);
+
+  const handleCommentSubmit = useCallback((id: number) => {
+    if (newComment.trim()) {
+      setComments((prev) => ({
+        ...prev,
+        [id]: [...(prev[id] || []), newComment.trim()]
+      }));
+      setNewComment('');
+    }
+  }, [newComment]);
+
+  // Check if testimonials array is empty
+  if (testimonials.length === 0) {
+    return <div className="text-center text-white">No testimonials available.</div>;
+  }
+
+  // Ensure currentTestimonial is within bounds
+  const safeCurrentTestimonial = currentTestimonial % testimonials.length;
+  const testimonial = testimonials[safeCurrentTestimonial];
 
   return (
     <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex items-center justify-center">
@@ -56,65 +217,65 @@ export default function Testimonials() {
         <div className="relative max-w-3xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentTestimonial}
+              key={safeCurrentTestimonial}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
               className="bg-white rounded-lg p-8 shadow-2xl relative overflow-hidden"
               variants={cardVariants}
-              animate={testimonials[currentTestimonial].animation}
+              animate={testimonial.animation}
             >
               <div className="flex items-center mb-6">
                 <motion.img
-                  src={testimonials[currentTestimonial].image}
-                  alt={testimonials[currentTestimonial].name}
+                  src={testimonial.image}
+                  alt={testimonial.name}
                   className="w-20 h-20 rounded-full mr-4 object-cover border-4"
-                  style={{ borderColor: testimonials[currentTestimonial].color }}
+                  style={{ borderColor: testimonial.color }}
                   whileHover={{ scale: 1.1, rotate: 360 }}
                   transition={{ duration: 0.5 }}
                 />
                 <div>
-                  <h3 className="text-2xl font-semibold" style={{ color: testimonials[currentTestimonial].color }}>
-                    {testimonials[currentTestimonial].name}
+                  <h3 className="text-2xl font-semibold" style={{ color: testimonial.color }}>
+                    {testimonial.name}
                   </h3>
                   <p className="text-gray-600">
-                    {testimonials[currentTestimonial].role} at {testimonials[currentTestimonial].company}
+                    {testimonial.role} at {testimonial.company}
                   </p>
                 </div>
               </div>
-              <p className="text-gray-700 mb-6 text-lg italic">"{testimonials[currentTestimonial].content}"</p>
+              <p className="text-gray-700 mb-6 text-lg italic">"{testimonial.content}"</p>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, index) => (
                     <Star
                       key={index}
                       size={24}
-                      className={index < testimonials[currentTestimonial].rating ? 'text-yellow-400' : 'text-gray-300'}
-                      fill={index < testimonials[currentTestimonial].rating ? 'currentColor' : 'none'}
+                      className={index < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}
+                      fill={index < testimonial.rating ? 'currentColor' : 'none'}
                     />
                   ))}
                 </div>
                 <div className="flex items-center space-x-4">
                   <motion.button
-                    onClick={() => handleLike(testimonials[currentTestimonial].id)}
+                    onClick={() => handleLike(testimonial.id)}
                     className={`flex items-center space-x-1 ${
-                      isLiked[testimonials[currentTestimonial].id] ? 'text-green-500' : 'text-gray-500'
+                      isLiked[testimonial.id] ? 'text-green-500' : 'text-gray-500'
                     } hover:text-green-600 transition-colors duration-300`}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
                     <ThumbsUp size={20} />
-                    <span>{likes[testimonials[currentTestimonial].id] || 0}</span>
+                    <span>{likes[testimonial.id] || 0}</span>
                   </motion.button>
                   <motion.button
-                    onClick={() => handleDislike(testimonials[currentTestimonial].id)}
+                    onClick={() => handleDislike(testimonial.id)}
                     className="flex items-center space-x-1 text-gray-500 hover:text-red-600 transition-colors duration-300"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
                     <ThumbsDown size={20} />
-                    <span>{dislikes[testimonials[currentTestimonial].id] || 0}</span>
+                    <span>{dislikes[testimonial.id] || 0}</span>
                   </motion.button>
                   <motion.button
                     onClick={handleShare}
@@ -129,7 +290,7 @@ export default function Testimonials() {
               <div className="mt-4">
                 <h4 className="text-lg font-semibold mb-2">Comments</h4>
                 <ul className="space-y-2 mb-4 max-h-40 overflow-y-auto">
-                  {comments[testimonials[currentTestimonial].id]?.map((comment, index) => (
+                  {comments[testimonial.id]?.map((comment, index) => (
                     <li key={index} className="bg-gray-100 p-2 rounded">{comment}</li>
                   ))}
                 </ul>
@@ -142,7 +303,7 @@ export default function Testimonials() {
                     className="flex-grow border rounded-l px-2 py-1"
                   />
                   <button
-                    onClick={() => handleCommentSubmit(testimonials[currentTestimonial].id)}
+                    onClick={() => handleCommentSubmit(testimonial.id)}
                     className="bg-blue-500 text-white px-4 py-1 rounded-r hover:bg-blue-600 transition-colors duration-300"
                   >
                     <MessageCircle size={20} />
@@ -202,7 +363,7 @@ export default function Testimonials() {
               )}
               <div
                 className="absolute inset-0 bg-gradient-to-r opacity-10"
-                style={{ background: `linear-gradient(45deg, ${testimonials[currentTestimonial].color}, transparent)` }}
+                style={{ background: `linear-gradient(45deg, ${testimonial.color}, transparent)` }}
               ></div>
             </motion.div>
           </AnimatePresence>
