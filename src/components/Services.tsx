@@ -199,8 +199,8 @@ predictions = model.predict(X_test)
           </p>
           <motion.button
             className={`flex items-center ${service.color} font-semibold transition-colors duration-300`}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -20 }}
+            initial={{ opacity: 1, x: 0 }}
+            animate={{ x: isHovered ? 5 : 0 }}
             transition={{ duration: 0.3 }}
             onClick={handleLearnMore}
           >
@@ -230,7 +230,7 @@ predictions = model.predict(X_test)
               initial={{ scale: 0.9, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
-              className={`${service.bgColor} p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4`}
+              className={`${service.bgColor} p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto`}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-4">
