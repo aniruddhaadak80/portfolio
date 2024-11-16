@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState, useEffect, useCallback } from 'react'
 import { ChevronLeft, ChevronRight, Star, ThumbsUp, Share2, Heart, Copy, Twitter, Facebook, Linkedin, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -331,7 +329,7 @@ const commentColors = [
   'bg-pink-100', 'bg-indigo-100', 'bg-teal-100', 'bg-orange-100', 'bg-cyan-100'
 ]
 
-export default function Component() {
+export default function Testimonial() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const [likes, setLikes] = useState<{ [key: number]: number }>({})
   const [isAutoPlay, setIsAutoPlay] = useState(true)
