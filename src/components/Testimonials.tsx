@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Star, ThumbsUp, Share2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, ThumbsUp, Share2, Heart, Copy, Twitter, Facebook, LinkedIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
 
 interface Testimonial {
   id: number;
@@ -70,6 +71,9 @@ const Testimonials: React.FC = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [likes, setLikes] = useState<{ [key: number]: number }>({});
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [isLiked, setIsLiked] = useState<{ [key: number]: boolean }>({});
+  const [showShareOptions, setShowShareOptions] = useState(false);
+  const [copiedMessage, setCopiedMessage] = useState('');
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -91,16 +95,46 @@ const Testimonials: React.FC = () => {
 
   const handleLike = (id: number) => {
     setLikes((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+    setIsLiked((prev) => ({ ...prev, [id]: true }));
+    
+    // Trigger confetti effect
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
   };
 
   const handleShare = () => {
+    setShowShareOptions(!showShareOptions);
+  };
+
+  const copyToClipboard = () => {
+    const text = `${testimonials[currentTestimonial].content} - ${testimonials[currentTestimonial].name}, ${testimonials[currentTestimonial].role} at ${testimonials[currentTestimonial].company}`;
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedMessage('Copied to clipboard!');
+      setTimeout(() => setCopiedMessage(''), 2000);
+    });
+  };
+
+  const shareOnSocialMedia = (platform: string) => {
     const text = `Check out this amazing testimonial from ${testimonials[currentTestimonial].name}!`;
     const url = window.location.href;
-    if (navigator.share) {
-      navigator.share({ title: 'Testimonial', text, url });
-    } else {
-      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+    let shareUrl = '';
+
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`;
+        break;
     }
+
+    window.open(shareUrl, '_blank');
   };
 
   return (
@@ -130,8 +164,8 @@ const Testimonials: React.FC = () => {
                   alt={testimonials[currentTestimonial].name}
                   className="w-20 h-20 rounded-full mr-4 object-cover border-4"
                   style={{ borderColor: testimonials[currentTestimonial].color }}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.5 }}
                 />
                 <div>
                   <h3 className="text-2xl font-semibold" style={{ color: testimonials[currentTestimonial].color }}>
@@ -155,21 +189,78 @@ const Testimonials: React.FC = () => {
                   ))}
                 </div>
                 <div className="flex items-center space-x-4">
-                  <button
+                  <motion.button
                     onClick={() => handleLike(testimonials[currentTestimonial].id)}
-                    className="flex items-center space-x-1 text-blue-500 hover:text-blue-600"
+                    className={`flex items-center space-x-1 ${
+                      isLiked[testimonials[currentTestimonial].id] ? 'text-red-500' : 'text-gray-500'
+                    } hover:text-red-600 transition-colors duration-300`}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    <ThumbsUp size={20} />
+                    <Heart size={20} fill={isLiked[testimonials[currentTestimonial].id] ? 'currentColor' : 'none'} />
                     <span>{likes[testimonials[currentTestimonial].id] || 0}</span>
-                  </button>
-                  <button
+                  </motion.button>
+                  <motion.button
                     onClick={handleShare}
-                    className="text-green-500 hover:text-green-600"
+                    className="text-blue-500 hover:text-blue-600 transition-colors duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
                     <Share2 size={20} />
-                  </button>
+                  </motion.button>
                 </div>
               </div>
+              {showShareOptions && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  className="absolute bottom-0 left-0 right-0 bg-white p-4 rounded-b-lg shadow-lg flex justify-around items-center"
+                >
+                  <motion.button
+                    onClick={copyToClipboard}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    <Copy size={20} />
+                  </motion.button>
+                  <motion.button
+                    onClick={() => shareOnSocialMedia('twitter')}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="text-blue-400 hover:text-blue-600"
+                  >
+                    <Twitter size={20} />
+                  </motion.button>
+                  <motion.button
+                    onClick={() => shareOnSocialMedia('facebook')}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
+                    <Facebook size={20} />
+                  </motion.button>
+                  <motion.button
+                    onClick={() => shareOnSocialMedia('linkedin')}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="text-blue-700 hover:text-blue-900"
+                  >
+                    <LinkedIn size={20} />
+                  </motion.button>
+                </motion.div>
+              )}
+              {copiedMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  className="absolute top-0 left-0 right-0 bg-green-500 text-white p-2 text-center"
+                >
+                  {copiedMessage}
+                </motion.div>
+              )}
               <div
                 className="absolute inset-0 bg-gradient-to-r opacity-10"
                 style={{ background: `linear-gradient(45deg, ${testimonials[currentTestimonial].color}, transparent)` }}
