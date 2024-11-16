@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, User, Settings, Folder, FileText, Mail, Sun, Moon } from 'lucide-react';
+import { Menu, X, Home, User, Settings, FolderGit2, FileText, Mail, Sun, Moon ,FileUser , HandHeart} from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Header: React.FC = () => {
@@ -31,10 +31,10 @@ const Header: React.FC = () => {
   { name: 'Home', icon: <Home size={18} />, color: 'text-red-500', hoverColor: 'hover:text-red-700' },
   { name: 'About', icon: <User size={18} />, color: 'text-yellow-500', hoverColor: 'hover:text-yellow-700' },
   { name: 'Skills', icon: <Settings size={18} />, color: 'text-green-500', hoverColor: 'hover:text-green-700' },
-  { name: 'Projects', icon: <Folder size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
+  { name: 'Projects', icon: <FolderGit2 size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
   { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
-  { name: 'Testimonials', icon: <FileText size={18} />, color: 'text-pink-500', hoverColor: 'hover:text-pink-700' }, // Add Testimonials
-  { name: 'Resume', icon: <FileText size={18} />, color: 'text-rose-500', hoverColor: 'hover:text-rose-700' } ,// New item : Resume
+  { name: 'Testimonials', icon: <HandHeart size={18} />, color: 'text-pink-500', hoverColor: 'hover:text-pink-700' }, // Add Testimonials
+  { name: 'Resume', icon: <FileUser size={18} />, color: 'text-rose-500', hoverColor: 'hover:text-rose-700' } ,// New item : Resume
   { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
 ];
 
