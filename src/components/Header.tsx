@@ -6,7 +6,11 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
   });
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState('home');
@@ -33,8 +37,13 @@ const Header: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDarkMode);
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   }, [isDarkMode]);
 
   const menuItems = [
@@ -68,7 +77,7 @@ const Header: React.FC = () => {
   };
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode(prevMode => !prevMode);
   };
 
   return (
@@ -125,11 +134,29 @@ const Header: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 300 }}
           >
-            {isDarkMode ? (
-              <Sun size={20} className="text-yellow-400" />
-            ) : (
-              <Moon size={20} className="text-gray-800" />
-            )}
+            <AnimatePresence mode="wait" initial={false}>
+              {isDarkMode ? (
+                <motion.div
+                  key="moon"
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Moon size={20} className="text-yellow-400" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="sun"
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Sun size={20} className="text-gray-800" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.button>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
