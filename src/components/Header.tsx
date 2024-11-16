@@ -1,83 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, User, Settings, Folder, FileText, Mail, Sun, Moon } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
-    return false;
+    // Check for saved dark mode preference in local storage
+    return localStorage.getItem('darkMode') === 'true';
   });
-  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-  const [activeSection, setActiveSection] = useState('home');
+
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null); // Track which menu item is being hovered
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
-      
-      const sections = ['home', 'about', 'skills', 'projects', 'blog', 'resume', 'contact'];
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom > 100;
-        }
-        return false;
-      });
-      if (currentSection) {
-        setActiveSection(currentSection);
-      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    // Toggle dark mode on document
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    // Save dark mode preference in localStorage
+    localStorage.setItem('darkMode', String(isDarkMode));
   }, [isDarkMode]);
 
   const menuItems = [
-    { name: 'Home', icon: <Home size={18} />, color: 'text-red-500', hoverColor: 'hover:text-red-700' },
-    { name: 'About', icon: <User size={18} />, color: 'text-yellow-500', hoverColor: 'hover:text-yellow-700' },
-    { name: 'Skills', icon: <Settings size={18} />, color: 'text-green-500', hoverColor: 'hover:text-green-700' },
-    { name: 'Projects', icon: <Folder size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
-    { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
-    { name: 'Resume', icon: <FileText size={18} />, color: 'text-rose-500', hoverColor: 'hover:text-rose-700' },
-    { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
-  ];
+  { name: 'Home', icon: <Home size={18} />, color: 'text-red-500', hoverColor: 'hover:text-red-700' },
+  { name: 'About', icon: <User size={18} />, color: 'text-yellow-500', hoverColor: 'hover:text-yellow-700' },
+  { name: 'Skills', icon: <Settings size={18} />, color: 'text-green-500', hoverColor: 'hover:text-green-700' },
+  { name: 'Projects', icon: <Folder size={18} />, color: 'text-blue-500', hoverColor: 'hover:text-blue-700' },
+  { name: 'Blog', icon: <FileText size={18} />, color: 'text-indigo-500', hoverColor: 'hover:text-indigo-700' },
+  { name: 'Resume', icon: <FileText size={18} />, color: 'text-rose-500', hoverColor: 'hover:text-rose-700' } ,// New item : Resume
+  { name: 'Contact', icon: <Mail size={18} />, color: 'text-purple-500', hoverColor: 'hover:text-purple-700' },
+];
+
 
   const getRandomRotation = () => {
-    return Math.floor(Math.random() * (20 - (-20) + 1)) + (-20);
+    return Math.floor(Math.random() * (20 - (-20) + 1)) + (-20); // Random rotation between -20deg and 20deg
   };
 
   const handleMouseEnter = (index: number) => {
-    setHoveredItem(index);
+    setHoveredItem(index); // Set hovered item to update its rotation
   };
 
   const handleMouseLeave = () => {
-    setHoveredItem(null);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode(prevMode => !prevMode);
+    setHoveredItem(null); // Reset the hovered item state
   };
 
   return (
@@ -106,20 +76,14 @@ const Header: React.FC = () => {
             <motion.a
               key={item.name}
               href={`#${item.name.toLowerCase()}`}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(item.name.toLowerCase());
-              }}
-              className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300 ${
-                activeSection === item.name.toLowerCase() ? 'font-bold' : ''
-              }`}
+              className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
               whileHover={{
                 scale: 1.1,
-                rotate: hoveredItem === index ? getRandomRotation() : 0,
+                rotate: hoveredItem === index ? getRandomRotation() : 0, // Rotate only when hovered
                 transition: { type: 'spring', stiffness: 200 },
               }}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
+              onMouseEnter={() => handleMouseEnter(index)} // Set index on hover
+              onMouseLeave={handleMouseLeave} // Reset on mouse leave
             >
               {item.icon}
               <span>{item.name}</span>
@@ -128,81 +92,50 @@ const Header: React.FC = () => {
         </motion.nav>
         <div className="flex items-center space-x-4">
           <motion.button
-            onClick={toggleTheme}
+            onClick={() => setIsDarkMode(!isDarkMode)}
             className="p-2 rounded-full bg-gray-200 dark:bg-gray-600 transition-all hover:bg-gray-300 dark:hover:bg-gray-500"
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 300 }}
           >
-            <AnimatePresence mode="wait" initial={false}>
-              {isDarkMode ? (
-                <motion.div
-                  key="moon"
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 20, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Moon size={20} className="text-yellow-400" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="sun"
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 20, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Sun size={20} className="text-gray-800" />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {isDarkMode ? (
+              <Sun size={20} className="text-yellow-400" />
+            ) : (
+              <Moon size={20} className="text-gray-800" />
+            )}
           </motion.button>
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-full bg-gray-200 dark:bg-gray-600 transition-all hover:bg-gray-300 dark:hover:bg-gray-500"
-          >
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden">
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            className="md:hidden bg-white dark:bg-gray-800 transition-all duration-300"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <nav className="flex flex-col items-center py-4 space-y-2">
-              {menuItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={`#${item.name.toLowerCase()}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(item.name.toLowerCase());
-                  }}
-                  className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300 ${
-                    activeSection === item.name.toLowerCase() ? 'font-bold' : ''
-                  }`}
-                  whileHover={{
-                    scale: 1.1,
-                    rotate: hoveredItem === index ? getRandomRotation() : 0,
-                    transition: { type: 'spring', stiffness: 200 },
-                  }}
-                  onMouseEnter={() => handleMouseEnter(index)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  {item.icon}
-                  <span>{item.name}</span>
-                </motion.a>
-              ))}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isMenuOpen && (
+        <motion.div
+          className="md:hidden bg-white dark:bg-gray-800 transition-all duration-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <nav className="flex flex-col items-center py-4 space-y-2">
+            {menuItems.map((item, index) => (
+              <motion.a
+                key={item.name}
+                href={`#${item.name.toLowerCase()}`}
+                className={`flex items-center space-x-2 ${item.color} ${item.hoverColor} transition-colors duration-300`}
+                whileHover={{
+                  scale: 1.1,
+                  rotate: hoveredItem === index ? getRandomRotation() : 0, // Rotate only when hovered
+                  transition: { type: 'spring', stiffness: 200 },
+                }}
+                onMouseEnter={() => handleMouseEnter(index)} // Set index on hover
+                onMouseLeave={handleMouseLeave} // Reset on mouse leave
+              >
+                {item.icon}
+                <span>{item.name}</span>
+              </motion.a>
+            ))}
+          </nav>
+        </motion.div>
+      )}
     </header>
   );
 };
