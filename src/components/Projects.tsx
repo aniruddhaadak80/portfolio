@@ -1,9 +1,6 @@
-"use client"
-
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, GithubIcon, X } from 'lucide-react'
-
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { ExternalLink, GithubIcon } from 'lucide-react';
 
 const projects = [
   {
@@ -14,7 +11,6 @@ const projects = [
     technologies: ['Typescript', 'React.js', 'TailwindCSS'],
     github: 'https://github.com/aniruddhaadak80/SkillSphere',
     live: 'https://skilsphere.vercel.app',
-    details: 'SkillSphere is a comprehensive productivity suite designed to boost your daily efficiency. It includes task management, habit tracking, and goal setting features.'
   },
   {
     id: 2,
@@ -24,7 +20,6 @@ const projects = [
     technologies: ['Next.js', 'Typescript', 'Javascript'],
     github: 'https://github.com/aniruddhaadak80/MercatoLive',
     live: 'https://mercato-live.vercel.app/',
-    details: 'MercatoLive offers a seamless shopping experience with features like real-time inventory updates, user authentication, and secure payment processing.'
   },
   {
     id: 3,
@@ -34,9 +29,8 @@ const projects = [
     technologies: ['React.js', 'WebSockets', 'TradingView Chart', 'Typescript'],
     github: 'https://github.com/aniruddhaadak80/real-time-stock-visualizer',
     live: 'https://real-time-stock-visualizer.vercel.app',
-    details: 'This application provides real-time stock market data visualization using WebSockets for live updates and the TradingView Charting Library for professional-grade charts.'
   },
-]
+];
 
 const colors = [
   '#FF5733', '#33FF57', '#3357FF', '#FF33A6', '#A633FF', 
@@ -52,32 +46,23 @@ const colors = [
   '#3CB371', '#DDA0DD', '#A9A9A9', '#DCB9F1', '#BCE0A1',
   '#DA70D6', '#20B2AA', '#A9D0F5', '#FFB3E6', '#80E0D0',
   '#F4A300', '#C7B1D2', '#A1C6E7', '#A97BC9', '#D9A5F4'
-]
+];
 
 const fontFamilies = [
   'Arial, sans-serif', 'Courier New, monospace', 'Georgia, serif', 
   'Tahoma, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif'
-]
+];
 
-export default function Projects() {
-  const [colorIndex, setColorIndex] = useState(0)
-  const [selectedProject, setSelectedProject] = useState(null)
+const Projects = () => {
+  const [colorIndex, setColorIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setColorIndex((prevIndex) => (prevIndex + 1) % colors.length)
-    }, 1000) // Cycle every second
+      setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
+    }, 1000); // Cycle every second
 
-    return () => clearInterval(interval)
-  }, [])
-
-  const handleProjectClick = (project) => {
-    setSelectedProject(project)
-  }
-
-  const handleCloseDetails = () => {
-    setSelectedProject(null)
-  }
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section id="projects" className="py-20 bg-gradient-to-b from-blue-50 to-indigo-100">
@@ -94,16 +79,15 @@ export default function Projects() {
           {projects.map((project, projectIndex) => (
             <motion.div
               key={project.id}
-              className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:-translate-y-1 transition duration-300 ease-out cursor-pointer"
+              className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:-translate-y-1 transition duration-300 ease-out"
               style={{
-                boxShadow: `0 4px 40px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                boxShadow: `0 4px 40px ${colors[(colorIndex + projectIndex) % colors.length]}`,  // Increased blur and spread
                 borderRadius: '12px',
               }}
               whileHover={{
                 scale: 1.05,
-                boxShadow: `0 0 80px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                boxShadow: `0 0 80px ${colors[(colorIndex + projectIndex) % colors.length]}`,  // Deeper shadow on hover
               }}
-              onClick={() => handleProjectClick(project)}
             >
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-t-lg" />
               <div className="p-6">
@@ -111,7 +95,7 @@ export default function Projects() {
                   className="text-2xl font-bold mb-3"
                   style={{ 
                     color: colors[(colorIndex + projectIndex) % colors.length],
-                    fontFamily: 'Verdana, sans-serif',
+                    fontFamily: 'Verdana, sans-serif', // Heading font: Verdana
                   }}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -123,7 +107,7 @@ export default function Projects() {
                   className="text-gray-700 mb-4 leading-relaxed"
                   style={{ 
                     color: colors[(colorIndex + projectIndex + 1) % colors.length],
-                    fontFamily: 'Georgia, serif',
+                    fontFamily: 'Georgia, serif', // Description font: Georgia
                   }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -159,14 +143,14 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className="text-blue-500 hover:text-blue-700"
                     style={{
-                      borderRadius: '50%',
+                      borderRadius: '50%', // Circular glowing effect
                       boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex) % colors.length]}`,
                       transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                     }}
                     whileHover={{
-                      scale: 1.2,
+                      scale: 1.2, // Increase scale for smoother effect
                       rotate: 360,
-                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex) % colors.length]}`, // Deeper shadow
                     }}
                   >
                     <GithubIcon size={24} />
@@ -177,14 +161,14 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className="text-green-500 hover:text-green-700"
                     style={{
-                      borderRadius: '50%',
+                      borderRadius: '50%', // Circular glowing effect
                       boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
                       transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                     }}
                     whileHover={{
                       scale: 1.2,
                       rotate: 360,
-                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
+                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`, // Deeper shadow
                     }}
                   >
                     <ExternalLink size={24} />
@@ -195,72 +179,8 @@ export default function Projects() {
           ))}
         </motion.div>
       </div>
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="bg-white rounded-lg p-8 max-w-2xl w-full m-4"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 500 }}
-            >
-              <Card className="overflow-hidden">
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-2xl font-bold" style={{ color: colors[colorIndex] }}>
-                      {selectedProject.title}
-                    </h3>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={handleCloseDetails}
-                      aria-label="Close details"
-                    >
-                      <X className="h-6 w-6" />
-                    </Button>
-                  </div>
-                  <p className="text-gray-700 mb-4">{selectedProject.details}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {selectedProject.technologies.map((tech, index) => (
-                      <span
-                        key={tech}
-                        className="bg-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded"
-                        style={{ color: colors[(colorIndex + index) % colors.length] }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex justify-between">
-                    <a
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      <GithubIcon size={24} />
-                    </a>
-                    <a
-                      href={selectedProject.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-green-500 hover:text-green-700"
-                    >
-                      <ExternalLink size={24} />
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
-  )
-}
+  );
+};
+
+export default Projects;
