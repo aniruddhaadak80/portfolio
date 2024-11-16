@@ -54,19 +54,25 @@ const ServiceCard: React.FC<{
     switch (service.title) {
       case 'Web Development':
         setCodeSnippet(`
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 
 const AnimatedCounter = () => {
   const [count, setCount] = useState(0);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start({
+      scale: [1, 1.2, 1],
+      transition: { duration: 0.3 }
+    });
+  }, [count, controls]);
 
   return (
     <div className="text-center">
       <motion.div
+        animate={controls}
         className="text-4xl font-bold mb-4"
-        initial={{ scale: 1 }}
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 0.3 }}
       >
         {count}
       </motion.div>
