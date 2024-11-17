@@ -327,7 +327,7 @@ const About: React.FC = () => {
 export default About;
 
 
-export default async function server(request: Request) {
+export async function server(request: Request) {
   return new Response(`
     <!DOCTYPE html>
     <html lang="en">
