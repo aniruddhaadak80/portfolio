@@ -1,7 +1,6 @@
-/** @jsxImportSource https://esm.sh/react */
-import React from 'https://esm.sh/react';
-import { useState, useCallback } from 'https://esm.sh/react';
-import { createRoot } from 'https://esm.sh/react-dom/client';
+import React, { useState, useCallback } from 'react';
+import { Code, Users, Lightbulb } from 'lucide-react'; // Importing icons
+import { createRoot } from 'react-dom/client'; // React DOM
 
 // Define types for type safety
 interface LearningJourney {
@@ -209,51 +208,26 @@ export const About: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <span className="text-2xl text-gray-500 group-hover:text-gray-700 transition-colors">
-                  {selectedJourney === index ? '▼' : '►'}
+                <span className="text-2xl text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                  <Code />
                 </span>
               </div>
 
+              {/* Journey Details (when clicked) */}
               {selectedJourney === index && (
-                <div className="mt-4 animate-fade-in relative z-10">
-                  <p className="text-gray-600 mb-4 italic">{journey.description}</p>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                      Key Achievements:
-                    </h4>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700">
-                      {journey.achievements.map((achievement, achieveIndex) => (
-                        <li 
-                          key={achieveIndex} 
-                          className="animate-zoom-in-left hover:text-indigo-600 transition-colors group"
-                          style={{ animationDelay: `${achieveIndex * 0.1}s` }}
-                        >
-                          <span className="group-hover:ml-2 transition-all duration-300">➤</span> {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                    {journey.projectLink && (
-                      <div className="mt-4 flex items-center space-x-4">
-                        <a 
-                          href={journey.projectLink} 
-                          className={`inline-block px-4 py-2 rounded-lg transition-all duration-300 transform ${
-                            buttonHover[index] 
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white scale-110 shadow-xl' 
-                              : 'bg-indigo-500 text-white hover:bg-indigo-600'
-                          }`}
-                          onMouseEnter={() => handleButtonHover(index, true)}
-                          onMouseLeave={() => handleButtonHover(index, false)}
-                        >
-                          View Projects
-                        </a>
-                        <span className={`transition-opacity duration-300 ${
-                          buttonHover[index] ? 'opacity-100' : 'opacity-0'
-                        } text-gray-600`}>
-                          Explore more details →
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                <div className="mt-4 space-y-2">
+                  <p className="text-gray-700">{journey.description}</p>
+                  <ul className="list-disc list-inside text-gray-600">
+                    {journey.achievements.map((achieve, achieveIndex) => (
+                      <li key={achieveIndex}>{achieve}</li>
+                    ))}
+                  </ul>
+                  <a 
+                    href={journey.projectLink} 
+                    className="text-blue-600 underline hover:text-blue-800 transition-colors duration-300"
+                  >
+                    Explore more projects
+                  </a>
                 </div>
               )}
             </div>
@@ -264,51 +238,5 @@ export const About: React.FC = () => {
   );
 };
 
-export default async function server(request: Request) {
-  return new Response(`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Learning Journey</title>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script src="https://esm.town/v/std/catch"></script>
-      <style>
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes zoomInLeft {
-          from { opacity: 0; transform: scale(0.9) translateX(-20px); }
-          to { opacity: 1; transform: scale(1) translateX(0); }
-        }
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        .animate-zoom-in-left { animation: zoomInLeft 0.5s ease-out; }
-        .animate-blob { animation: blob 15s infinite; }
-        .animate-blob2 { animation: blob 20s infinite; }
-      </style>
-    </head>
-    <body>
-      <div id="root"></div>
-      <script type="module">
-        import React from 'https://esm.sh/react';
-        import { createRoot } from 'https://esm.sh/react-dom/client';
-        import { About } from '${import.meta.url}';
-
-        const rootElement = document.getElementById('root');
-        const root = createRoot(rootElement);
-        root.render(React.createElement(About));
-      </script>
-    </body>
-    </html>
-  `, {
-    headers: { 'Content-Type': 'text/html' }
-  });
-}
+const root = createRoot(document.getElementById('root') as HTMLElement);
+root.render(<About />);
