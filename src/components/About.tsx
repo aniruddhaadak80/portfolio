@@ -1,17 +1,108 @@
-import React, { useState } from 'react';
-import { Code, Users, Lightbulb } from 'lucide-react';
+/** @jsxImportSource https://esm.sh/react */
+import React from 'https://esm.sh/react';
+import { createRoot } from 'https://esm.sh/react-dom/client';
 
-const About: React.FC = () => {
-  const milestones = [
-    { year: 2022, event: 'Started Computer Science Degree', color: 'from-blue-400 to-blue-600', baseColor: '#4F46E5' },
-    { year: 2023, event: 'Learned 1st Programming Language (C)', color: 'from-green-400 to-green-600', baseColor: '#10B981' },
-    { year: 2023, event: 'Learned Web Development after June 15th', color: 'from-yellow-400 to-yellow-600', baseColor: '#F59E0B' },
-    { year: 2024, event: 'Learned GitHub, Cybersecurity before June', color: 'from-red-400 to-red-600', baseColor: '#EF4444' },
-    { year: 2024, event: 'Learned Next.js, Astro.js, Qwik.js...', color: 'from-purple-400 to-purple-600', baseColor: '#8B5CF6' },
-    { year: 2024, event: 'Skills upgrading...', color: 'from-pink-400 to-pink-600', baseColor: '#EC4899' },
+export const About = () => {
+  const learningJourneys = [
+    { 
+      year: 2022, 
+      event: 'Computer Science Foundations', 
+      technologies: ['Algorithms', 'Data Structures', 'Computer Architecture'],
+      color: 'from-blue-400 to-blue-600', 
+      baseColor: '#4F46E5', 
+      emoji: '🖥️',
+      description: 'Embarked on my academic journey, diving deep into fundamental computer science concepts and laying the groundwork for a tech career.',
+      achievements: [
+        'Completed introductory programming courses',
+        'Mastered basic algorithmic thinking',
+        'Developed problem-solving skills'
+      ],
+      projectLink: '#cs-foundations'
+    },
+    { 
+      year: 2023, 
+      event: 'C Programming & Low-Level Mastery', 
+      technologies: ['C Language', 'Pointers', 'Memory Management', 'Embedded Systems'],
+      color: 'from-green-400 to-green-600', 
+      baseColor: '#10B981', 
+      emoji: '🧩',
+      description: 'Deep dive into C programming, understanding low-level system interactions and memory management.',
+      achievements: [
+        'Developed complex data structures from scratch',
+        'Created memory-efficient algorithms',
+        'Built small embedded system projects'
+      ],
+      projectLink: '#c-programming'
+    },
+    { 
+      year: 2023, 
+      event: 'Web Development Fundamentals', 
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Bootstrap'],
+      color: 'from-yellow-400 to-yellow-600', 
+      baseColor: '#F59E0B', 
+      emoji: '🌐',
+      description: 'Explored web development, creating interactive and responsive web applications.',
+      achievements: [
+        'Built multiple responsive web interfaces',
+        'Learned modern JavaScript ES6+ features',
+        'Created interactive frontend projects'
+      ],
+      projectLink: '#web-development'
+    },
+    { 
+      year: 2024, 
+      event: 'Cybersecurity & Network Fundamentals', 
+      technologies: ['Network Security', 'Ethical Hacking', 'Cryptography', 'Linux', 'Wireshark'],
+      color: 'from-red-400 to-red-600', 
+      baseColor: '#EF4444', 
+      emoji: '🔒',
+      description: 'Explored cybersecurity principles, network protection, and ethical hacking techniques.',
+      achievements: [
+        'Completed cybersecurity certification',
+        'Analyzed network vulnerabilities',
+        'Implemented basic security protocols'
+      ],
+      projectLink: '#cybersecurity'
+    },
+    { 
+      year: 2024, 
+      event: 'Modern Frontend Frameworks', 
+      technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'State Management'],
+      color: 'from-purple-400 to-purple-600', 
+      baseColor: '#8B5CF6', 
+      emoji: '⚛️',
+      description: 'Advanced web development with modern JavaScript frameworks and state management.',
+      achievements: [
+        'Built complex single-page applications',
+        'Mastered React hooks and context',
+        'Implemented server-side rendering'
+      ],
+      projectLink: '#frontend-frameworks'
+    },
+    { 
+      year: 2024, 
+      event: 'AI & Machine Learning Foundations', 
+      technologies: ['Python', 'Machine Learning', 'Neural Networks', 'TensorFlow', 'Data Science'],
+      color: 'from-pink-400 to-pink-600', 
+      baseColor: '#EC4899', 
+      emoji: '🤖',
+      description: 'Exploring artificial intelligence and machine learning fundamentals.',
+      achievements: [
+        'Completed machine learning courses',
+        'Developed basic neural network models',
+        'Analyzed complex datasets'
+      ],
+      projectLink: '#ai-ml-learning'
+    }
   ];
 
-  const [hoverColors, setHoverColors] = useState(milestones.map(milestone => milestone.baseColor));
+  const [selectedJourney, setSelectedJourney] = React.useState(null);
+  const [hoverColors, setHoverColors] = React.useState(learningJourneys.map(journey => journey.baseColor));
+  const [imageInteraction, setImageInteraction] = React.useState({
+    rotate: 0,
+    scale: 1,
+    filter: 'brightness(100%)'
+  });
 
   const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
@@ -22,104 +113,214 @@ const About: React.FC = () => {
     return color;
   };
 
-  const handleMouseEnter = (index: number) => {
+  const handleMouseEnter = (index) => {
     const newColors = [...hoverColors];
     newColors[index] = getRandomColor();
     setHoverColors(newColors);
   };
 
-  const handleMouseLeave = (index: number, baseColor: string) => {
+  const handleMouseLeave = (index, baseColor) => {
     const newColors = [...hoverColors];
     newColors[index] = baseColor;
     setHoverColors(newColors);
   };
 
-  return (
-    <section id="about" className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 animate-bounce hover:text-indigo-600 transition-colors duration-300">
-          About Me
-        </h2>
-        <div className="flex flex-col md:flex-row items-center mb-16">
-          {/* Profile Image */}
-          <div className="md:w-1/2 mb-8 md:mb-0">
-            <img
-              src="https://tinyurl.com/25l56ouh"
-              alt="MyProfileImage"
-              className="rounded-full w-64 h-64 object-cover mx-auto border-4 border-blue-500 shadow-lg transform hover:scale-105 transition-transform duration-300 animate-pulse"
-            />
-          </div>
-          {/* Milestones */}
-          <div className="md:w-1/2">
-            <h3 className="text-2xl font-semibold mb-4 text-gray-800 animate-zoom-in-right hover:text-indigo-600 transition-colors duration-300 transform hover:translate-x-2">
-              My Journey
-            </h3>
-            <div className="space-y-4">
-              {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className="flex items-center animate-zoom-in-right"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {/* Year section with fixed color */}
-                  <div className={`w-12 h-12 bg-gradient-to-r ${milestone.color} rounded-full flex items-center justify-center text-white font-bold shadow-md transform hover:scale-110 transition-transform duration-300`}>
-                    {milestone.year}
-                  </div>
+  const handleImageInteraction = (type) => {
+    switch(type) {
+      case 'hover':
+        setImageInteraction({
+          rotate: Math.random() * 10 - 5,
+          scale: 1.1,
+          filter: 'brightness(110%)'
+        });
+        break;
+      case 'click':
+        setImageInteraction(prev => ({
+          rotate: prev.rotate + (Math.random() * 20 - 10),
+          scale: prev.scale === 1 ? 1.2 : 1,
+          filter: prev.filter === 'brightness(100%)' ? 'grayscale(50%)' : 'brightness(100%)'
+        }));
+        break;
+      default:
+        setImageInteraction({
+          rotate: 0,
+          scale: 1,
+          filter: 'brightness(100%)'
+        });
+    }
+  };
 
-                  {/* Event section with dynamic hover color */}
-                  <div
-                    className="ml-4 bg-white p-2 rounded-lg shadow-md flex-1 transition-colors duration-300 cursor-pointer group"
-                    style={{
-                      backgroundColor: hoverColors[index],
-                    }}
-                    onMouseEnter={() => handleMouseEnter(index)}
-                    onMouseLeave={() => handleMouseLeave(index, milestone.baseColor)}
-                  >
-                    <span className="transition-colors duration-300 animate-pulse">
-                      {milestone.event}
-                    </span>
-                  </div>
-                </div>
-              ))}
+  return (
+    <section 
+      id="about" 
+      className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden"
+    >
+      {/* Animated Background Shapes */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+        <div className="absolute animate-blob top-10 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute animate-blob2 bottom-10 left-20 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col md:flex-row items-center mb-12">
+          <div className="md:w-1/3 mb-6 md:mb-0 md:mr-12">
+            <div 
+              className="relative group cursor-pointer overflow-hidden"
+              onMouseEnter={() => handleImageInteraction('hover')}
+              onMouseLeave={() => handleImageInteraction('reset')}
+              onClick={() => handleImageInteraction('click')}
+            >
+              <img
+                src="https://tinyurl.com/25l56ouh"
+                alt="Profile"
+                className="rounded-full w-64 h-64 object-cover mx-auto border-4 border-indigo-500 shadow-lg transform transition-all duration-500"
+                style={{
+                  transform: `rotate(${imageInteraction.rotate}deg) scale(${imageInteraction.scale})`,
+                  filter: imageInteraction.filter
+                }}
+              />
+              <div className="absolute inset-0 bg-indigo-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
             </div>
+          </div>
+          
+          <div className="md:w-2/3">
+            <h2 className="text-4xl font-bold mb-4 text-center md:text-left text-gray-800 animate-bounce hover:text-indigo-600 transition-colors duration-300">
+              My Learning Journey 📚
+            </h2>
+            <p className="text-gray-600 text-center md:text-left mb-6">
+              A passionate learner continuously exploring the vast world of technology, 
+              transforming curiosity into skills, one milestone at a time.
+            </p>
           </div>
         </div>
 
-        {/* Skills Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group">
-            <Code size={48} className="mx-auto mb-4 text-blue-500 animate-bounce group-hover:text-blue-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-blue-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
-              Clean Code
-            </h3>
-            <p className="text-gray-600 group-hover:text-blue-500 transition-colors duration-300 animate-pulse">
-              I believe in writing clean, maintainable, and efficient code.
-            </p>
-          </div>
+        <div className="space-y-6">
+          {learningJourneys.map((journey, index) => (
+            <div 
+              key={index}
+              className="bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden"
+              style={{ 
+                backgroundColor: hoverColors[index],
+                transition: 'background-color 0.3s ease'
+              }}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={() => handleMouseLeave(index, journey.baseColor)}
+              onClick={() => setSelectedJourney(selectedJourney === index ? null : index)}
+            >
+              {/* Gradient overlay */}
+              <div 
+                className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-300" 
+                style={{
+                  background: `linear-gradient(to right, ${journey.baseColor}, ${getRandomColor()})`
+                }}
+              ></div>
 
-          <div className="text-center bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group" style={{ animationDelay: '0.1s' }}>
-            <Users size={48} className="mx-auto mb-4 text-purple-500 animate-bounce group-hover:text-purple-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-purple-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
-              Collaboration
-            </h3>
-            <p className="text-gray-600 group-hover:text-purple-500 transition-colors duration-300 animate-pulse">
-              I thrive in collaborative environments and enjoy teamwork.
-            </p>
-          </div>
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center space-x-4">
+                  <span className={`text-4xl bg-gradient-to-r ${journey.color} bg-clip-text text-transparent`}>
+                    {journey.emoji}
+                  </span>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-800">
+                      {journey.year} - {journey.event}
+                    </h3>
+                    <div className="flex space-x-2 mt-2">
+                      {journey.technologies.map((tech, techIndex) => (
+                        <span 
+                          key={techIndex} 
+                          className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs hover:bg-blue-200 transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <span className="text-2xl text-gray-500 group-hover:text-gray-700 transition-colors">
+                  {selectedJourney === index ? '▼' : '►'}
+                </span>
+              </div>
 
-          <div className="text-center bg-gradient-to-br from-pink-100 to-pink-200 p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl group" style={{ animationDelay: '0.2s' }}>
-            <Lightbulb size={48} className="mx-auto mb-4 text-yellow-500 animate-bounce group-hover:text-yellow-600" />
-            <h3 className="text-xl font-semibold mb-2 text-gray-800 group-hover:text-yellow-600 transition-colors duration-300 transform group-hover:translate-y-1 animate-zoom-in">
-              Innovation
-            </h3>
-            <p className="text-gray-600 group-hover:text-yellow-500 transition-colors duration-300 animate-pulse">
-              I'm always exploring new technologies and innovative solutions.
-            </p>
-          </div>
+              {selectedJourney === index && (
+                <div className="mt-4 animate-fade-in relative z-10">
+                  <p className="text-gray-600 mb-4">{journey.description}</p>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">Key Achievements:</h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      {journey.achievements.map((achievement, achieveIndex) => (
+                        <li 
+                          key={achieveIndex} 
+                          className="animate-zoom-in-left hover:text-indigo-600 transition-colors"
+                          style={{ animationDelay: `${achieveIndex * 0.1}s` }}
+                        >
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                    {journey.projectLink && (
+                      <a 
+                        href={journey.projectLink} 
+                        className="mt-4 inline-block bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition-colors"
+                      >
+                        View Projects
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 };
 
-export default About;
+export default async function server(request: Request) {
+  return new Response(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Learning Journey</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://esm.town/v/std/catch"></script>
+      <style>
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomInLeft {
+          from { opacity: 0; transform: scale(0.9) translateX(-20px); }
+          to { opacity: 1; transform: scale(1) translateX(0); }
+        }
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        .animate-zoom-in-left { animation: zoomInLeft 0.5s ease-out; }
+        .animate-blob { animation: blob 15s infinite; }
+        .animate-blob2 { animation: blob 20s infinite; }
+      </style>
+    </head>
+    <body>
+      <div id="root"></div>
+      <script type="module">
+        import React from 'https://esm.sh/react';
+        import { createRoot } from 'https://esm.sh/react-dom/client';
+        import { About } from '${import.meta.url}';
+
+        const rootElement = document.getElementById('root');
+        const root = createRoot(rootElement);
+        root.render(React.createElement(About));
+      </script>
+    </body>
+    </html>
+  `, {
+    headers: { 'Content-Type': 'text/html' }
+  });
+}
