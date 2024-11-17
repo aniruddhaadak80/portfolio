@@ -1,16 +1,13 @@
 import React, { useState, useCallback } from 'react';
-import { Code, Users, Lightbulb } from 'lucide-react'; // Importing icons
-import { createRoot } from 'react-dom/client'; // React DOM
+import { Code, Users, Lightbulb } from 'lucide-react';
 
-
-// Define types for type safety
 interface LearningJourney {
   year: number;
   event: string;
   technologies: string[];
   color: string;
   baseColor: string;
-  descriptionColor: string;
+  descriptionColor?: string;
   emoji: string;
   description: string;
   achievements: string[];
@@ -124,6 +121,7 @@ const About: React.FC = () =>  {
 ];
 
 
+
   const [selectedJourney, setSelectedJourney] = useState<number | null>(null);
   const [hoverColors, setHoverColors] = useState<string[]>(learningJourneys.map(journey => journey.baseColor));
   const [imageInteraction, setImageInteraction] = useState<ImageInteraction>({
@@ -132,6 +130,7 @@ const About: React.FC = () =>  {
     filter: 'brightness(100%)'
   });
   const [buttonHover, setButtonHover] = useState<ButtonHoverState>({});
+  const [visibleCards, setVisibleCards] = useState<number>(2);
 
   const getRandomColor = useCallback((): string => {
     const letters = '0123456789ABCDEF';
@@ -186,6 +185,10 @@ const About: React.FC = () =>  {
     }));
   }, []);
 
+  const handleShowMore = () => {
+    setVisibleCards(prev => Math.min(prev + 2, learningJourneys.length));
+  };
+
   return (
     <section 
       id="about" 
@@ -207,7 +210,7 @@ const About: React.FC = () =>  {
               onClick={() => handleImageInteraction('click')}
             >
               <img
-                src="/placeholder.svg?height=256&width=256"
+                src="/api/placeholder/256/256"
                 alt="Profile"
                 className="rounded-full w-64 h-64 object-cover mx-auto border-4 border-indigo-500 shadow-lg transform transition-all duration-500"
                 style={{
@@ -231,7 +234,7 @@ const About: React.FC = () =>  {
         </div>
 
         <div className="space-y-6">
-          {learningJourneys.map((journey, index) => (
+          {learningJourneys.slice(0, visibleCards).map((journey, index) => (
             <div 
               key={index}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden"
@@ -321,12 +324,23 @@ const About: React.FC = () =>  {
               )}
             </div>
           ))}
+          
+          {/* Show More Button */}
+          {visibleCards < learningJourneys.length && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={handleShowMore}
+                className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+              >
+                Show More
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
-}
-
+};
 
 export default About;
 
