@@ -27,7 +27,7 @@ interface ButtonHoverState {
   [key: number]: boolean;
 }
 
-export default function About() {
+const About: React.FC = () =>  {
   const learningJourneys: LearningJourney[] = [
     { 
       year: 2022, 
@@ -184,7 +184,7 @@ export default function About() {
 
   return (
     <section 
-      id="learning-journey" 
+      id="about" 
       className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900 relative overflow-hidden"
     >
       {/* Animated Background Shapes */}
