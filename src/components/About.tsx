@@ -346,7 +346,7 @@ const learningJourneys: LearningJourney[] = [
             <div className="flex justify-center mt-8">
               <button
   onClick={handleShowMore}
-  className="px-8 py-4 text-4xl font-verdana bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 
+  className="px-8 py-4 text-2xl font-verdana bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 
   hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 hover:text-yellow-300 
   hover:animate-pulse"
 >
