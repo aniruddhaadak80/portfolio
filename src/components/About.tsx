@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Code, Users, Lightbulb } from 'lucide-react'; // Importing icons
 import { createRoot } from 'react-dom/client'; // React DOM
 
+
 // Define types for type safety
 interface LearningJourney {
   year: number;
@@ -9,6 +10,7 @@ interface LearningJourney {
   technologies: string[];
   color: string;
   baseColor: string;
+  descriptionColor: string;
   emoji: string;
   description: string;
   achievements: string[];
@@ -25,7 +27,7 @@ interface ButtonHoverState {
   [key: number]: boolean;
 }
 
-const About: React.FC = () => {
+export default function About() {
   const learningJourneys: LearningJourney[] = [
     { 
       year: 2022, 
@@ -33,12 +35,11 @@ const About: React.FC = () => {
       technologies: ['Algorithms', 'Data Structures', 'Computer Architecture'],
       color: 'from-blue-400 to-blue-600', 
       baseColor: '#4F46E5', 
+      descriptionColor: '#818CF8',
       emoji: '🖥️',
       description: 'Embarked on my academic journey, diving deep into fundamental computer science concepts and laying the groundwork for a tech career.',
       achievements: [
         'Completed introductory programming courses',
-        'Mastered basic algorithmic thinking',
-        'Developed problem-solving skills'
       ],
       projectLink: '#cs-foundations'
     },
@@ -184,12 +185,12 @@ const About: React.FC = () => {
   return (
     <section 
       id="learning-journey" 
-      className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden"
+      className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900 relative overflow-hidden"
     >
       {/* Animated Background Shapes */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-        <div className="absolute animate-blob top-10 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl"></div>
-        <div className="absolute animate-blob2 bottom-10 left-20 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute animate-blob top-10 right-20 w-72 h-72 bg-blue-200 dark:bg-blue-700 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute animate-blob2 bottom-10 left-20 w-64 h-64 bg-purple-200 dark:bg-purple-700 rounded-full mix-blend-multiply filter blur-xl"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -202,7 +203,7 @@ const About: React.FC = () => {
               onClick={() => handleImageInteraction('click')}
             >
               <img
-                src="https://tinyurl.com/25l56ouh"
+                src="/placeholder.svg?height=256&width=256"
                 alt="Profile"
                 className="rounded-full w-64 h-64 object-cover mx-auto border-4 border-indigo-500 shadow-lg transform transition-all duration-500"
                 style={{
@@ -215,10 +216,10 @@ const About: React.FC = () => {
           </div>
           
           <div className="md:w-2/3">
-            <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
+            <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 animate-pulse p-4 rounded-lg transition-all duration-300 hover:bg-opacity-10 hover:bg-white dark:hover:bg-opacity-10 dark:hover:bg-gray-800">
               My Learning Journey 📚
             </h2>
-            <p className="text-gray-600 text-center md:text-left mb-6 italic">
+            <p className="text-gray-600 dark:text-gray-300 text-center md:text-left mb-6 italic">
               A passionate learner continuously exploring the vast world of technology, 
               transforming curiosity into skills, one milestone at a time.
             </p>
@@ -229,7 +230,7 @@ const About: React.FC = () => {
           {learningJourneys.map((journey, index) => (
             <div 
               key={index}
-              className="bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden"
               style={{ 
                 backgroundColor: hoverColors[index],
                 transition: 'background-color 0.3s ease'
@@ -248,18 +249,18 @@ const About: React.FC = () => {
 
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-4">
-                  <span className={`text-4xl bg-gradient-to-r ${journey.color} bg-clip-text text-transparent`}>
+                  <span className={`text-4xl bg-gradient-to-r ${journey.color} p-2 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-110`}>
                     {journey.emoji}
                   </span>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 hover:text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 hover:text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text transition-colors duration-300 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                       {journey.year} - {journey.event}
                     </h3>
-                    <div className="flex space-x-2 mt-2">
+                    <div className="flex flex-wrap gap-2 mt-2">
                       {journey.technologies.map((tech, techIndex) => (
                         <span 
                           key={techIndex} 
-                          className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs hover:bg-blue-200 transition-all transform hover:scale-110 hover:shadow-lg"
+                          className="px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100 rounded-full text-xs hover:bg-blue-200 dark:hover:bg-blue-700 transition-all transform hover:scale-110 hover:shadow-lg"
                         >
                           {tech}
                         </span>
@@ -267,23 +268,23 @@ const About: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <span className="text-2xl text-gray-500 group-hover:text-gray-700 transition-colors">
+                <span className="text-2xl text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
                   {selectedJourney === index ? '▼' : '►'}
                 </span>
               </div>
 
               {selectedJourney === index && (
                 <div className="mt-4 animate-fade-in relative z-10">
-                  <p className="text-gray-600 mb-4 italic">{journey.description}</p>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 italic">{journey.description}</p>
+                  <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                       Key Achievements:
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
                       {journey.achievements.map((achievement, achieveIndex) => (
                         <li 
                           key={achieveIndex} 
-                          className="animate-zoom-in-left hover:text-indigo-600 transition-colors group"
+                          className="animate-zoom-in-left hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors group"
                           style={{ animationDelay: `${achieveIndex * 0.1}s` }}
                         >
                           <span className="group-hover:ml-2 transition-all duration-300">➤</span> {achievement}
@@ -296,8 +297,8 @@ const About: React.FC = () => {
                           href={journey.projectLink} 
                           className={`inline-block px-4 py-2 rounded-lg transition-all duration-300 transform ${
                             buttonHover[index] 
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white scale-110 shadow-xl' 
-                              : 'bg-indigo-500 text-white hover:bg-indigo-600'
+                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 text-white scale-110 shadow-xl' 
+                              : 'bg-indigo-500 text-white hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500'
                           }`}
                           onMouseEnter={() => handleButtonHover(index, true)}
                           onMouseLeave={() => handleButtonHover(index, false)}
@@ -306,7 +307,7 @@ const About: React.FC = () => {
                         </a>
                         <span className={`transition-opacity duration-300 ${
                           buttonHover[index] ? 'opacity-100' : 'opacity-0'
-                        } text-gray-600`}>
+                        } text-gray-600 dark:text-gray-400`}>
                           Explore more details →
                         </span>
                       </div>
@@ -320,7 +321,7 @@ const About: React.FC = () => {
       </div>
     </section>
   );
-};
+}
 
 
 export default About;
