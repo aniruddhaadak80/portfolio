@@ -26,7 +26,7 @@ interface ButtonHoverState {
   [key: number]: boolean;
 }
 
-export const About: React.FC = () => {
+const About: React.FC = () => {
   const learningJourneys: LearningJourney[] = [
     { 
       year: 2022, 
@@ -322,6 +322,10 @@ export const About: React.FC = () => {
     </section>
   );
 };
+
+
+export default About;
+
 
 export default async function server(request: Request) {
   return new Response(`
