@@ -185,12 +185,12 @@ const About: React.FC = () => {
   return (
     <section 
       id="learning-journey" 
-      className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden"
+      className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 dark:bg-gradient-to-r dark:from-blue-800 dark:via-purple-800 dark:to-pink-800 relative overflow-hidden"
     >
       {/* Animated Background Shapes */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-        <div className="absolute animate-blob top-10 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl"></div>
-        <div className="absolute animate-blob2 bottom-10 left-20 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute animate-blob top-10 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl dark:bg-blue-600"></div>
+        <div className="absolute animate-blob2 bottom-10 left-20 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl dark:bg-purple-600"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -214,107 +214,54 @@ const About: React.FC = () => {
               <div className="absolute inset-0 bg-indigo-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-full"></div>
             </div>
           </div>
-          
-          <div className="md:w-2/3">
-            <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
-              My Learning Journey 📚
-            </h2>
-            <p className="text-gray-600 text-center md:text-left mb-6 italic">
-              A passionate learner continuously exploring the vast world of technology, 
-              transforming curiosity into skills, one milestone at a time.
+
+          <div className="md:w-2/3 text-center md:text-left">
+            <h2 className="text-4xl font-extrabold text-indigo-600 dark:text-indigo-300 mb-6">My Learning Journey</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              Here's a snapshot of my continuous learning path, filled with passion for technology and problem-solving.
             </p>
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           {learningJourneys.map((journey, index) => (
             <div 
-              key={index}
-              className="bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden"
-              style={{ 
-                backgroundColor: hoverColors[index],
-                transition: 'background-color 0.3s ease'
-              }}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={() => handleMouseLeave(index, journey.baseColor)}
-              onClick={() => setSelectedJourney(selectedJourney === index ? null : index)}
+              key={journey.year}
+              className="flex flex-col md:flex-row items-center mb-6 p-6 bg-gradient-to-r rounded-lg shadow-lg dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-700 dark:to-gray-600"
             >
-              {/* Gradient overlay */}
-              <div 
-                className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-300" 
-                style={{
-                  background: `linear-gradient(to right, ${journey.baseColor}, ${getRandomColor()})`
-                }}
-              ></div>
-
-              <div className="flex items-center justify-between relative z-10">
-                <div className="flex items-center space-x-4">
-                  <span className={`text-4xl bg-gradient-to-r ${journey.color} bg-clip-text text-transparent`}>
-                    {journey.emoji}
-                  </span>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-800 hover:text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text transition-colors duration-300">
-                      {journey.year} - {journey.event}
-                    </h3>
-                    <div className="flex space-x-2 mt-2">
-                      {journey.technologies.map((tech, techIndex) => (
-                        <span 
-                          key={techIndex} 
-                          className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs hover:bg-blue-200 transition-all transform hover:scale-110 hover:shadow-lg"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+              <div className="md:w-1/4 text-center md:text-left mb-4 md:mb-0">
+                <div
+                  className={`inline-block px-4 py-2 rounded-full text-white text-4xl font-semibold shadow-lg bg-gradient-to-r ${journey.color} transform transition-all duration-300`}
+                  style={{
+                    transition: 'background-color 0.3s ease',
+                    backgroundColor: hoverColors[index]
+                  }}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={() => handleMouseLeave(index, journey.baseColor)}
+                >
+                  {journey.emoji}
                 </div>
-                <span className="text-2xl text-gray-500 group-hover:text-gray-700 transition-colors">
-                  {selectedJourney === index ? '▼' : '►'}
-                </span>
               </div>
 
-              {selectedJourney === index && (
-                <div className="mt-4 animate-fade-in relative z-10">
-                  <p className="text-gray-600 mb-4 italic">{journey.description}</p>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                      Key Achievements:
-                    </h4>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700">
-                      {journey.achievements.map((achievement, achieveIndex) => (
-                        <li 
-                          key={achieveIndex} 
-                          className="animate-zoom-in-left hover:text-indigo-600 transition-colors group"
-                          style={{ animationDelay: `${achieveIndex * 0.1}s` }}
-                        >
-                          <span className="group-hover:ml-2 transition-all duration-300">➤</span> {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                    {journey.projectLink && (
-                      <div className="mt-4 flex items-center space-x-4">
-                        <a 
-                          href={journey.projectLink} 
-                          className={`inline-block px-4 py-2 rounded-lg transition-all duration-300 transform ${
-                            buttonHover[index] 
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white scale-110 shadow-xl' 
-                              : 'bg-indigo-500 text-white hover:bg-indigo-600'
-                          }`}
-                          onMouseEnter={() => handleButtonHover(index, true)}
-                          onMouseLeave={() => handleButtonHover(index, false)}
-                        >
-                          View Projects
-                        </a>
-                        <span className={`transition-opacity duration-300 ${
-                          buttonHover[index] ? 'opacity-100' : 'opacity-0'
-                        } text-gray-600`}>
-                          Explore more details →
-                        </span>
-                      </div>
-                    )}
+              <div className="md:w-3/4 text-center md:text-left">
+                <h3 className="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-2">{journey.event}</h3>
+                <p className="text-gray-700 dark:text-gray-200 mb-4">{journey.description}</p>
+                <ul className="text-sm text-gray-600 dark:text-gray-300 list-disc pl-6 mb-4">
+                  {journey.achievements.map((achievement, idx) => (
+                    <li key={idx}>{achievement}</li>
+                  ))}
+                </ul>
+                <a 
+                  href={journey.projectLink} 
+                  className="text-indigo-600 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-500 transition-all duration-300"
+                  onMouseEnter={() => handleButtonHover(index, true)}
+                  onMouseLeave={() => handleButtonHover(index, false)}
+                >
+                  <div className={`inline-block px-4 py-2 rounded-full font-semibold border ${buttonHover[index] ? 'bg-indigo-600 text-white' : 'border-indigo-600 text-indigo-600'} transition-all duration-300`}>
+                    Explore Project
                   </div>
-                </div>
-              )}
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -323,55 +270,4 @@ const About: React.FC = () => {
   );
 };
 
-
 export default About;
-
-
-export async function server(request: Request) {
-  return new Response(`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Learning Journey</title>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script src="https://esm.town/v/std/catch"></script>
-      <style>
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes zoomInLeft {
-          from { opacity: 0; transform: scale(0.9) translateX(-20px); }
-          to { opacity: 1; transform: scale(1) translateX(0); }
-        }
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        .animate-zoom-in-left { animation: zoomInLeft 0.5s ease-out; }
-        .animate-blob { animation: blob 15s infinite; }
-        .animate-blob2 { animation: blob 20s infinite; }
-      </style>
-    </head>
-    <body>
-      <div id="root"></div>
-      <script type="module">
-        import React from 'https://esm.sh/react';
-        import { createRoot } from 'https://esm.sh/react-dom/client';
-        import { About } from '${import.meta.url}';
-
-        const rootElement = document.getElementById('root');
-        const root = createRoot(rootElement);
-        root.render(React.createElement(About));
-      </script>
-    </body>
-    </html>
-  `, {
-    headers: { 'Content-Type': 'text/html' }
-  });
-}
