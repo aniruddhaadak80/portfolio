@@ -1,9 +1,32 @@
 /** @jsxImportSource https://esm.sh/react */
-import React from 'https://esm.sh/react';
+import React, { useState, useCallback } from 'https://esm.sh/react';
 import { createRoot } from 'https://esm.sh/react-dom/client';
 
-export const About = () => {
-  const learningJourneys = [
+// Define types for type safety
+interface LearningJourney {
+  year: number;
+  event: string;
+  technologies: string[];
+  color: string;
+  baseColor: string;
+  emoji: string;
+  description: string;
+  achievements: string[];
+  projectLink: string;
+}
+
+interface ImageInteraction {
+  rotate: number;
+  scale: number;
+  filter: string;
+}
+
+interface ButtonHoverState {
+  [key: number]: boolean;
+}
+
+export const About: React.FC = () => {
+  const learningJourneys: LearningJourney[] = [
     { 
       year: 2022, 
       event: 'Computer Science Foundations', 
@@ -96,36 +119,37 @@ export const About = () => {
     }
   ];
 
-  const [selectedJourney, setSelectedJourney] = React.useState(null);
-  const [hoverColors, setHoverColors] = React.useState(learningJourneys.map(journey => journey.baseColor));
-  const [imageInteraction, setImageInteraction] = React.useState({
+  const [selectedJourney, setSelectedJourney] = useState<number | null>(null);
+  const [hoverColors, setHoverColors] = useState<string[]>(learningJourneys.map(journey => journey.baseColor));
+  const [imageInteraction, setImageInteraction] = useState<ImageInteraction>({
     rotate: 0,
     scale: 1,
     filter: 'brightness(100%)'
   });
+  const [buttonHover, setButtonHover] = useState<ButtonHoverState>({});
 
-  const getRandomColor = () => {
+  const getRandomColor = useCallback((): string => {
     const letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  };
+  }, []);
 
-  const handleMouseEnter = (index) => {
+  const handleMouseEnter = useCallback((index: number) => {
     const newColors = [...hoverColors];
     newColors[index] = getRandomColor();
     setHoverColors(newColors);
-  };
+  }, [hoverColors, getRandomColor]);
 
-  const handleMouseLeave = (index, baseColor) => {
+  const handleMouseLeave = useCallback((index: number, baseColor: string) => {
     const newColors = [...hoverColors];
     newColors[index] = baseColor;
     setHoverColors(newColors);
-  };
+  }, [hoverColors]);
 
-  const handleImageInteraction = (type) => {
+  const handleImageInteraction = useCallback((type: string) => {
     switch(type) {
       case 'hover':
         setImageInteraction({
@@ -148,11 +172,18 @@ export const About = () => {
           filter: 'brightness(100%)'
         });
     }
-  };
+  }, []);
+
+  const handleButtonHover = useCallback((index: number, isHovering: boolean) => {
+    setButtonHover(prev => ({
+      ...prev,
+      [index]: isHovering
+    }));
+  }, []);
 
   return (
     <section 
-      id="about" 
+      id="learning-journey" 
       className="py-20 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden"
     >
       {/* Animated Background Shapes */}
@@ -184,10 +215,10 @@ export const About = () => {
           </div>
           
           <div className="md:w-2/3">
-            <h2 className="text-4xl font-bold mb-4 text-center md:text-left text-gray-800 animate-bounce hover:text-indigo-600 transition-colors duration-300">
+            <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
               My Learning Journey 📚
             </h2>
-            <p className="text-gray-600 text-center md:text-left mb-6">
+            <p className="text-gray-600 text-center md:text-left mb-6 italic">
               A passionate learner continuously exploring the vast world of technology, 
               transforming curiosity into skills, one milestone at a time.
             </p>
@@ -221,14 +252,14 @@ export const About = () => {
                     {journey.emoji}
                   </span>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800">
+                    <h3 className="text-xl font-bold text-gray-800 hover:text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text transition-colors duration-300">
                       {journey.year} - {journey.event}
                     </h3>
                     <div className="flex space-x-2 mt-2">
                       {journey.technologies.map((tech, techIndex) => (
                         <span 
                           key={techIndex} 
-                          className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs hover:bg-blue-200 transition-colors"
+                          className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs hover:bg-blue-200 transition-all transform hover:scale-110 hover:shadow-lg"
                         >
                           {tech}
                         </span>
@@ -243,27 +274,42 @@ export const About = () => {
 
               {selectedJourney === index && (
                 <div className="mt-4 animate-fade-in relative z-10">
-                  <p className="text-gray-600 mb-4">{journey.description}</p>
+                  <p className="text-gray-600 mb-4 italic">{journey.description}</p>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-2">Key Achievements:</h4>
+                    <h4 className="font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                      Key Achievements:
+                    </h4>
                     <ul className="list-disc list-inside space-y-1 text-gray-700">
                       {journey.achievements.map((achievement, achieveIndex) => (
                         <li 
                           key={achieveIndex} 
-                          className="animate-zoom-in-left hover:text-indigo-600 transition-colors"
+                          className="animate-zoom-in-left hover:text-indigo-600 transition-colors group"
                           style={{ animationDelay: `${achieveIndex * 0.1}s` }}
                         >
-                          {achievement}
+                          <span className="group-hover:ml-2 transition-all duration-300">➤</span> {achievement}
                         </li>
                       ))}
                     </ul>
                     {journey.projectLink && (
-                      <a 
-                        href={journey.projectLink} 
-                        className="mt-4 inline-block bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition-colors"
-                      >
-                        View Projects
-                      </a>
+                      <div className="mt-4 flex items-center space-x-4">
+                        <a 
+                          href={journey.projectLink} 
+                          className={`inline-block px-4 py-2 rounded-lg transition-all duration-300 transform ${
+                            buttonHover[index] 
+                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white scale-110 shadow-xl' 
+                              : 'bg-indigo-500 text-white hover:bg-indigo-600'
+                          }`}
+                          onMouseEnter={() => handleButtonHover(index, true)}
+                          onMouseLeave={() => handleButtonHover(index, false)}
+                        >
+                          View Projects
+                        </a>
+                        <span className={`transition-opacity duration-300 ${
+                          buttonHover[index] ? 'opacity-100' : 'opacity-0'
+                        } text-gray-600`}>
+                          Explore more details →
+                        </span>
+                      </div>
                     )}
                   </div>
                 </div>
