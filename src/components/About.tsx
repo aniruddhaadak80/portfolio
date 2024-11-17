@@ -1,6 +1,6 @@
-/** @jsxImportSource https://esm.sh/react */
-import React, { useState, useCallback } from 'https://esm.sh/react';
-import { createRoot } from 'https://esm.sh/react-dom/client';
+/** @jsxImportSource https://cdn.skypack.dev/react */
+import React, { useState, useCallback } from 'https://cdn.skypack.dev/react';
+import { createRoot } from 'https://cdn.skypack.dev/react-dom/client';
 
 // Define types for clarity
 interface LearningJourney {
@@ -203,8 +203,8 @@ export default async function server() {
     <body>
       <div id="root"></div>
       <script type="module">
-        import React from 'https://esm.sh/react';
-        import { createRoot } from 'https://esm.sh/react-dom/client';
+        import React from 'https://cdn.skypack.dev/react';
+        import { createRoot } from 'https://cdn.skypack.dev/react-dom/client';
         import { About } from './app.js';
 
         const rootElement = document.getElementById('root');
