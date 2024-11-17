@@ -239,9 +239,9 @@ const learningJourneys: LearningJourney[] = [
           </div>
           
           <div className="md:w-2/3">
-        <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 text-transparent bg-clip-text dark:from-indigo-800 dark:via-purple-800 dark:to-pink-800">
-        My Learning Journey 📚
-         </h2>
+        <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-300 via-purple-200 to-pink-300 text-transparent bg-clip-text dark:from-indigo-200 dark:via-purple-100 dark:to-pink-200">
+         My Learning Journey 📚
+          </h2>
             <p className="text-gray-600 dark:text-gray-300 text-center md:text-left mb-6 italic">
               A passionate learner continuously exploring the vast world of technology, 
               transforming curiosity into skills, one milestone at a time.
