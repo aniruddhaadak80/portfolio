@@ -210,7 +210,7 @@ const About: React.FC = () =>  {
               onClick={() => handleImageInteraction('click')}
             >
               <img
-                src="/api/placeholder/256/256"
+                src="https://tinyurl.com/25l56ouh"
                 alt="Profile"
                 className="rounded-full w-64 h-64 object-cover mx-auto border-4 border-indigo-500 shadow-lg transform transition-all duration-500"
                 style={{
