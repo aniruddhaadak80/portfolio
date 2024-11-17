@@ -223,7 +223,7 @@ const About: React.FC = () =>  {
           </div>
           
           <div className="md:w-2/3">
-            <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 animate-pulse p-4 rounded-lg transition-all duration-300 hover:bg-opacity-10 hover:bg-white dark:hover:bg-opacity-10 dark:hover:bg-gray-800">
+            <h2 className="text-4xl bg-yellow-200 hover:bg-pink-300 font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 animate-pulse p-4 rounded-lg transition-all duration-300 hover:bg-opacity-10 hover:bg-white dark:hover:bg-opacity-10 dark:hover:bg-gray-800">
               My Learning Journey 📚
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-center md:text-left mb-6 italic">
