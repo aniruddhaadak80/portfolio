@@ -1,3 +1,4 @@
+/** @jsxImportSource https://esm.sh/react */
 import React, { useState, useCallback } from 'react';
 import { Code, Users, Lightbulb } from 'lucide-react'; // Importing icons
 import { createRoot } from 'react-dom/client'; // React DOM
@@ -25,7 +26,7 @@ interface ButtonHoverState {
   [key: number]: boolean;
 }
 
-const About: React.FC = () => {
+export const About: React.FC = () => {
   const learningJourneys: LearningJourney[] = [
     { 
       year: 2022, 
@@ -57,7 +58,66 @@ const About: React.FC = () => {
       ],
       projectLink: '#c-programming'
     },
-    // ... (rest of the learning journeys)
+    { 
+      year: 2023, 
+      event: 'Web Development Fundamentals', 
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Bootstrap'],
+      color: 'from-yellow-400 to-yellow-600', 
+      baseColor: '#F59E0B', 
+      emoji: '🌐',
+      description: 'Explored web development, creating interactive and responsive web applications.',
+      achievements: [
+        'Built multiple responsive web interfaces',
+        'Learned modern JavaScript ES6+ features',
+        'Created interactive frontend projects'
+      ],
+      projectLink: '#web-development'
+    },
+    { 
+      year: 2024, 
+      event: 'Cybersecurity & Network Fundamentals', 
+      technologies: ['Network Security', 'Ethical Hacking', 'Cryptography', 'Linux', 'Wireshark'],
+      color: 'from-red-400 to-red-600', 
+      baseColor: '#EF4444', 
+      emoji: '🔒',
+      description: 'Explored cybersecurity principles, network protection, and ethical hacking techniques.',
+      achievements: [
+        'Completed cybersecurity certification',
+        'Analyzed network vulnerabilities',
+        'Implemented basic security protocols'
+      ],
+      projectLink: '#cybersecurity'
+    },
+    { 
+      year: 2024, 
+      event: 'Modern Frontend Frameworks', 
+      technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'State Management'],
+      color: 'from-purple-400 to-purple-600', 
+      baseColor: '#8B5CF6', 
+      emoji: '⚛️',
+      description: 'Advanced web development with modern JavaScript frameworks and state management.',
+      achievements: [
+        'Built complex single-page applications',
+        'Mastered React hooks and context',
+        'Implemented server-side rendering'
+      ],
+      projectLink: '#frontend-frameworks'
+    },
+    { 
+      year: 2024, 
+      event: 'AI & Machine Learning Foundations', 
+      technologies: ['Python', 'Machine Learning', 'Neural Networks', 'TensorFlow', 'Data Science'],
+      color: 'from-pink-400 to-pink-600', 
+      baseColor: '#EC4899', 
+      emoji: '🤖',
+      description: 'Exploring artificial intelligence and machine learning fundamentals.',
+      achievements: [
+        'Completed machine learning courses',
+        'Developed basic neural network models',
+        'Analyzed complex datasets'
+      ],
+      projectLink: '#ai-ml-learning'
+    }
   ];
 
   const [selectedJourney, setSelectedJourney] = useState<number | null>(null);
@@ -156,7 +216,7 @@ const About: React.FC = () => {
           </div>
           
           <div className="md:w-2/3">
-            <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse hover:text-gray-800 transition-all duration-300">
+            <h2 className="text-4xl font-bold mb-4 text-center md:text-left bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
               My Learning Journey 📚
             </h2>
             <p className="text-gray-600 text-center md:text-left mb-6 italic">
@@ -193,7 +253,7 @@ const About: React.FC = () => {
                     {journey.emoji}
                   </span>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 hover:text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text transition-colors duration-300 group-hover:text-gray-800">
+                    <h3 className="text-xl font-bold text-gray-800 hover:text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text transition-colors duration-300">
                       {journey.year} - {journey.event}
                     </h3>
                     <div className="flex space-x-2 mt-2">
@@ -208,26 +268,51 @@ const About: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <span className="text-2xl text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
-                  <Code />
+                <span className="text-2xl text-gray-500 group-hover:text-gray-700 transition-colors">
+                  {selectedJourney === index ? '▼' : '►'}
                 </span>
               </div>
 
-              {/* Journey Details (when clicked) */}
               {selectedJourney === index && (
-                <div className="mt-4 space-y-2">
-                  <p className="text-gray-700">{journey.description}</p>
-                  <ul className="list-disc list-inside text-gray-600">
-                    {journey.achievements.map((achieve, achieveIndex) => (
-                      <li key={achieveIndex}>{achieve}</li>
-                    ))}
-                  </ul>
-                  <a 
-                    href={journey.projectLink} 
-                    className="text-blue-600 underline hover:text-blue-800 transition-colors duration-300"
-                  >
-                    Explore more projects
-                  </a>
+                <div className="mt-4 animate-fade-in relative z-10">
+                  <p className="text-gray-600 mb-4 italic">{journey.description}</p>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                      Key Achievements:
+                    </h4>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700">
+                      {journey.achievements.map((achievement, achieveIndex) => (
+                        <li 
+                          key={achieveIndex} 
+                          className="animate-zoom-in-left hover:text-indigo-600 transition-colors group"
+                          style={{ animationDelay: `${achieveIndex * 0.1}s` }}
+                        >
+                          <span className="group-hover:ml-2 transition-all duration-300">➤</span> {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                    {journey.projectLink && (
+                      <div className="mt-4 flex items-center space-x-4">
+                        <a 
+                          href={journey.projectLink} 
+                          className={`inline-block px-4 py-2 rounded-lg transition-all duration-300 transform ${
+                            buttonHover[index] 
+                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white scale-110 shadow-xl' 
+                              : 'bg-indigo-500 text-white hover:bg-indigo-600'
+                          }`}
+                          onMouseEnter={() => handleButtonHover(index, true)}
+                          onMouseLeave={() => handleButtonHover(index, false)}
+                        >
+                          View Projects
+                        </a>
+                        <span className={`transition-opacity duration-300 ${
+                          buttonHover[index] ? 'opacity-100' : 'opacity-0'
+                        } text-gray-600`}>
+                          Explore more details →
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -238,4 +323,51 @@ const About: React.FC = () => {
   );
 };
 
-export default About;
+export default async function server(request: Request) {
+  return new Response(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Learning Journey</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://esm.town/v/std/catch"></script>
+      <style>
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomInLeft {
+          from { opacity: 0; transform: scale(0.9) translateX(-20px); }
+          to { opacity: 1; transform: scale(1) translateX(0); }
+        }
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        .animate-zoom-in-left { animation: zoomInLeft 0.5s ease-out; }
+        .animate-blob { animation: blob 15s infinite; }
+        .animate-blob2 { animation: blob 20s infinite; }
+      </style>
+    </head>
+    <body>
+      <div id="root"></div>
+      <script type="module">
+        import React from 'https://esm.sh/react';
+        import { createRoot } from 'https://esm.sh/react-dom/client';
+        import { About } from '${import.meta.url}';
+
+        const rootElement = document.getElementById('root');
+        const root = createRoot(rootElement);
+        root.render(React.createElement(About));
+      </script>
+    </body>
+    </html>
+  `, {
+    headers: { 'Content-Type': 'text/html' }
+  });
+}
