@@ -40,6 +40,8 @@ const About: React.FC = () =>  {
       description: 'Embarked on my academic journey, diving deep into fundamental computer science concepts and laying the groundwork for a tech career.',
       achievements: [
         'Completed introductory programming courses',
+        'Mastered basic algorithmic thinking',
+        'Developed problem-solving skills'
       ],
       projectLink: '#cs-foundations'
     },
