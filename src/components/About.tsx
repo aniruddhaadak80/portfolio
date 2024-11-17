@@ -345,11 +345,14 @@ const learningJourneys: LearningJourney[] = [
           {visibleCards < learningJourneys.length && (
             <div className="flex justify-center mt-8">
               <button
-                onClick={handleShowMore}
-                className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
-              >
-                Show More
-              </button>
+  onClick={handleShowMore}
+  className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 
+  hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 hover:text-yellow-300 
+  hover:animate-pulse"
+>
+  Show More
+        </button>
+
             </div>
           )}
         </div>
