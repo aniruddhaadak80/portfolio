@@ -29,98 +29,100 @@ interface ButtonHoverState {
 
 const About: React.FC = () =>  {
   const learningJourneys: LearningJourney[] = [
-    { 
-      year: 2022, 
-      event: 'Computer Science Foundations', 
-      technologies: ['Algorithms', 'Data Structures', 'Computer Architecture'],
-      color: 'from-blue-400 to-blue-600', 
-      baseColor: '#4F46E5', 
-      descriptionColor: '#818CF8',
-      emoji: '🖥️',
-      description: 'Embarked on my academic journey, diving deep into fundamental computer science concepts and laying the groundwork for a tech career.',
-      achievements: [
-        'Completed introductory programming courses',
-        'Mastered basic algorithmic thinking',
-        'Developed problem-solving skills'
-      ],
-      projectLink: '#cs-foundations'
-    },
-    { 
-      year: 2023, 
-      event: 'C Programming & Low-Level Mastery', 
-      technologies: ['C Language', 'Pointers', 'Memory Management', 'Embedded Systems'],
-      color: 'from-green-400 to-green-600', 
-      baseColor: '#10B981', 
-      emoji: '🧩',
-      description: 'Deep dive into C programming, understanding low-level system interactions and memory management.',
-      achievements: [
-        'Developed complex data structures from scratch',
-        'Created memory-efficient algorithms',
-        'Built small embedded system projects'
-      ],
-      projectLink: '#c-programming'
-    },
-    { 
-      year: 2023, 
-      event: 'Web Development Fundamentals', 
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Bootstrap'],
-      color: 'from-yellow-400 to-yellow-600', 
-      baseColor: '#F59E0B', 
-      emoji: '🌐',
-      description: 'Explored web development, creating interactive and responsive web applications.',
-      achievements: [
-        'Built multiple responsive web interfaces',
-        'Learned modern JavaScript ES6+ features',
-        'Created interactive frontend projects'
-      ],
-      projectLink: '#web-development'
-    },
-    { 
-      year: 2024, 
-      event: 'Cybersecurity & Network Fundamentals', 
-      technologies: ['Network Security', 'Ethical Hacking', 'Cryptography', 'Linux', 'Wireshark'],
-      color: 'from-red-400 to-red-600', 
-      baseColor: '#EF4444', 
-      emoji: '🔒',
-      description: 'Explored cybersecurity principles, network protection, and ethical hacking techniques.',
-      achievements: [
-        'Completed cybersecurity certification',
-        'Analyzed network vulnerabilities',
-        'Implemented basic security protocols'
-      ],
-      projectLink: '#cybersecurity'
-    },
-    { 
-      year: 2024, 
-      event: 'Modern Frontend Frameworks', 
-      technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'State Management'],
-      color: 'from-purple-400 to-purple-600', 
-      baseColor: '#8B5CF6', 
-      emoji: '⚛️',
-      description: 'Advanced web development with modern JavaScript frameworks and state management.',
-      achievements: [
-        'Built complex single-page applications',
-        'Mastered React hooks and context',
-        'Implemented server-side rendering'
-      ],
-      projectLink: '#frontend-frameworks'
-    },
-    { 
-      year: 2024, 
-      event: 'AI & Machine Learning Foundations', 
-      technologies: ['Python', 'Machine Learning', 'Neural Networks', 'TensorFlow', 'Data Science'],
-      color: 'from-pink-400 to-pink-600', 
-      baseColor: '#EC4899', 
-      emoji: '🤖',
-      description: 'Exploring artificial intelligence and machine learning fundamentals.',
-      achievements: [
-        'Completed machine learning courses',
-        'Developed basic neural network models',
-        'Analyzed complex datasets'
-      ],
-      projectLink: '#ai-ml-learning'
-    }
-  ];
+  { 
+    year: 2024, 
+    event: 'AI & Machine Learning Foundations', 
+    technologies: ['Python', 'Machine Learning', 'Neural Networks', 'TensorFlow', 'Data Science'],
+    color: 'from-pink-400 to-pink-600', 
+    baseColor: '#EC4899', 
+    descriptionColor: '#818CF8',
+    emoji: '🤖',
+    description: 'Exploring artificial intelligence and machine learning fundamentals.',
+    achievements: [
+      'Completed machine learning courses',
+      'Developed basic neural network models',
+      'Analyzed complex datasets'
+    ],
+    projectLink: '#ai-ml-learning'
+  },
+  { 
+    year: 2024, 
+    event: 'Modern Frontend Frameworks', 
+    technologies: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'State Management'],
+    color: 'from-purple-400 to-purple-600', 
+    baseColor: '#8B5CF6', 
+    emoji: '⚛️',
+    description: 'Advanced web development with modern JavaScript frameworks and state management.',
+    achievements: [
+      'Built complex single-page applications',
+      'Mastered React hooks and context',
+      'Implemented server-side rendering'
+    ],
+    projectLink: '#frontend-frameworks'
+  },
+  { 
+    year: 2024, 
+    event: 'Cybersecurity & Network Fundamentals', 
+    technologies: ['Network Security', 'Ethical Hacking', 'Cryptography', 'Linux', 'Wireshark'],
+    color: 'from-red-400 to-red-600', 
+    baseColor: '#EF4444', 
+    emoji: '🔒',
+    description: 'Explored cybersecurity principles, network protection, and ethical hacking techniques.',
+    achievements: [
+      'Completed cybersecurity certification',
+      'Analyzed network vulnerabilities',
+      'Implemented basic security protocols'
+    ],
+    projectLink: '#cybersecurity'
+  },
+  { 
+    year: 2023, 
+    event: 'Web Development Fundamentals', 
+    technologies: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Bootstrap'],
+    color: 'from-yellow-400 to-yellow-600', 
+    baseColor: '#F59E0B', 
+    emoji: '🌐',
+    description: 'Explored web development, creating interactive and responsive web applications.',
+    achievements: [
+      'Built multiple responsive web interfaces',
+      'Learned modern JavaScript ES6+ features',
+      'Created interactive frontend projects'
+    ],
+    projectLink: '#web-development'
+  },
+  { 
+    year: 2023, 
+    event: 'C Programming & Low-Level Mastery', 
+    technologies: ['C Language', 'Pointers', 'Memory Management', 'Embedded Systems'],
+    color: 'from-green-400 to-green-600', 
+    baseColor: '#10B981', 
+    emoji: '🧩',
+    description: 'Deep dive into C programming, understanding low-level system interactions and memory management.',
+    achievements: [
+      'Developed complex data structures from scratch',
+      'Created memory-efficient algorithms',
+      'Built small embedded system projects'
+    ],
+    projectLink: '#c-programming'
+  },
+  { 
+    year: 2022, 
+    event: 'Computer Science Foundations', 
+    technologies: ['Algorithms', 'Data Structures', 'Computer Architecture'],
+    color: 'from-blue-400 to-blue-600', 
+    baseColor: '#4F46E5', 
+    descriptionColor: '#818CF8',
+    emoji: '🖥️',
+    description: 'Embarked on my academic journey, diving deep into fundamental computer science concepts and laying the groundwork for a tech career.',
+    achievements: [
+      'Completed introductory programming courses',
+      'Mastered basic algorithmic thinking',
+      'Developed problem-solving skills'
+    ],
+    projectLink: '#cs-foundations'
+  }
+];
+
 
   const [selectedJourney, setSelectedJourney] = useState<number | null>(null);
   const [hoverColors, setHoverColors] = useState<string[]>(learningJourneys.map(journey => journey.baseColor));
