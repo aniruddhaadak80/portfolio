@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, GithubIcon } from 'lucide-react';
+import { ExternalLink, GithubIcon, Search } from 'lucide-react';
 
 const projects = [
   {
@@ -38,7 +38,7 @@ const projects = [
     title: 'VocalScribe : Where Your Voice Becomes Words',
     description: 'VocalScribe is a modern web application that provides real-time audio transcription with a beautiful and interactive user interface.',
     image: 'https://tinyurl.com/2aqwlt9d',
-    technologies: ['React.js', 'Assembly AI ', 'Tailwind CSS', 'Typescript'],
+    technologies: ['React.js', 'Assembly AI', 'Tailwind CSS', 'Typescript'],
     github: 'https://github.com/AniruddhaAdak/VocalScribe',
     live: 'https://vocalscribe.vercel.app',
     level: 'Intermediate',
@@ -68,11 +68,16 @@ const fontFamilies = [
 
 const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
   return (
-    <div className="mb-8">
+    <motion.div 
+      className="mb-8"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <h3 className="text-xl font-bold mb-4 text-indigo-700">Filter by Level:</h3>
       <div className="flex space-x-4">
-        {levels.map((level) => (
-          <button
+        {levels.map((level, index) => (
+          <motion.button
             key={level}
             className={`px-4 py-2 rounded-full ${
               selectedLevel === level
@@ -80,12 +85,54 @@ const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
                 : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
             } transition-colors duration-200`}
             onClick={() => onSelectLevel(level)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
           >
             {level}
-          </button>
+          </motion.button>
         ))}
       </div>
-    </div>
+    </motion.div>
+  );
+};
+
+const SearchBar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    onSearch(searchTerm);
+  };
+
+  return (
+    <motion.form 
+      onSubmit={handleSearch}
+      className="mb-8"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search by skills (e.g., React.js, TypeScript)"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-4 py-2 rounded-full border-2 border-indigo-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200"
+        />
+        <motion.button
+          type="submit"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-500 text-white p-2 rounded-full hover:bg-indigo-600 transition-colors duration-200"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Search size={20} />
+        </motion.button>
+      </div>
+    </motion.form>
   );
 };
 
@@ -93,6 +140,7 @@ const Projects = () => {
   const [colorIndex, setColorIndex] = useState(0);
   const [visibleProjects, setVisibleProjects] = useState(3);
   const [selectedLevel, setSelectedLevel] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -102,18 +150,30 @@ const Projects = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const filteredProjects = selectedLevel === 'All'
-    ? projects
-    : projects.filter(project => project.level === selectedLevel);
+  const filteredProjects = useMemo(() => {
+    return projects.filter(project => {
+      const levelMatch = selectedLevel === 'All' || project.level === selectedLevel;
+      const searchMatch = searchTerm === '' || project.technologies.some(tech => 
+        tech.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      return levelMatch && searchMatch;
+    });
+  }, [selectedLevel, searchTerm]);
 
   const levels = ['All', ...new Set(projects.map(project => project.level))];
 
   return (
     <section id="projects" className="py-20 bg-gradient-to-b from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-extrabold mb-12 text-center text-indigo-700">
+        <motion.h2 
+          className="text-4xl font-extrabold mb-12 text-center text-indigo-700"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           Projects
-        </h2>
+        </motion.h2>
+        <SearchBar onSearch={setSearchTerm} />
         <LevelFilter
           levels={levels}
           selectedLevel={selectedLevel}
@@ -141,7 +201,7 @@ const Projects = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -50 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, delay: projectIndex * 0.1 }}
               >
                 <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-t-lg" />
                 <div className="p-6">
@@ -240,12 +300,14 @@ const Projects = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <button
+            <motion.button
               className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors duration-200"
               onClick={() => setVisibleProjects(prevVisible => prevVisible + 3)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95}}
             >
               See More
-            </button>
+            </motion.button>
           </motion.div>
         )}
       </div>
