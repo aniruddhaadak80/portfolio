@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, GithubIcon } from 'lucide-react';
 
 const projects = [
@@ -11,6 +11,7 @@ const projects = [
     technologies: ['Typescript', 'React.js', 'TailwindCSS'],
     github: 'https://github.com/aniruddhaadak80/SkillSphere',
     live: 'https://skilsphere.vercel.app',
+    level: 'Intermediate',
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const projects = [
     technologies: ['Next.js', 'Typescript', 'Javascript'],
     github: 'https://github.com/aniruddhaadak80/MercatoLive',
     live: 'https://mercato-live.vercel.app/',
+    level: 'Advanced',
   },
   {
     id: 3,
@@ -29,6 +31,7 @@ const projects = [
     technologies: ['React.js', 'WebSockets', 'TradingView Chart', 'Typescript'],
     github: 'https://github.com/aniruddhaadak80/real-time-stock-visualizer',
     live: 'https://real-time-stock-visualizer.vercel.app',
+    level: 'Advanced',
   },
    {
     id: 4,
@@ -38,6 +41,7 @@ const projects = [
     technologies: ['React.js', 'Assembly AI ', 'Tailwind CSS', 'Typescript'],
     github: 'https://github.com/AniruddhaAdak/VocalScribe',
     live: 'https://vocalscribe.vercel.app',
+    level: 'Intermediate',
   },
 ];
 
@@ -62,8 +66,33 @@ const fontFamilies = [
   'Tahoma, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif'
 ];
 
+const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
+  return (
+    <div className="mb-8">
+      <h3 className="text-xl font-bold mb-4 text-indigo-700">Filter by Level:</h3>
+      <div className="flex space-x-4">
+        {levels.map((level) => (
+          <button
+            key={level}
+            className={`px-4 py-2 rounded-full ${
+              selectedLevel === level
+                ? 'bg-indigo-600 text-white'
+                : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
+            } transition-colors duration-200`}
+            onClick={() => onSelectLevel(level)}
+          >
+            {level}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Projects = () => {
   const [colorIndex, setColorIndex] = useState(0);
+  const [visibleProjects, setVisibleProjects] = useState(3);
+  const [selectedLevel, setSelectedLevel] = useState('All');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -73,120 +102,152 @@ const Projects = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const filteredProjects = selectedLevel === 'All'
+    ? projects
+    : projects.filter(project => project.level === selectedLevel);
+
+  const levels = ['All', ...new Set(projects.map(project => project.level))];
+
   return (
     <section id="projects" className="py-20 bg-gradient-to-b from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-extrabold mb-12 text-center text-indigo-700">
           Projects
         </h2>
+        <LevelFilter
+          levels={levels}
+          selectedLevel={selectedLevel}
+          onSelectLevel={setSelectedLevel}
+        />
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
         >
-          {projects.map((project, projectIndex) => (
-            <motion.div
-              key={project.id}
-              className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:-translate-y-1 transition duration-300 ease-out"
-              style={{
-                boxShadow: `0 4px 40px ${colors[(colorIndex + projectIndex) % colors.length]}`,  // Increased blur and spread
-                borderRadius: '12px',
-              }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: `0 0 80px ${colors[(colorIndex + projectIndex) % colors.length]}`,  // Deeper shadow on hover
-              }}
-            >
-              <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-t-lg" />
-              <div className="p-6">
-                <motion.h3
-                  className="text-2xl font-bold mb-3"
-                  style={{ 
-                    color: colors[(colorIndex + projectIndex) % colors.length],
-                    fontFamily: 'Verdana, sans-serif', // Heading font: Verdana
-                  }}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  {project.title}
-                </motion.h3>
-                <motion.p
-                  className="text-gray-700 mb-4 leading-relaxed"
-                  style={{ 
-                    color: colors[(colorIndex + projectIndex + 1) % colors.length],
-                    fontFamily: 'Georgia, serif', // Description font: Georgia
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.7 }}
-                >
-                  {project.description}
-                </motion.p>
-                <motion.div
-                  className="flex flex-wrap gap-2 mb-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {project.technologies.map((tech, techIndex) => (
-                    <motion.span
-                      key={tech}
-                      className="bg-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded shadow-sm"
+          <AnimatePresence>
+            {filteredProjects.slice(0, visibleProjects).map((project, projectIndex) => (
+              <motion.div
+                key={project.id}
+                className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:-translate-y-1 transition duration-300 ease-out"
+                style={{
+                  boxShadow: `0 4px 40px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                  borderRadius: '12px',
+                }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: `0 0 80px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -50 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-t-lg" />
+                <div className="p-6">
+                  <motion.h3
+                    className="text-2xl font-bold mb-3"
+                    style={{ 
+                      color: colors[(colorIndex + projectIndex) % colors.length],
+                      fontFamily: 'Verdana, sans-serif',
+                    }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    {project.title}
+                  </motion.h3>
+                  <motion.p
+                    className="text-gray-700 mb-4 leading-relaxed"
+                    style={{ 
+                      color: colors[(colorIndex + projectIndex + 1) % colors.length],
+                      fontFamily: 'Georgia, serif',
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1, duration: 0.7 }}
+                  >
+                    {project.description}
+                  </motion.p>
+                  <motion.div
+                    className="flex flex-wrap gap-2 mb-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {project.technologies.map((tech, techIndex) => (
+                      <motion.span
+                        key={tech}
+                        className="bg-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded shadow-sm"
+                        style={{
+                          color: colors[(colorIndex + techIndex) % colors.length],
+                          fontFamily: fontFamilies[(techIndex + 2) % fontFamilies.length],
+                        }}
+                        whileHover={{ scale: 1.15, color: '#5A67D8' }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                  <div className="flex justify-between">
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:text-blue-700"
                       style={{
-                        color: colors[(colorIndex + techIndex) % colors.length],
-                        fontFamily: fontFamilies[(techIndex + 2) % fontFamilies.length],
+                        borderRadius: '50%',
+                        boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                        transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
                       }}
-                      whileHover={{ scale: 1.15, color: '#5A67D8' }}
-                      transition={{ type: 'spring', stiffness: 300 }}
+                      whileHover={{
+                        scale: 1.2,
+                        rotate: 360,
+                        boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex) % colors.length]}`,
+                      }}
                     >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </motion.div>
-                <div className="flex justify-between">
-                  <motion.a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-700"
-                    style={{
-                      borderRadius: '50%', // Circular glowing effect
-                      boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex) % colors.length]}`,
-                      transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
-                    }}
-                    whileHover={{
-                      scale: 1.2, // Increase scale for smoother effect
-                      rotate: 360,
-                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex) % colors.length]}`, // Deeper shadow
-                    }}
-                  >
-                    <GithubIcon size={24} />
-                  </motion.a>
-                  <motion.a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-green-500 hover:text-green-700"
-                    style={{
-                      borderRadius: '50%', // Circular glowing effect
-                      boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
-                      transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
-                    }}
-                    whileHover={{
-                      scale: 1.2,
-                      rotate: 360,
-                      boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`, // Deeper shadow
-                    }}
-                  >
-                    <ExternalLink size={24} />
-                  </motion.a>
+                      <GithubIcon size={24} />
+                    </motion.a>
+                    <motion.a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-500 hover:text-green-700"
+                      style={{
+                        borderRadius: '50%',
+                        boxShadow: `0 0 50px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
+                        transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
+                      }}
+                      whileHover={{
+                        scale: 1.2,
+                        rotate: 360,
+                        boxShadow: `0 0 100px ${colors[(colorIndex + projectIndex + 1) % colors.length]}`,
+                      }}
+                    >
+                      <ExternalLink size={24} />
+                    </motion.a>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
+        {filteredProjects.length > visibleProjects && (
+          <motion.div
+            className="flex justify-center mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <button
+              className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors duration-200"
+              onClick={() => setVisibleProjects(prevVisible => prevVisible + 3)}
+            >
+              See More
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
