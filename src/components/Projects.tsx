@@ -66,6 +66,8 @@ const fontFamilies = [
   'Tahoma, sans-serif', 'Verdana, sans-serif', 'Times New Roman, serif'
 ];
 
+const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+
 const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
   return (
     <motion.div 
@@ -81,9 +83,12 @@ const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
             key={level}
             className={`px-4 py-2 rounded-full ${
               selectedLevel === level
-                ? 'bg-indigo-600 text-white'
-                : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
+                ? 'text-white'
+                : 'text-indigo-700 hover:bg-opacity-80'
             } transition-colors duration-200`}
+            style={{
+              backgroundColor: selectedLevel === level ? getRandomColor() : 'rgba(199, 210, 254, 0.5)',
+            }}
             onClick={() => onSelectLevel(level)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -101,11 +106,19 @@ const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [iconColor, setIconColor] = useState(getRandomColor());
 
   const handleSearch = (e) => {
     e.preventDefault();
     onSearch(searchTerm);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIconColor(getRandomColor());
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <motion.form 
@@ -121,11 +134,12 @@ const SearchBar = ({ onSearch }) => {
           placeholder="Search by skills (e.g., React.js, TypeScript)"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 rounded-full border-2 border-indigo-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200"
+          className="w-full px-4 py-2 pl-10 rounded-full border-2 border-indigo-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200"
         />
         <motion.button
           type="submit"
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-500 text-white p-2 rounded-full hover:bg-indigo-600 transition-colors duration-200"
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 p-1 rounded-full transition-colors duration-200"
+          style={{ color: iconColor }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -150,11 +164,16 @@ const Projects = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const normalizeSearchTerm = (term) => {
+    return term.toLowerCase().replace(/[^a-z0-9]/g, '');
+  };
+
   const filteredProjects = useMemo(() => {
+    const normalizedSearchTerm = normalizeSearchTerm(searchTerm);
     return projects.filter(project => {
       const levelMatch = selectedLevel === 'All' || project.level === selectedLevel;
-      const searchMatch = searchTerm === '' || project.technologies.some(tech => 
-        tech.toLowerCase().includes(searchTerm.toLowerCase())
+      const searchMatch = normalizedSearchTerm === '' || project.technologies.some(tech => 
+        normalizeSearchTerm(tech).includes(normalizedSearchTerm)
       );
       return levelMatch && searchMatch;
     });
@@ -238,12 +257,13 @@ const Projects = () => {
                     {project.technologies.map((tech, techIndex) => (
                       <motion.span
                         key={tech}
-                        className="bg-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded shadow-sm"
+                        className="text-xs font-semibold px-2.5 py-0.5 rounded shadow-sm"
                         style={{
-                          color: colors[(colorIndex + techIndex) % colors.length],
+                          backgroundColor: colors[(colorIndex + techIndex) % colors.length],
+                          color: 'white',
                           fontFamily: fontFamilies[(techIndex + 2) % fontFamilies.length],
                         }}
-                        whileHover={{ scale: 1.15, color: '#5A67D8' }}
+                        whileHover={{ scale: 1.15 }}
                         transition={{ type: 'spring', stiffness: 300 }}
                       >
                         {tech}
@@ -304,7 +324,7 @@ const Projects = () => {
               className="bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition-colors duration-200"
               onClick={() => setVisibleProjects(prevVisible => prevVisible + 3)}
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95}}
+              whileTap={{ scale: 0.95 }}
             >
               See More
             </motion.button>
