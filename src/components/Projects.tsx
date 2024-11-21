@@ -33,8 +33,18 @@ const projects = [
     live: 'https://real-time-stock-visualizer.vercel.app',
     level: 'Advanced',
   },
-   {
+  {
     id: 4,
+    title: '🚀 Folio-Motion: A Developer Portfolio Template',
+    description: 'A stunning, interactive, and animation-rich developer portfolio built with the latest technologies , designed to showcase your skills, projects, and experience .',
+    image: 'https://tinyurl.com/28bukjvl',
+    technologies: ['Next.js', 'Framer Motion','ShadCN UI', 'Tailwind CSS', 'Typescript'],
+    github: 'https://github.com/aniruddhaadak80/Folio-Motion',
+    live: 'https://folio-motion.vercel.app',
+    level: 'Intermediate',
+  },
+   {
+    id: 5,
     title: 'VocalScribe : Where Your Voice Becomes Words',
     description: 'VocalScribe is a modern web application that provides real-time audio transcription with a beautiful and interactive user interface.',
     image: 'https://tinyurl.com/2aqwlt9d',
