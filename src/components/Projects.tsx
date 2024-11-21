@@ -34,7 +34,7 @@ const projects = [
     id: 4,
     title: 'VocalScribe : Where Your Voice Becomes Words',
     description: 'VocalScribe is a modern web application that provides real-time audio transcription with a beautiful and interactive user interface.',
-    image: 'https://tinyurl.com/254oy64x',
+    image: 'https://tinyurl.com/2aqwlt9d',
     technologies: ['React.js', 'Assembly AI ', 'Tailwind CSS', 'Typescript'],
     github: 'https://github.com/AniruddhaAdak/VocalScribe',
     live: 'https://vocalscribe.vercel.app',
