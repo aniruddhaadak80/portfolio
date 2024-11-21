@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, GithubIcon, Search } from 'lucide-react';
+import { ExternalLink, GithubIcon, Search, X } from 'lucide-react';
 
 const projects = [
   {
@@ -77,7 +77,7 @@ const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
       transition={{ duration: 0.5 }}
     >
       <h3 className="text-xl font-bold mb-4 text-indigo-700">Filter by Level:</h3>
-      <div className="flex space-x-4">
+      <div className="flex flex-wrap gap-2">
         {levels.map((level, index) => (
           <motion.button
             key={level}
@@ -104,13 +104,12 @@ const LevelFilter = ({ levels, selectedLevel, onSelectLevel }) => {
   );
 };
 
-const SearchBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const SearchBar = ({ onSearch, onClear, searchTerm }) => {
   const [iconColor, setIconColor] = useState(getRandomColor());
 
   const handleSearch = (e) => {
     e.preventDefault();
-    onSearch(searchTerm);
+    onSearch(e.target.value);
   };
 
   useEffect(() => {
@@ -122,7 +121,7 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <motion.form 
-      onSubmit={handleSearch}
+      onSubmit={(e) => e.preventDefault()}
       className="mb-8"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -133,18 +132,33 @@ const SearchBar = ({ onSearch }) => {
           type="text"
           placeholder="Search by skills (e.g., React.js, TypeScript)"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 pl-10 rounded-full border-2 border-indigo-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200"
+          onChange={handleSearch}
+          className="w-full px-4 py-2 pr-20 rounded-full border-2 border-indigo-300 focus:outline-none focus:border-indigo-500 transition-colors duration-200"
         />
-        <motion.button
-          type="submit"
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 p-1 rounded-full transition-colors duration-200"
-          style={{ color: iconColor }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <Search size={20} />
-        </motion.button>
+        <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center">
+          {searchTerm && (
+            <motion.button
+              type="button"
+              onClick={onClear}
+              className="p-1 rounded-full mr-2 bg-gray-200 hover:bg-gray-300 transition-colors duration-200"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <X size={16} />
+            </motion.button>
+          )}
+          <motion.span
+            className="p-1 rounded-full transition-colors duration-200"
+            style={{ color: iconColor }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <Search size={20} />
+          </motion.span>
+        </div>
       </div>
     </motion.form>
   );
@@ -181,6 +195,11 @@ const Projects = () => {
 
   const levels = ['All', ...new Set(projects.map(project => project.level))];
 
+  const handleClear = () => {
+    setSearchTerm('');
+    setSelectedLevel('All');
+  };
+
   return (
     <section id="projects" className="py-20 bg-gradient-to-b from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4">
@@ -192,7 +211,7 @@ const Projects = () => {
         >
           Projects
         </motion.h2>
-        <SearchBar onSearch={setSearchTerm} />
+        <SearchBar onSearch={setSearchTerm} onClear={handleClear} searchTerm={searchTerm} />
         <LevelFilter
           levels={levels}
           selectedLevel={selectedLevel}
