@@ -57,7 +57,7 @@ const projects = [
     id: 6,
     title: '🎤 VoiceMath ➕: Learn math through voice-based exercises',
     description: 'Using voice recognition, real-time speech-to-text, and speech synthesis, users can answer math questions',
-    image: 'https://tinyurl.com/2d6pttx6',
+    image: 'https://tinyurl.com/24bycw3d',
     technologies: ['Next.js', 'Assembly AI', 'Typescript','Api','Gemini', 'OpenAi'],
     github: 'https://github.com/aniruddhaadak9/VoiceMath',
     live: 'https://voicemath.vercel.app',
