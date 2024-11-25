@@ -63,6 +63,16 @@ const projects = [
     live: 'https://voicemath.vercel.app',
     level: 'Advanced',
   },
+  {
+    id: 7,
+    title: 'LingoLens:Revolutionizing media transcription with AI for actionable insights',
+    description: 'A powerful audio and video transcription platform that leverages cutting-edge AI technology',
+    image: 'https://tinyurl.com/26d9db4k',
+    technologies: ['Next.js', 'Assembly AI', 'Typescript','Api','Gemini','Frammer Motion'],
+    github: 'https://github.com/aniruddhaadak9/LingoLens',
+    live: 'https://lingolens.vercel.app',
+    level: 'Advanced',
+  },
 ];
 
 const colors = [
