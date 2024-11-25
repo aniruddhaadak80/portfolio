@@ -68,7 +68,7 @@ const projects = [
     title: 'LingoLens: Revolutionizing media transcription with AI  ',
     description: 'A powerful audio and video transcription platform that leverages cutting-edge AI technology',
     image: 'https://tinyurl.com/26d9db4k',
-    technologies: ['Next.js', 'Assembly AI', 'Typescript','Api','Gemini','Frammer Motion'],
+    technologies: ['Next.js', 'Assembly AI', 'Typescript','Api','Gemini','Framer Motion'],
     github: 'https://github.com/aniruddhaadak80/LingoLens',
     live: 'https://lingolens.vercel.app',
     level: 'Advanced',
