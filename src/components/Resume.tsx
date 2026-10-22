@@ -1,5 +1,5 @@
 import { motion, useAnimation } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -75,7 +75,6 @@ const lightenColor = (color: string) => {
 };
 
 export default function Resume() {
-  const [hoveredSkill, setHoveredSkill] = useState(null)
   const controls = useAnimation()
 
   useEffect(() => {

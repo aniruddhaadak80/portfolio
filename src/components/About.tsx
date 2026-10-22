@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { Code, Users, Lightbulb } from 'lucide-react';
 
 interface LearningJourney {
   year: number;
@@ -365,51 +364,3 @@ const learningJourneys: LearningJourney[] = [
 export default About;
 
 
-export async function server(request: Request) {
-  return new Response(`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Learning Journey</title>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script src="https://esm.town/v/std/catch"></script>
-      <style>
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes zoomInLeft {
-          from { opacity: 0; transform: scale(0.9) translateX(-20px); }
-          to { opacity: 1; transform: scale(1) translateX(0); }
-        }
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        .animate-zoom-in-left { animation: zoomInLeft 0.5s ease-out; }
-        .animate-blob { animation: blob 15s infinite; }
-        .animate-blob2 { animation: blob 20s infinite; }
-      </style>
-    </head>
-    <body>
-      <div id="root"></div>
-      <script type="module">
-        import React from 'https://esm.sh/react';
-        import { createRoot } from 'https://esm.sh/react-dom/client';
-        import { About } from '${import.meta.url}';
-
-        const rootElement = document.getElementById('root');
-        const root = createRoot(rootElement);
-        root.render(React.createElement(About));
-      </script>
-    </body>
-    </html>
-  `, {
-    headers: { 'Content-Type': 'text/html' }
-  });
-}
