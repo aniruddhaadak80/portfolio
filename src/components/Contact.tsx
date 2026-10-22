@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [currentColor, labelColor, buttonColor, iconEmailColor, iconPhoneColor, iconAddressColor, emailColor, phoneColor, addressColor]);
+  }, [currentColor, labelColor, buttonColor, iconEmailColor, iconPhoneColor, iconAddressColor, emailColor, phoneColor, addressColor, getRandomColor, getRandomCursor]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

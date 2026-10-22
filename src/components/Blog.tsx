@@ -231,7 +231,7 @@ const Blog: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+  }, [colorPalette.length]);
 
   // Update visible posts when selected tag changes
   useEffect(() => {

@@ -81,7 +81,7 @@ const Hero: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [titleColor, subtitleColor, arrowColor, currentColor]);
+  }, [titleColor, subtitleColor, arrowColor, currentColor, getRandomColor, getRandomCursor, subtitleCursorIcons, titleCursorIcons]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

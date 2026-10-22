@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { ChevronLeft, ChevronRight, Star, ThumbsUp, Share2, Heart, Copy, Twitter, Facebook, Linkedin, MessageCircle } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Star, Share2, Heart, Copy, Twitter, Facebook, Linkedin, MessageCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 

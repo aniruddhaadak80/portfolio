@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Code, Server, Database, Cpu, ArrowRight, X, Play, Pause, RotateCcw } from 'lucide-react'
+import React, { useState } from 'react'
+import { Code, Server, Database, Cpu, ArrowRight, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const services = [

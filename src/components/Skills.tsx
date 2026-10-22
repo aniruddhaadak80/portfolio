@@ -37,7 +37,7 @@ const Skills: React.FC = () => {
   // Reset visible skills to first 3 when the filter changes
   useEffect(() => {
     setVisibleSkills(filteredSkills.slice(0, 3)); // Reset to show 3 skills initially
-  }, [filter]);
+  }, [filter, filteredSkills]);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
