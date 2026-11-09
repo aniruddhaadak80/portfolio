@@ -1,5 +1,3 @@
-# Minimal default permissions for this workflow (CodeQL actions/missing-workflow-permissions).
-permissions: contents: read
 
 name: ci
 on:
@@ -18,3 +16,4 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
+
